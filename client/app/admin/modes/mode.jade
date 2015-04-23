@@ -1,0 +1,44 @@
+extends ../../main/layout.jade
+block content
+  .row(ng-controller='ModesController')
+    .col-md-7.col-xs-12
+      .box.box-warning
+        .box-header
+          h3.box-title Mode Definition
+        form(name='editForm', ng-submit='editRecord(editForm)', novalidate='')
+          .box-body.table-responsive
+            .form-group
+              label Name
+              input.form-control(type='text', name='modeName' placeholder='Enter Mode Name', ng-model='currentItem.name', ng-disabled='!inEditMode')
+            .form-group
+              label Description
+              input.form-control(type='text', name='modeDesc' placeholder='Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
+            .form-group
+              label Status
+              br
+              input(type='checkbox', ng-model='currentItem.active', ng-disabled='!inEditMode')
+              = " "
+              span.label.label-success(ng-show='currentItem.active')  Enabled
+              span.label.label-warning(ng-hide='currentItem.active')  Disabled
+          .box-footer
+
+            //- buttons for display mode
+            button.btn.btn-default(type='button', ng-click='toggleEditMode()', ng-hide='inEditMode')
+              i.fa.fa-edit
+              |  Edit
+
+            button.btn.btn-default(type='button', ng-click='requestDelete(currentItem)', ng-hide='inEditMode')
+              i.fa.fa-remove
+              |  Delete
+
+            button.btn.btn-default(type='button', ng-click='returnToList()', ng-hide='inEditMode')
+              |  Back to List
+
+
+            //- buttons for edit mode
+            button.btn.btn-primary(type='submit', ng-show='inEditMode')
+              i.fa.fa-save
+              |  Save
+
+            button.btn.btn-default(type='button', ng-click='toggleEditMode()', ng-show='inEditMode') Cancel
+

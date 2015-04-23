@@ -1,0 +1,27 @@
+extends ../../main/layout.jade
+block content
+  .row(ng-controller='SensorsController')
+    .col-xs-7
+      .box.box-warning
+        .box-header
+          h3.box-title Sensor Definition
+          .box-tools
+            .input-group
+              input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
+              .input-group-btn
+                button.btn.btn-sm.btn-default
+                  i.fa.fa-search
+        .box-body.table-responsive.no-padding
+          table.table.table-hover
+            tbody
+              tr
+                th Name
+                th Description
+                th Status
+              tr(ng-repeat='sensor in data | orderBy:"name"')
+                td {{sensor.name}}
+                td {{sensor.desc}}
+                td
+                  span.label.label-success(ng-show='sensor.active') Enabled
+                  span.label.label-warning(ng-hide='sensor.active') Disabled
+

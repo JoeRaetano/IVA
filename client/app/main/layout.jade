@@ -1,0 +1,161 @@
+.wrapper(ng-controller='LayoutCtrl')
+  header.main-header
+    a.logo(href="#")
+      i.fa.fa-truck
+      strong IVA
+
+    //- Header Navbar: style can be found in header.less
+    nav.navbar.navbar-static-top(role="navigation")
+      a.sidebar-toggle(href='#', data-toggle='offcanvas', role='button', ng-click='toggleCollapsed()')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      .navbar-custom-menu
+        ul.nav.navbar-nav
+
+          //- Messages: style can be found in dropdown.less
+          li.dropdown.messages-menu
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              i.fa.fa-envelope-o
+              //- span.label.label-success 4
+            ul.dropdown-menu
+              li.header You have 4 messages
+              li
+                ul.menu
+                  li
+                    a(href='#')
+                      .pull-left
+                        img.img-circle(src='/assets/images/avatar02.png', alt='User Image')
+                      h4 Support Team
+                        small
+                          i.fa.fa-clock-o
+                          | 5 mins
+                      p Why not buy a new awesome theme?
+              li.footer
+                a(href='#') See All Messages
+
+          //- Notifications: style can be found in dropdown.less
+          li.dropdown.notifications-menu
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              i.fa.fa-bell-o
+              //- span.label.label-warning 10
+            ul.dropdown-menu
+              li.header You have 10 notifications
+              li
+                ul.menu
+                  li
+                    a(href='#')
+                      i.fa.fa-users.text-aqua
+                      | 5 new members joined today
+              li.footer
+                a(href='#') View all
+
+          //- Tasks: style can be found in dropdown.less
+          li.dropdown.tasks-menu
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              i.fa.fa-flag-o
+              //span.label.label-danger 9
+
+            ul.dropdown-menu
+              li.header You have 9 tasks
+              li
+                ul.menu
+                  li
+                    a(href='#')
+                      h3 Design some buttons
+                        small.pull-right 20%
+                      .progress.xs
+                        .progress-bar.progress-bar-aqua(style='width: 20%', role='progressbar', aria-valuenow='20', aria-valuemin='0', aria-valuemax='100')
+                          span.sr-only 20% Complete
+              li.footer
+                a(href='#') View all tasks
+
+          //- User Account: style can be found in dropdown.less
+          li.dropdown.user.user-menu
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              img.user-image(gravatar-src-once='getCurrentUser().email', alt='User Image')
+              span.hidden-xs {{ getCurrentUser().name }}
+            ul.dropdown-menu
+
+              //- User image
+              li.user-header
+                img.img-circle(gravatar-src-once='getCurrentUser().email', alt='User Image')
+                p {{ getCurrentUser().name }}
+                  br
+                  | Research Professional
+
+              //- Menu Footer
+              li.user-footer
+                .pull-left
+                  a.btn.btn-default.btn-flat(href='', ng-click='profile()') Profile
+                .pull-right
+                  a.btn.btn-default.btn-flat(href='', ng-click='logout()') Sign out
+
+
+  aside.main-sidebar
+    //- sidebar: style can be found in sidebar.less
+    section.sidebar
+      //- search form
+      //form.sidebar-form(action='#', method='get')
+      //  .input-group
+      //    input.form-control(type='text', name='q', placeholder='Search...')
+      //    span.input-group-btn
+      //      button.btn.btn-flat(type='submit', name='seach', id='search-btn')
+      //        i.fa.fa-search
+
+      //- sidebar menu: : style can be found in sidebar.less
+      ul.sidebar-menu
+        li.header MAIN NAVIGATION
+
+        li(ng-repeat='mi in menuData', ng-click='select(mi)', ng-class='{treeview: "mi.children.length" > 0, active: isActive(mi)}')
+          a(href='{{mi.link}}')
+            i(class='{{mi.icon}}')
+            |   {{mi.display}}
+            i.fa.fa-angle-left.pull-right(ng-show='mi.children')
+          ul.treeview-menu(ng-show='mi.children')
+            li(ng-repeat='ci in mi.children', ng-class='{active: isActive(ci)}')
+              a(href='{{ci.link}}')
+                i.fa.fa-circle-o(ng-hide='ci.icon')
+                i(class='{{ci.icon}}', ng-show='ci.icon')
+                | {{ci.display}}
+
+
+
+  //- Right side column. Contains the navbar and content of the page
+  .content-wrapper
+
+    //- Content Header (Page header)
+    section.content-header
+      h1
+        | {{pageTitle}}
+        small  {{pageSubTitle}}
+
+      ol.breadcrumb
+
+        li(ng-repeat='crumb in crumbs', ng-class='{"active":$last}')
+          a(href='{{crumb.link}}', ng-hide='$last')
+            i.fa.fa-dashboard(ng-show='$first')
+            |  {{crumb.title}}
+          span(ng-show='$last')
+            i.fa.fa-dashboard(ng-show='$first')
+            |  {{crumb.title}}
+
+    //- Main content
+    section.content
+      block content
+
+
+  //- Page Footer
+  footer.main-footer
+    .pull-right.hidden-xs
+      strong Version
+      |  0.1
+
+    strong
+      | Copyright &copy; 2014-2015
+      = ' '
+      a(href='http://ornl.gov') Oak Ridge National Laboratory
+      |.
+    |  All rights reserved.

@@ -1,0 +1,43 @@
+extends ../../main/layout.jade
+
+block content
+  .row
+    .col-md-7.col-xs-12
+      .box.box-warning
+        .box-header
+          h3.box-title Change Password
+        form.form(name='passwordForm', ng-submit='changePassword(passwordForm)', novalidate='')
+          .box-body
+            .form-group
+              label Current Password
+              input.form-control(type='password', name='password', ng-model='user.oldPassword', mongoose-error='')
+              p.help-block(ng-show='form.password.$error.mongoose')
+                | {{ errors.other }}
+            .form-group
+              label New Password
+              input.form-control(type='password', name='newPassword', ng-model='user.newPassword', ng-minlength='3', required='')
+              p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)')
+                | Password must be at least 3 characters.
+            .form-group
+              label Confirm Password
+              input.form-control(type='password', name='confirmPassword', ng-model='user.confirmPassword', ng-minlength='3', required='')
+              p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)')
+                | Password must be at least 3 characters.
+            p.help-block  {{ message }}
+          .box-footer
+            button.btn.btn-primary(type='submit') Save changes
+    .col-md-5.col-xs-12
+      .box.box-primary
+        .box-header
+          h3.box-title Profile
+        form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
+          .box-body
+            img.img-responsive.avatar(gravatar-src-once='getCurrentUser().email', gravatar-size="200" alt='User Image')
+            i.fa.fa-envelope
+            span  {{ getCurrentUser().email }}
+            br
+            i.fa.fa-user
+            span  {{ getCurrentUser().name }}
+            br
+            span  Research Professional
+

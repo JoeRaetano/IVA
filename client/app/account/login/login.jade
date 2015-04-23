@@ -1,0 +1,18 @@
+.login-box
+  .login-logo
+    a(href="../../index2.html")
+      i.fa.fa-truck
+      strong Intelligent Vehicle Analysis
+  .login-box-body
+    p.login-box-msg Sign in to start your session
+    form.form(name='form', ng-submit='login(form)', novalidate='')
+      .form-group.has-feedback
+        input.form-control(type='text', name='email', placeholder='Email', ng-model='user.email')
+        span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group.has-feedback
+        input.form-control(type='password', name='password', placeholder='Password', ng-model='user.password')
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+        .col-xs-4
+          button.btn.btn-primary.btn-block.btn-flat(type="submit") Sign In
