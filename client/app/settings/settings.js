@@ -18,6 +18,16 @@ angular.module('IVA_App')
         controller: 'SensorsController',
         authenticate: true
       })
+      .when('/settings/collections', {
+        templateUrl: 'app/settings/collections/collections.html',
+        controller: 'CollectionController',
+        authenticate: true
+      })
+      .when('/settings/collections/:id', {
+        templateUrl: 'app/settings/collections/collection.html',
+        controller: 'CollectionController',
+        authenticate: true
+      })
       .when('/settings', {
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',

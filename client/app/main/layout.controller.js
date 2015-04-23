@@ -43,6 +43,7 @@ angular.module('IVA_App')
     $scope.menuData = [
       {display:'Dashboard', link:'/home', path:'/home', icon:'fa fa-dashboard'},
       {display:'Settings', link:'#', path:'/settings', icon:'fa fa-sliders', children: [
+        {display:'Collections', link:'/settings/collections', path:'/settings/collections', icon:'fa fa-signal'},
         {display:'Sensors', link:'/settings/sensors', path:'/settings/sensors', icon:'fa fa-signal'},
         {display:'Devices', link:'/settings/devices', path:'/settings/devices', icon:'octicon octicon-circuit-board'},
         {display:'Profile', link:'/account/settings', path:'/account/settings', icon:'glyphicon glyphicon-cog'}
