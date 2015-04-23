@@ -4,7 +4,7 @@
  * Modes Contorller
  * @namespace TwilightVirtue.ModesController
  */
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .controller('ModesController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
 
     // general page initialization stuff

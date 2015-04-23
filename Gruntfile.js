@@ -317,7 +317,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       options: {
         // This should be the name of your apps angular module
-        module: 'twilightvirtueApp',
+        module: 'IVA_App',
         htmlmin: {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,

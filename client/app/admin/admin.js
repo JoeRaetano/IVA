@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/admin/users', {

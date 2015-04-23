@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .controller('AdminRolesCtrl', function ($scope, $http, Auth, User) {
 
     // set up the page title and sub-title

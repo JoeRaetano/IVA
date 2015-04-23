@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .controller('DevicesCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 

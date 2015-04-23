@@ -4,7 +4,7 @@
 // this controller is for handling the main layout and general menu items that aren't covered by the
 // views and their respective controllers.
 //
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .controller('LayoutCtrl', function ($scope, $http, $location, Auth) {
 
     $scope.$location = $location;

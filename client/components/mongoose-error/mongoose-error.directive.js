@@ -3,7 +3,7 @@
 /**
  * Removes server error when user updates input
  */
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .directive('mongooseError', function () {
     return {
       restrict: 'A',

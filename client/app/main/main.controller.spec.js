@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('twilightvirtueApp'));
+  beforeEach(module('IVA_App'));
 
   var MainCtrl,
       scope,

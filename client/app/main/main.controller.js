@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('twilightvirtueApp')
+angular.module('IVA_App')
   .controller('MainCtrl', function ($scope, $http) {
 
     // set up the menu data
