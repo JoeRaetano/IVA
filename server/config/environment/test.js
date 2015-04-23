@@ -5,6 +5,6 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/twilightvirtue-test'
+    uri: 'mongodb://localhost/iva-test'
   }
 };

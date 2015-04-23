@@ -7,7 +7,7 @@
 
 module.exports = {
   DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'twilightvirtue-secret',
+  SESSION_SECRET:   'iva-secret',
 
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''

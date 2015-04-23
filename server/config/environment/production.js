@@ -16,7 +16,7 @@ module.exports = {
     uri:    process.env.MONGOLAB_URI ||
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
-            'mongodb://localhost/twilightvirtue'
+            'mongodb://localhost/iva'
   },
   seedDB: true
 };

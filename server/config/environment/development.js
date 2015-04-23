@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/twilightvirtue-dev'
+    uri: 'mongodb://localhost/iva-dev'
   },
 
   seedDB: true
