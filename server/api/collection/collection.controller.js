@@ -5,53 +5,53 @@
 'use strict';
 
 var _ = require('lodash');
-var Mode = require('./collection.model');
+var C2 = require('./collection.model');
 
 // Get list of modes
 exports.index = function(req, res) {
-  Mode.find(function (err, modes) {
+  C2.find(function (err, c2s) {
     if(err) { return handleError(res, err); }
-    return res.json(200, modes);
+    return res.json(200, c2s);
   });
 };
 
 // Get a single mode
 exports.show = function(req, res) {
-  Mode.findById(req.params.id, function (err, mode) {
+  C2.findById(req.params.id, function (err, c2) {
     if(err) { return handleError(res, err); }
-    if(!mode) { return res.send(404); }
-    return res.json(mode);
+    if(!c2) { return res.send(404); }
+    return res.json(c2);
   });
 };
 
 // Creates a new mode in the DB.
 exports.create = function(req, res) {
-  Mode.create(req.body, function(err, mode) {
+  C2.create(req.body, function(err, c2) {
     if(err) { return handleError(res, err); }
-    return res.json(201, mode);
+    return res.json(201, c2);
   });
 };
 
 // Updates an existing mode in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Mode.findById(req.params.id, function (err, mode) {
+  C2.findById(req.params.id, function (err, c2) {
     if (err) { return handleError(res, err); }
-    if(!mode) { return res.send(404); }
-    var updated = _.merge(mode, req.body);
+    if(!c2) { return res.send(404); }
+    var updated = _.merge(c2, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.json(200, mode);
+      return res.json(200, c2);
     });
   });
 };
 
 // Deletes a mode from the DB.
 exports.destroy = function(req, res) {
-  Mode.findById(req.params.id, function (err, mode) {
+  C2.findById(req.params.id, function (err, c2) {
     if(err) { return handleError(res, err); }
-    if(!mode) { return res.send(404); }
-    mode.remove(function(err) {
+    if(!c2) { return res.send(404); }
+    c2.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });

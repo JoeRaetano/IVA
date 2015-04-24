@@ -42,11 +42,11 @@ angular.module('IVA_App')
     // set up the menu data
     $scope.menuData = [
       {display:'Dashboard', link:'/home', path:'/home', icon:'fa fa-dashboard'},
-      {display:'Settings', link:'#', path:'/settings', icon:'fa fa-sliders', children: [
-        {display:'Collections', link:'/settings/collections', path:'/settings/collections', icon:'fa fa-signal'},
+      {display:'User Settings', link:'#', path:'/settings', icon:'fa fa-sliders', children: [
+        {display:'Profile', link:'/account/settings', path:'/account/settings', icon:'glyphicon glyphicon-cog'},
+        {display:'Devices', link:'/settings/devices', path:'/settings/devices', icon:'fa fa-plug'},
         {display:'Sensors', link:'/settings/sensors', path:'/settings/sensors', icon:'fa fa-signal'},
-        {display:'Devices', link:'/settings/devices', path:'/settings/devices', icon:'octicon octicon-circuit-board'},
-        {display:'Profile', link:'/account/settings', path:'/account/settings', icon:'glyphicon glyphicon-cog'}
+        {display:'Collections', link:'/settings/collections', path:'/settings/collections', icon:'fa fa-database'}
       ]},
       {display:'Administration', link:'#', path: '/admin', icon:'fa fa-cogs', children: [
         {display:'Users', link:'/admin/users', path:'/admin/users', icon:'fa fa-users'},

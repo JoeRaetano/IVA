@@ -30,13 +30,13 @@ angular.module('IVA_App')
     // let's get the data from the database - we will either get all of the records or just
     // the individual based on if we are on the list or detail page
     if (currentId) {
-      $http.get('/api/collection/' + currentId).success(function(modeData) {
-        $scope.currentItem = modeData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collection/' + currentId});
+      $http.get('/api/collection/' + currentId).success(function(collectionData) {
+        $scope.currentItem = collectionData;
+        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + currentId});
       });
     } else {
-      $http.get('/api/collection').success(function(modeData) {
-        $scope.data = modeData;
+      $http.get('/api/collection').success(function(collectionData) {
+        $scope.data = collectionData;
       });
     }
 
@@ -46,7 +46,7 @@ angular.module('IVA_App')
      * @memberOf IVA.CollectionController
      */
     $scope.returnToList = function() {
-      $location.path('/settings/collection/');
+      $location.path('/settings/collections/');
     };
 
     /**
@@ -56,7 +56,7 @@ angular.module('IVA_App')
      * @memberOf IVA.CollectionController
      */
     $scope.goToRecordDetails = function(id) {
-      $location.path( '/settings/collection/' + id );
+      $location.path( '/settings/collections/' + id );
     };
 
     /**
@@ -77,27 +77,28 @@ angular.module('IVA_App')
     $scope.addRecord = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        if (!$scope.modeName || $scope.modeName === '') {
+        if (!$scope.collectionName || $scope.collectionName === '') {
           return;
         }
 
-        $http.post('/api/modes', {
-          name: $scope.modeName,
-          desc: $scope.modeDesc,
+        $http.post('/api/collection', {
+          name: $scope.collectionName,
+          desc: $scope.collectionDesc,
           active: false
         }).then(function() {
-          $scope.message = 'Data Collection Mode Added';
-          $scope.data.push({
-            name: $scope.modeName,
-            desc: $scope.modeDesc
+          $scope.message = 'Data Collection Added';
+
+          $http.get('/api/collection').success(function(collectionData) {
+            $scope.data = collectionData;
           });
-          $scope.modeName = '';
-          $scope.modeDesc = '';
+
+          $scope.collectionName = '';
+          $scope.collectionDesc = '';
         }).catch(function() {
           // set invalid
-          $scope.errors.other = 'Unable to save collection mode';
+          $scope.errors.other = 'Unable to save collection';
           $scope.message = '';
-          dialogs.error('Record Not Created', 'An error occurred while creating the collection mode.');
+          dialogs.error('Collection Record Not Created', 'An error occurred while creating the collection.');
         });
       }
     };
@@ -116,7 +117,7 @@ angular.module('IVA_App')
         }
       }
 
-      $http.put('/api/modes/' + $scope.currentItem._id, {
+      $http.put('/api/collection/' + $scope.currentItem._id, {
         name: $scope.currentItem.name,
         desc: $scope.currentItem.desc,
         active: $scope.currentItem.active
@@ -124,9 +125,9 @@ angular.module('IVA_App')
         $scope.message = 'Successfully Updated Item';
         $scope.inEditMode = false;
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection mode';
+        $scope.errors.other = 'unable to save changes to collection';
         $scope.message = '';
-        dialogs.error('Record Not Updated', 'An error occurred while updating the collection mode.');
+        dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
       });
     };
 
@@ -141,15 +142,15 @@ angular.module('IVA_App')
         return;
       }
 
-      $http.delete('/api/modeasds/' + record._id, {
+      $http.delete('/api/collection/' + record._id, {
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
-        $location.path('/admin/modes/');
+        $location.path('/settings/collections/');
       }).catch(function() {
         $scope.errors.other = 'unable to save changes to collection mode';
         $scope.message = '';
-        dialogs.error('Record Not Deleted', 'An error occurred while deleting the collection mode.');
+        dialogs.error('Collection Record Not Deleted', 'An error occurred while deleting the collection.');
       });
     };
 

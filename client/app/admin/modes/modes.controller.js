@@ -2,7 +2,7 @@
 
 /**
  * Modes Contorller
- * @namespace TwilightVirtue.ModesController
+ * @namespace IVA.ModesController
  */
 angular.module('IVA_App')
   .controller('ModesController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
@@ -40,7 +40,7 @@ angular.module('IVA_App')
     /**
      * @name returnToList
      * @desc Returns the page back to the main/parent listing
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.returnToList = function() {
       $location.path('/admin/modes/');
@@ -50,7 +50,7 @@ angular.module('IVA_App')
      * @name goToRecordDetails
      * @desc Redirects to the record-level detail view
      * @param {String} id Id number of the record
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.goToRecordDetails = function(id) {
       $location.path( '/admin/modes/' + id );
@@ -59,7 +59,7 @@ angular.module('IVA_App')
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.toggleEditMode = function(){
       $scope.inEditMode = $scope.inEditMode === false;
@@ -69,7 +69,7 @@ angular.module('IVA_App')
      * @name addRecord
      * @desc Creates a new record based on user input
      * @param {Form} form The HTML form object
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.addRecord = function(form) {
       $scope.submitted = true;
@@ -103,7 +103,7 @@ angular.module('IVA_App')
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
      * @param {Form} form The HTML form object
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.editRecord = function(form) {
       $scope.submitted = true;
@@ -131,14 +131,14 @@ angular.module('IVA_App')
      * @name deleteRecord
      * @desc Deletes a record
      * @param record The record to delete
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.deleteRecord = function(record) {
       if (!record || record._id === '') {
         return;
       }
 
-      $http.delete('/api/modeasds/' + record._id, {
+      $http.delete('/api/modes/' + record._id, {
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
@@ -154,7 +154,7 @@ angular.module('IVA_App')
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
-     * @memberOf TwilightVirtue.ModesController
+     * @memberOf IVA.ModesController
      */
     $scope.requestDelete = function(item) {
       var dlg = dialogs.confirm(
