@@ -1,8 +1,6 @@
 Intelligent Vehicle Analysis - Front End
 ========================================
 
-Joe should type `this is cool` and then get on with life
-
 Basic Hackathon Notes
 ---------------------
 
