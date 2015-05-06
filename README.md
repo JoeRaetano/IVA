@@ -1,8 +1,13 @@
 Intelligent Vehicle Analysis - Front End
 ========================================
 
-Install/Setup Notes
+Install/Setup/Learning Notes
 ---------------------
+
+UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
+Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (MEAN Stack)), Git, GitHub, Webprogramming HTML5, CSS, javascript.
+
+
 - GitHub (github.com)
   - What is GitHub? GitHub is a free code version control portal to assist in working in teams.
   - Create an account on GitHub
@@ -11,6 +16,7 @@ Install/Setup Notes
   - Learn GitHub
     - https://help.github.com/
     - https://training.github.com/kit/
+  - Learn Git http://git-scm.com/book/en/v2
 
 - Webstorm IDE
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
