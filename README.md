@@ -7,8 +7,7 @@ Install/Setup/Learning Notes
 :bowtie: UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
 Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (MEAN Stack)), Git, GitHub, Webprogramming HTML5, CSS, javascript.
 
-
-- GitHub (github.com)
+:one: GitHub (github.com)
   - What is GitHub? GitHub is a free code version control portal to assist in working in teams.
   - Create an account on GitHub
   - Install GitHub on your machine
@@ -22,14 +21,14 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Learn Special writing on GitHub https://help.github.com/articles/writing-on-github/
     :eyes:  http://www.emoji-cheat-sheet.com/
 
-- Webstorm IDE
+:two: Webstorm IDE
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
   - Install updated IDEA (webstorm) editor (free for students)
     - https://www.jetbrains.com/webstorm/
   - Learn Webstorm
     - https://www.jetbrains.com/webstorm/documentation/
 
-- Nodejs https://nodejs.org
+:three: Nodejs https://nodejs.org
   - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
   - Install nodejs
   - Learn nodejs
@@ -46,14 +45,14 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 	- update package dependencies (or install if needed)
 	  - sudo npm update -g
 
-- Bower http://bower.io/
+:four: Bower http://bower.io/
   - What is Bower?  A package manager for the web.
 	- Ensure you have bower installed
 		- sudo npm install -g bower
 	- update bower packages
 		- bower update
 			
-- MongoDB https://www.mongodb.org/
+:five: MongoDB https://www.mongodb.org/
   - What is MongoDB? MongoDB is an open-source document database that provides high performance, high availability, and automatic scaling.
   - Download and extract mongo
     - cd ~/Downloads/mongodb-osx-x86_64-2.6.6/bin/
@@ -62,7 +61,7 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Learn MongoDB
     - https://university.mongodb.com
 
-- Grunt http://gruntjs.com/
+:six: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
 	- Ensure you have grunt installed
 		- sudo npm install -g grunt-cli
@@ -71,22 +70,22 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - you should see grunt script running
     - check your web browser
     
-- Jade http://jade-lang.com/
+:seven: Jade http://jade-lang.com/
   - What is Jade? A clean, whitespace-sensitive template language for writing HTML - Node Template Engine
   - Learn Jade http://jade-lang.com/tutorial/
   
-- Yo http://yeoman.io/
+:eight: Yo http://yeoman.io/
   - What is Yo? CLI tool for running Yeoman generators
   - Learn Yo http://yeoman.io/learning/
   
-- Express http://expressjs.com/
+:nine: Express http://expressjs.com/
   - What is express? Fast, unopinionated, minimalist web framework
   
-- Angular https://angularjs.org/
+:ten: Angular https://angularjs.org/
   - What is Angular? HTML enhanced for web apps
   - Learn Angular: https://docs.angularjs.org/tutorial
     
-- Admin
+:eleven: Admin
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
@@ -104,5 +103,5 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - create / list / update / delete
     - add / remove users from roles
 
-- Next Steps
+:twelve: Next Steps
   - see the Issues section for more information
