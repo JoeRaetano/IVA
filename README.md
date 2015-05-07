@@ -7,7 +7,7 @@ Install/Setup/Learning Notes
 :bowtie: UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
 Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (MEAN Stack)), Git, GitHub, Webprogramming HTML5, CSS, javascript.
 
-:one: GitHub (github.com)
+:one: GitHub github.com
   - What is GitHub? GitHub is a free code version control portal to assist in working in teams.
   - Create an account on GitHub
   - Install GitHub on your machine
