@@ -1,7 +1,6 @@
-node_modules
+
 public
 .tmp
-.idea
 client/bower_components
 dist
 /server/config/local.env.js
@@ -30,3 +29,19 @@ build/*
 
 # Exclude Fonts
 _fonts/
+
+# Node
+npm-debug.log
+node_modules
+
+# Windows
+Thumbs.db
+
+# WebStorm
+.idea/
+
+# vi
+*~
+
+
+
