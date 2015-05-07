@@ -21,10 +21,9 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Learn Special writing on GitHub https://help.github.com/articles/writing-on-github/
     :eyes:  http://www.emoji-cheat-sheet.com/
 
-:two: Webstorm IDE
+:two: Webstorm IDE https://www.jetbrains.com/webstorm/
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
   - Install updated IDEA (webstorm) editor (free for students)
-    - https://www.jetbrains.com/webstorm/
   - Learn Webstorm
     - https://www.jetbrains.com/webstorm/documentation/
 
