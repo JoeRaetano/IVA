@@ -1,10 +1,10 @@
-Intelligent Vehicle Analysis - Front End
+IVA - Front End System :oncoming_automobile:
 ========================================
 
 Install/Setup/Learning Notes
 ---------------------
 
-UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
+:bowtie: UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
 Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (MEAN Stack)), Git, GitHub, Webprogramming HTML5, CSS, javascript.
 
 
@@ -17,6 +17,10 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - https://help.github.com/
     - https://training.github.com/kit/
   - Learn Git http://git-scm.com/book/en/v2
+  - Learn Markdown basics to edit this README.md file https://help.github.com/articles/markdown-basics/
+  - Learn GitHub flavored Markdown https://help.github.com/articles/github-flavored-markdown/
+  - Learn Special writing on GitHub https://help.github.com/articles/writing-on-github/
+    :eyes:  http://www.emoji-cheat-sheet.com/
 
 - Webstorm IDE
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
