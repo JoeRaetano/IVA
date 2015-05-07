@@ -81,11 +81,11 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 :nine: Express http://expressjs.com/
   - What is express? Fast, unopinionated, minimalist web framework
   
-:ten: Angular https://angularjs.org/
+:one::zero: Angular https://angularjs.org/
   - What is Angular? HTML enhanced for web apps
   - Learn Angular: https://docs.angularjs.org/tutorial
     
-:eleven: Admin
+:one::one: Admin
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
@@ -103,5 +103,5 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - create / list / update / delete
     - add / remove users from roles
 
-:twelve: Next Steps
+:one::two: Next Steps
   - see the Issues section for more information
