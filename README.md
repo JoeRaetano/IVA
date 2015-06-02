@@ -103,4 +103,5 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - add / remove users from roles
 
 :one::two: Next Steps
-  - see the Issues section for more information
+  - see the github Issues section of IVA for more information
+  - get with students to ensure they understand how to fire up the dev environment
