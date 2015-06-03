@@ -8,10 +8,9 @@ Install/Setup/Learning Notes
 Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (MEAN Stack)), Git, GitHub, Webprogramming HTML5, CSS, javascript.
 
 :one: GitHub https://github.com/
+  - Before you clone this repository on your machine, learn GitHub.
   - What is GitHub? GitHub is a free code version control portal to assist in working in teams.
   - Create an account on GitHub
-  - Install GitHub on your machine
-    - Clone IVA Repo
   - Learn GitHub
     - https://help.github.com/
     - https://training.github.com/kit/
@@ -20,6 +19,9 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Learn GitHub flavored Markdown https://help.github.com/articles/github-flavored-markdown/
   - Learn Special writing on GitHub https://help.github.com/articles/writing-on-github/
     :eyes:  http://www.emoji-cheat-sheet.com/
+  - Install GitHub on your machine
+    - Clone IVA Repo into a local folder called IVA
+    - ensure you synchronize your local cloned repository with the master before you make any new edits.
 
 :two: Webstorm IDE https://www.jetbrains.com/webstorm/
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
