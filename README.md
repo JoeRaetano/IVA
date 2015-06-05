@@ -32,6 +32,10 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 :three: Nodejs https://nodejs.org
   - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
   - Install nodejs
+    IMPORTANT: 
+    When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
+    Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
+    Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
   - Learn nodejs
     - https://nodejs.org/documentation/
   - Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
