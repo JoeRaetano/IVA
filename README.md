@@ -65,6 +65,7 @@ When installing node, do not just go to the website and install. If you do, for 
       - ./mongod --dbpath=../data
   - Learn MongoDB
     - https://university.mongodb.com
+  - Download and run Robomongo http://robomongo.org/
 
 :six: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
