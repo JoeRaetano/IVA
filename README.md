@@ -54,6 +54,7 @@ When installing node, do not just go to the website and install. If you do, for 
   - What is Bower?  A package manager for the web.
 	- Ensure you have bower installed
 		- sudo npm install -g bower
+		- (NOTICE: On Mac) When you execute the above command bower will ask you to install a version of the package angular. There were 4 different versions to choose from. Choose the second version offered, angular#1.4.0.
 	- update bower packages
 		- bower update
 			
