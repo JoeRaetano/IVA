@@ -150,6 +150,12 @@ User.find({}).remove(function() {
       name: 'Joseph Raetano',
       email: 'joseph.raetano@gmail.com',
       password: 'devpass1'
+    }, {
+      provider: 'local',
+      role: 'admin',
+      name: 'Joshua Fagan',
+      email: 'jfagan2@vols.utk.edu',
+      password: 'wordpass'
     },{
     provider: 'local',
     role: 'admin',
