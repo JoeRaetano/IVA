@@ -47,3 +47,7 @@ Thumbs.db
 
 
 client/app/main/main.html
+
+client/app/settings/collections/collections.html
+
+client/app/settings/collections/collection.html
