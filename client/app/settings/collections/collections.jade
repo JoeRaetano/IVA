@@ -15,23 +15,24 @@ block content
           table.table.table-hover
             tbody
               tr
-                th Name
+                th Make
+                th Model
+                th Year
                 th Description
-                th ID
-                th Status
                 th
-              tr(ng-repeat='c2 in data | orderBy:"name"')
-                td(ng-click="goToRecordDetails(c2._id)") {{c2.name}}
-                td(ng-click="goToRecordDetails(c2._id)") {{c2.desc}}
-                td(ng-click="goToRecordDetails(c2._id)") {{c2._id}}
-                td(ng-click="goToRecordDetails(c2._id)")
+              tr(ng-repeat='vehicle in data | orderBy:"name"')
+                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.make}}
+                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.model}}
+                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.year}}
+                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.desc}}
+                td(ng-click="goToRecordDetails(vehicle._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(c2._id)')
+                  a(href='', ng-click='goToRecordDetails(vehicle._id)')
                     i.fa.fa-edit
                   =' '
-                  a(href='', ng-click='requestDelete(c2)')
+                  a(href='', ng-click='requestDelete(vehicle)')
                     i.fa.fa-remove
 
     .col-md-5.col-xs-12
@@ -41,20 +42,17 @@ block content
         form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
           .box-body
             .form-group
-              label Name
-              input.form-control(type='text', name='collectionName' placeholder='Enter Collection Name', ng-model='collectionName', required)
+              label Make
+              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
               .form-group
-              label Date Range
-              input.form-control(type="text" class="form-control pull-right" id="reservation", required)
+              label Model
+              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
               .form-group
-              label Vehicle
-              input.form-control(type='text', name='collectionVehicle' placeholder='Vehicle', ng-model='collectionVehicle')
+              label Year
+              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
               .form-group
               label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Description', ng-model='collectionDesc')
-              .form-group
-              label Comments
-              input.form-control(type='text', name='collectionComments' placeholder='Comments', ng-model='collectionComments')
+              input.form-control(type='text', name='collectionDesc' placeholder='Enter Description', ng-model='collectionDesc')
           .box-footer
             button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
               i.fa.fa-plus-square-o
