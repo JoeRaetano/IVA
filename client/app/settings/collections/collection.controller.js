@@ -77,12 +77,14 @@ angular.module('IVA_App')
     $scope.addRecord = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        if (!$scope.collectionName || $scope.collectionName === '') {
+        if (!$scope.vehicleMake || $scope.vehicleMake === '') {
           return;
         }
 
         $http.post('/api/collection', {
-          name: $scope.collectionName,
+          make: $scope.vehicleMake,
+          model: $scope.vehicleModel,
+          year: $scope.vehicleYear,
           desc: $scope.collectionDesc,
           active: false
         }).then(function() {
@@ -92,7 +94,9 @@ angular.module('IVA_App')
             $scope.data = collectionData;
           });
 
-          $scope.collectionName = '';
+          $scope.vehicleMake = '';
+          $scope.vehicleModel = '';
+          $scope.vehicleYear = '';
           $scope.collectionDesc = '';
         }).catch(function() {
           // set invalid
@@ -118,7 +122,7 @@ angular.module('IVA_App')
       }
 
       $http.put('/api/collection/' + $scope.currentItem._id, {
-        name: $scope.currentItem.name,
+        make: $scope.currentItem.make,
         desc: $scope.currentItem.desc,
         active: $scope.currentItem.active
       }).then(function() {

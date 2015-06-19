@@ -9,11 +9,17 @@ block content
         form(name='editForm', ng-submit='editRecord(editForm)', novalidate='')
           .box-body.table-responsive
             .form-group
-              label Name
-              input.form-control(type='text', name='collectionName' placeholder='Enter Collection Name', ng-model='currentItem.name', ng-disabled='!inEditMode')
+              label Make
+              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='currentItem.make', ng-disabled='!inEditMode')
+            .form-group
+              label Model
+              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='currentItem.model', ng-disabled='!inEditMode')
+            .form-group
+              label Year
+              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='currentItem.year', ng-disabled='!inEditMode')
             .form-group
               label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
+              input.form-control(type='text', name='collectionDescription' placeholder='Enter Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
             .form-group
               label Status
               br
@@ -37,4 +43,25 @@ block content
               |  Save
             button.btn.btn-default(type='button', ng-click='toggleEditMode()', ng-show='inEditMode') Cancel
 
-
+    .col-md-5.col-xs-12
+      .box.box-primary
+        .box-header
+          h3.box-title Create Collection
+        form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
+          .box-body
+            .form-group
+              label Make
+              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
+              .form-group
+              label Model
+              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
+              .form-group
+              label Year
+              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
+              .form-group
+              label Description
+              input.form-control(type='text', name='collectionDesc' placeholder='Enter Description', ng-model='collectionDesc')
+          .box-footer
+            button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
+              i.fa.fa-plus-square-o
+              |  Create
