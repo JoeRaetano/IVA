@@ -150,7 +150,14 @@ User.find({}).remove(function() {
       name: 'Joseph Raetano',
       email: 'joseph.raetano@gmail.com',
       password: 'devpass1'
-    }, function() {
+    },{
+    provider: 'local',
+    role: 'admin',
+    name: 'Jordan Holland',
+    email: 'jholla19@vols.utk.edu',
+    password: 'password'
+  },
+    function() {
       console.log('finished populating users');
     }
   );
