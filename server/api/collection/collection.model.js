@@ -6,10 +6,11 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var CollectionSchema = new Schema({
-  name: String,
-  desc: String,
-  active: Boolean
+var VehicleSchema = new Schema({
+  make: String,
+  model: String,
+  year: Number,
+  desc: String
 });
 
-module.exports = mongoose.model('Collection', CollectionSchema);
+module.exports = mongoose.model('Collection', VehicleSchema);
