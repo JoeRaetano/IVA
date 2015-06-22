@@ -10,6 +10,16 @@ var VehicleSchema = new Schema({
   make: String,
   model: String,
   year: Number,
+  pids:
+  {
+    pid: Number,
+    network: String,
+    funcs:
+    {
+      func: String,
+      bytes: Number
+    }
+  },
   desc: String
 });
 
