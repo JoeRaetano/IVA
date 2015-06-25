@@ -108,6 +108,50 @@ angular.module('IVA_App')
     };
 
     /**
+     * @name addPID
+     * @desc Updates a records list of PIDs
+     * @param {Form} form The HTML form object
+     * @memberOf IVA.CollectionController
+     */
+    $scope.addPid = function(form)
+    {
+      $scope.submitted = true;
+      if(form.$valid)
+      {
+        if (!$scope.currentItem || $scope.currentItem._id === '')
+        {
+          return;
+        }
+
+        $http.put
+        (
+          '/api/collection/' + $scope.currentItem._id,
+          {
+            pids:
+              [
+                {
+                  pid: $scope.vehiclePid,
+                  network: $scope.vehicleNet
+                }
+              ]
+          }
+        ).then(function () {
+          $scope.message = 'Successfully Updated Item';
+          $scope.inEditMode = false;
+          $http.get('/api/collection/'+ $scope.currentItem._id).success(function(collectionData) {
+            $scope.currentItem = collectionData;
+            $scope.vehiclePid = '';
+            $scope.vehicleNet = '';
+          });
+        }).catch(function () {
+          $scope.errors.other = 'unable to save changes to collection';
+          $scope.message = '';
+          dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+        });
+      }
+    };
+
+    /**
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
      * @param {Form} form The HTML form object
@@ -123,6 +167,8 @@ angular.module('IVA_App')
 
       $http.put('/api/collection/' + $scope.currentItem._id, {
         make: $scope.currentItem.make,
+        model: $scope.currentItem.model,
+        year: $scope.currentItem.year,
         desc: $scope.currentItem.desc,
         active: $scope.currentItem.active
       }).then(function() {

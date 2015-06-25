@@ -13,19 +13,57 @@ var Datatype = require('../api/datatype/datatype.model');
 var Collections = require('../api/collection/collection.model');
 
 Collections.find({}).remove(function() {
-  Collections.create({
-    name: 'Initial ford collect',
-    desc: 'Slow-collect mode for testing platform and sensors',
-    active: true
+  Collections.create(
+  {
+    make: "Ford",
+    model: "Focus",
+    year: 2001,
+    pids:
+      [
+        {
+          pid: 8888,
+          network: "CAN",
+          funcs:
+            [
+              {
+                func: "Roll Window",
+                bytes: 4444
+              }
+            ]
+        },
+        {
+          pid: 5555,
+          network: "CAN",
+          funcs:
+            [
+              {
+                func: "Roll Window",
+                bytes: 4444
+              }
+            ]
+        }
+      ],
+    desc: "This is a ford car."
   }, {
-    name: 'Normal Collect',
-    desc: 'Normal rate collect. This is the standard collection mode',
-    active: true
-  }, {
-    name: 'Intense Collect',
-    desc: 'High-rate collection from sensor platform. Used sparingly',
-    active: true
-  });
+      make: "Toyota",
+      model: "Camry",
+      year: 1006,
+      pids:
+        [
+          {
+            pid: 999,
+            network: "CAN",
+            funcs:
+              [
+                {
+                  func: "Park",
+                  bytes: 3333
+                }
+              ]
+          }
+        ],
+      desc: "This is a toyota car."
+    });
 });
 
 

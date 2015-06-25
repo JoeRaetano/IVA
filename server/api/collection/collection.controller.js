@@ -38,9 +38,16 @@ exports.update = function(req, res) {
   C2.findById(req.params.id, function (err, c2) {
     if (err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
-    var updated = _.merge(c2, req.body);
+
+    var updated = _.merge(c2, req.body, function(a, b)
+      {
+        if (_.isArray(a)) {
+        return a.concat(b);}}
+      );
     updated.save(function (err) {
-      if (err) { return handleError(res, err); }
+      if (err) {
+        return handleError(res, err);
+      }
       return res.json(200, c2);
     });
   });

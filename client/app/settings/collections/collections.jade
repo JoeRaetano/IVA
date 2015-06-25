@@ -20,7 +20,7 @@ block content
                 th Year
                 th Description
                 th
-              tr(ng-repeat='vehicle in data | orderBy:"name"')
+              tr(ng-repeat='vehicle in data | orderBy:"make"')
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.make}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.model}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.year}}
