@@ -11,6 +11,28 @@ var Sensor = require('../api/sensor/sensor.model');
 var CollectionMode = require('../api/mode/mode.model');
 var Datatype = require('../api/datatype/datatype.model');
 var Collections = require('../api/collection/collection.model');
+var PIDs = require('../api/pid/pid.model');
+
+PIDs.find({}).remove(function()
+{
+  PIDs.create
+  (
+    {
+      _id: 1,
+      pid: 1,
+      network: 'CAN'
+    },
+    {
+      _id: 2,
+      pid: 2,
+      network: 'CAN'
+    },
+    {
+      _id: 3,
+      pid: 3,
+      network: 'CAN'
+    });
+});
 
 Collections.find({}).remove(function() {
   Collections.create(
@@ -20,28 +42,7 @@ Collections.find({}).remove(function() {
     year: 2001,
     pids:
       [
-        {
-          pid: 8888,
-          network: "CAN",
-          funcs:
-            [
-              {
-                func: "Roll Window",
-                bytes: 4444
-              }
-            ]
-        },
-        {
-          pid: 5555,
-          network: "CAN",
-          funcs:
-            [
-              {
-                func: "Roll Window",
-                bytes: 4444
-              }
-            ]
-        }
+        PIDs.findOne( {_id: '1'})
       ],
     desc: "This is a ford car."
   }, {
@@ -50,22 +51,11 @@ Collections.find({}).remove(function() {
       year: 1006,
       pids:
         [
-          {
-            pid: 999,
-            network: "CAN",
-            funcs:
-              [
-                {
-                  func: "Park",
-                  bytes: 3333
-                }
-              ]
-          }
+          PIDs.find({pid: "3"})
         ],
       desc: "This is a toyota car."
     });
 });
-
 
 CollectionMode.find({}).remove(function() {
   CollectionMode.create({
