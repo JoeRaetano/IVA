@@ -59,6 +59,13 @@ angular.module('IVA_App')
       $location.path( '/settings/collections/' + id );
     };
 
+    $scope.goToPIDDetails = function(id) {
+      $location.path( '/settings/collections/' + $routeParams.id + "/" + id );
+  /*    $http.get('/api/collection/' + $routeParams.id + '/' + id).success(function(collectionData) {
+        $scope.currentItem = collectionData;
+        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + $routeParams.id + '/' + id});*/
+    };
+
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off

@@ -17,11 +17,13 @@ block content
               tr
                 th PID
                 th Network
+                th ID
                 th
               tr(ng-repeat='p in currentItem.pids | orderBy:"pid"')
-                td(ng-click="goToRecordDetails(vehicle._id)") {{p.pid}}
-                td(ng-click="goToRecordDetails(vehicle._id)") {{p.network}}
-                td(ng-click="goToRecordDetails(vehicle._id)")
+                td(ng-click="goToPIDDetails(p._id)") {{p.pid}}
+                td(ng-click="goToPIDDetails(p._id)") {{p.network}}
+                td(ng-click="goToPIDDetails(p._id)") {{p._id}}
+                td(ng-click="goToPIDDetails(p._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
