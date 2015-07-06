@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var PidSchema = new Schema(
   {
+    _id: Number,
     pid: Number,
     network: String,
   });
