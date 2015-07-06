@@ -13,26 +13,28 @@ var Datatype = require('../api/datatype/datatype.model');
 var Collections = require('../api/collection/collection.model');
 var PIDs = require('../api/pid/pid.model');
 
+
 PIDs.find({}).remove(function()
 {
   PIDs.create
   (
     {
-      _id: 1,
+      _id: "pid1",
       pid: 1,
       network: 'CAN'
     },
     {
-      _id: 2,
+      _id: "pid2",
       pid: 2,
       network: 'CAN'
     },
     {
-      _id: 3,
+      _id: "pid3",
       pid: 3,
       network: 'CAN'
     });
 });
+
 
 Collections.find({}).remove(function() {
   Collections.create(
@@ -40,21 +42,14 @@ Collections.find({}).remove(function() {
     make: "Ford",
     model: "Focus",
     year: 2001,
-    pids:
-      [
-        PIDs.findOne( {_id: '1'})
-      ],
     desc: "This is a ford car."
-  }, {
-      make: "Toyota",
-      model: "Camry",
-      year: 1006,
-      pids:
-        [
-          PIDs.find({pid: "3"})
-        ],
-      desc: "This is a toyota car."
-    });
+  },
+  {
+    make: "Toyota",
+    model: "Camry",
+    year: 1006,
+    desc: "This is a toyota car."
+  });
 });
 
 CollectionMode.find({}).remove(function() {
