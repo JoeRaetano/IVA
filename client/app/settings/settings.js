@@ -28,6 +28,16 @@ angular.module('IVA_App')
         controller: 'CollectionController',
         authenticate: true
       })
+      .when('/settings/pids', {
+        templateUrl: 'app/settings/pids/pids.html',
+        controller: 'PidController',
+        authenticate: true
+      })
+      .when('/settings/pids/:id', {
+        templateUrl: 'app/settings/pids/pid.html',
+        controller: 'PidController',
+        authenticate: true
+      })
       .when('/settings', {
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
