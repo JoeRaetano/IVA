@@ -46,7 +46,8 @@ angular.module('IVA_App')
         {display:'Profile', link:'/account/settings', path:'/account/settings', icon:'glyphicon glyphicon-cog'},
         {display:'Devices', link:'/settings/devices', path:'/settings/devices', icon:'fa fa-plug'},
         {display:'Sensors', link:'/settings/sensors', path:'/settings/sensors', icon:'fa fa-signal'},
-        {display:'Collections', link:'/settings/collections', path:'/settings/collections', icon:'fa fa-database'}
+        {display:'Collections', link:'/settings/collections', path:'/settings/collections', icon:'fa fa-database'},
+        {display:'Pids', link:'/settings/pids', path:'/settings/pids', icon:'fa fa-database'}
       ]},
       {display:'Administration', link:'#', path: '/admin', icon:'fa fa-cogs', children: [
         {display:'Users', link:'/admin/users', path:'/admin/users', icon:'fa fa-users'},
