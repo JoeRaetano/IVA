@@ -10,11 +10,11 @@
 'use strict';
 
 var _ = require('lodash');
-var C2 = require('./pid.model');
+var Functions = require('./function.model');
 
 // Get list of things
 exports.index = function(req, res) {
-  C2.find(function (err, c2s) {
+  Functions.find(function (err, c2s) {
     if(err) { return handleError(res, err); }
     return res.json(200, c2s);
   });
@@ -22,7 +22,7 @@ exports.index = function(req, res) {
 
 // Get a single thing
 exports.show = function(req, res) {
-  C2.findById(req.params.id, function (err, c2) {
+  Functions.findById(req.params.id, function (err, c2) {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
     return res.json(c2);
@@ -31,7 +31,7 @@ exports.show = function(req, res) {
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
-  C2.create(req.body, function(err, c2) {
+  Functions.create(req.body, function(err, c2) {
     if(err) { return handleError(res, err); }
     return res.json(201, c2);
   });
@@ -40,7 +40,7 @@ exports.create = function(req, res) {
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  C2.findById(req.params.id, function (err, c2) {
+  Functions.findById(req.params.id, function (err, c2) {
     if (err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
 
@@ -60,7 +60,7 @@ exports.update = function(req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  C2.findById(req.params.id, function (err, c2) {
+  Functions.findById(req.params.id, function (err, c2) {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
     c2.remove(function(err) {

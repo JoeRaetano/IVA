@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./pid.controller');
+var controller = require('./function.controller');
 
 var router = express.Router();
 

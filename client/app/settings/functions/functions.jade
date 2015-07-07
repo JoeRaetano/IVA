@@ -1,10 +1,10 @@
 extends ../../main/layout.jade
 block content
-  .row(ng-controller='PidController')
+  .row(ng-controller='FunctionController')
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
-          h3.box-title Collections
+          h3.box-title Functions
           .box-tools
             .input-group
               input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
@@ -15,22 +15,22 @@ block content
           table.table.table-hover
             tbody
               tr
-                th PID
-                th Network
+                th Description
+                th Byte Sequence
                 th ID
                 th
-              tr(ng-repeat='pids in data | orderBy:"make"')
-                td(ng-click="goToRecordDetails(pids._id)") {{pids.pid}}
-                td(ng-click="goToRecordDetails(pids._id)") {{pids.network}}
-                td(ng-click="goToRecordDetails(pids._id)") {{pids._id}}
-                td(ng-click="goToRecordDetails(pids._id)")
+              tr(ng-repeat='funcs in data | orderBy:"bytes"')
+                td(ng-click="goToRecordDetails(funcs._id)") {{funcs.desc}}
+                td(ng-click="goToRecordDetails(funcs._id)") {{funcs.bytes}}
+                td(ng-click="goToRecordDetails(funcs._id)") {{funcs._id}}
+                td(ng-click="goToRecordDetails(funcs._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(vehicle._id)')
+                  a(href='', ng-click='goToRecordDetails(funcs._id)')
                     i.fa.fa-edit
                   =' '
-                  a(href='', ng-click='requestDelete(vehicle)')
+                  a(href='', ng-click='requestDelete(funcs)')
                     i.fa.fa-remove
 
     .col-md-5.col-xs-12
@@ -40,17 +40,11 @@ block content
         form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
           .box-body
             .form-group
-              label Make
-              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
-              .form-group
-              label Model
-              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
-              .form-group
-              label Year
-              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
-              .form-group
               label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Enter Description', ng-model='collectionDesc')
+              input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='funcDesc', required)
+              .form-group
+              label Byte Sequence
+              input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='funcBytes', required)
           .box-footer
             button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
               i.fa.fa-plus-square-o

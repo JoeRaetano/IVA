@@ -4,7 +4,7 @@ block content
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
-          h3.box-title {{currentItem.pid}}, {{currentItem.network}}
+          h3.box-title {{currentItem.desc}}. {{currentItem.bytes}}
           .box-tools
             .input-group
               input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
@@ -15,14 +15,13 @@ block content
           table.table.table-hover
             tbody
               tr
-                th PID
-                th Network
-                th ID
+                th
+                th
                 th
               tr(ng-repeat='p in currentItem.pid_id | orderBy:"pid"')
-                td(ng-click="goToPIDDetails(p._id)") {{p.pid}}
-                td(ng-click="goToPIDDetails(p._id)") {{p.network}}
-                td(ng-click="goToPIDDetails(p._id)") {{p._id}}
+                td(ng-click="goToPIDDetails(p._id)")
+                td(ng-click="goToPIDDetails(p._id)")
+                td(ng-click="goToPIDDetails(p._id)")
                 td(ng-click="goToPIDDetails(p._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded

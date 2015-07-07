@@ -3,10 +3,10 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var PidSchema = new Schema(
+var FunctionSchema = new Schema(
   {
-    pid: Number,
-    network: String,
+    desc: String,
+    bytes: String
   });
 
-module.exports = mongoose.model('Pid', PidSchema);
+module.exports = mongoose.model('Function', FunctionSchema);

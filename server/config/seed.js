@@ -12,29 +12,12 @@ var CollectionMode = require('../api/mode/mode.model');
 var Datatype = require('../api/datatype/datatype.model');
 var Collections = require('../api/collection/collection.model');
 var Pids = require('../api/pid/pid.model');
+var Functions = require('../api/function/function.model');
 
 
-Pids.find({}).remove(function()
-{
-  Pids.create
-  (
-    {
-      _id: "pid1",
-      pid: 1,
-      network: 'CAN'
-    },
-    {
-      _id: "pid2",
-      pid: 2,
-      network: 'CAN'
-    },
-    {
-      _id: "pid3",
-      pid: 3,
-      network: 'CAN'
-    });
-});
+Functions.find({}).remove(function() {});
 
+Pids.find({}).remove(function() {});
 
 Collections.find({}).remove(function() {
   Collections.create(
