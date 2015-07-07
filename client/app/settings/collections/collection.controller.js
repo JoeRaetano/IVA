@@ -133,44 +133,27 @@ angular.module('IVA_App')
         }
 
         // Make new PID document in PID collection
-        $http.post
+        $http.put
         (
-          '/api/pid',
+          '/api/collection/pid/' + $scope.currentItem._id,
           {
-            _id: id++,
             pid: $scope.vehiclePid,
             network: $scope.vehicleNet
           }
         ).then(function()
         {
-          // Add newly created PID document to the current vehicles list of PIDs
-          $http.put
-          (
-            '/api/collection/' + $scope.currentItem._id,
-            {
-              pid_id:
-              [
-                {
-                  pid: $scope.vehiclePid,
-                  network: $scope.vehicleNet
-                }
-              ]
-            }
-          ).then(function ()
+          $scope.message = 'Successfully Updated Item';
+          $scope.inEditMode = false;
+          $http.get('/api/collection/'+ $scope.currentItem._id).success(function(collectionData)
           {
-            $scope.message = 'Successfully Updated Item';
-            $scope.inEditMode = false;
-            $http.get('/api/collection/'+ $scope.currentItem._id).success(function(collectionData)
-            {
-              $scope.currentItem = collectionData;
-              $scope.vehiclePid = '';
-              $scope.vehicleNet = '';
-            });
-          }).catch(function () {
-            $scope.errors.other = 'unable to save changes to collection';
-            $scope.message = '';
-            dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+            $scope.currentItem = collectionData;
+            $scope.vehiclePid = '';
+            $scope.vehicleNet = '';
           });
+        }).catch(function () {
+          $scope.errors.other = 'unable to save changes to collection';
+          $scope.message = '';
+          dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
         });
       }
     };
