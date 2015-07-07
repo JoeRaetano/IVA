@@ -11,12 +11,12 @@ var Sensor = require('../api/sensor/sensor.model');
 var CollectionMode = require('../api/mode/mode.model');
 var Datatype = require('../api/datatype/datatype.model');
 var Collections = require('../api/collection/collection.model');
-var PIDs = require('../api/pid/pid.model');
+var Pids = require('../api/pid/pid.model');
 
 
-PIDs.find({}).remove(function()
+Pids.find({}).remove(function()
 {
-  PIDs.create
+  Pids.create
   (
     {
       _id: "pid1",
