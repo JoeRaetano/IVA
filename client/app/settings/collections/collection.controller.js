@@ -3,8 +3,6 @@
  */
 'use strict';
 
-var id = 55555;
-
 /**
  * Collection Controller
  * @namespace IVA.CollectionController
@@ -63,9 +61,6 @@ angular.module('IVA_App')
 
     $scope.goToPIDDetails = function(id) {
       $location.path( '/settings/pids/' + id );
-  /*    $http.get('/api/collection/' + $routeParams.id + '/' + id).success(function(collectionData) {
-        $scope.currentItem = collectionData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + $routeParams.id + '/' + id});*/
     };
 
     /**
@@ -122,7 +117,7 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.CollectionController
      */
-    $scope.addPid = function(form)
+    $scope.addSubRecord = function(form)
     {
       $scope.submitted = true;
       if(form.$valid)

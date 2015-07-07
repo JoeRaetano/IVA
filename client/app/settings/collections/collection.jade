@@ -19,7 +19,7 @@ block content
                 th Network
                 th ID
                 th
-              tr(ng-repeat='p in currentItem.pid_id | orderBy:"pid"')
+              tr(ng-repeat='p in currentItem.pids | orderBy:"pid"')
                 td(ng-click="goToPIDDetails(p._id)") {{p.pid}}
                 td(ng-click="goToPIDDetails(p._id)") {{p.network}}
                 td(ng-click="goToPIDDetails(p._id)") {{p._id}}
@@ -37,7 +37,7 @@ block content
       .box.box-primary
         .box-header
           h3.box-title Add PID
-        form(name='addPID', ng-submit='addPid(addPID)', novalidate='')
+        form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
           .box-body
             .form-group
               label PID
@@ -46,6 +46,6 @@ block content
               label Network
               input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='vehicleNet', required)
           .box-footer
-            button.btn.btn-primary(type='submit',ng-disabled='addPID.$invalid')
+            button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
               i.fa.fa-plus-square-o
               |  Create

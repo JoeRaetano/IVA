@@ -6,13 +6,11 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var Pids = require('../pid/pid.model');
-
 var VehicleSchema = new Schema({
   make: String,
   model: String,
   year: Number,
-  pid_id: [],
+  pids: [],
   desc: String
 });
 

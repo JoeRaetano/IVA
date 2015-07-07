@@ -8,8 +8,6 @@ var _ = require('lodash');
 var Collections = require('./collection.model');
 var Pids = require('../pid/pid.model');
 
-//var C2 = mongoose.model('Collection', VehicleSchema);
-
 // Get list of modes
 exports.index = function(req, res) {
   Collections.find(function (err, c2s)
@@ -49,8 +47,8 @@ exports.update = function(req, res) {
     var updated = _.merge(c2, req.body, function(a, b)
       {
         if (_.isArray(a)) {
-        return a.concat(b);}}
-      );
+          return a.concat(b);}}
+    );
     updated.save(function (err) {
       if (err) {
         return handleError(res, err);
@@ -60,20 +58,17 @@ exports.update = function(req, res) {
   });
 };
 
-// Updates an existing mode in the DB.
 exports.updatePid = function(req, res) {
   if(req.body._id) { delete req.body._id; }
 
-  var p = Pids.create(req.body, function(err, pid)
+  Pids.create(req.body, function(err, pid)
   {
     if(err) { return handleError(res, err); }
     return res.json(201, pid);
   });
-  console.log(req.body.pid)
 
   Collections.findById(req.params.id, function (err, collection)
   {
-   // console.log(req.params.id);
     if (err) {
       return handleError(res, err);
     }
@@ -83,23 +78,14 @@ exports.updatePid = function(req, res) {
 
     Pids.findOne(req.body, function (err, pid)
     {
-      console.log(pid)
-      console.log(pid._id)
-
       if (err) {
         return handleError(res, err);
       }
       if (!pid) {
         return res.send(404);
       }
-      collection.pid_id.push(pid);
-      collection.save();/*function (err)
-      /*{
-        if (err) {
-          return handleError(res, err);
-        }
-        return res.json(200, collection);
-      });*/
+      collection.pids.push(pid);
+      collection.save();
     });
   });
 };
