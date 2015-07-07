@@ -4,7 +4,7 @@ block content
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
-          h3.box-title Collections
+          h3.box-title PIDs
           .box-tools
             .input-group
               input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
@@ -27,31 +27,25 @@ block content
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(vehicle._id)')
+                  a(href='', ng-click='goToRecordDetails(pid._id)')
                     i.fa.fa-edit
                   =' '
-                  a(href='', ng-click='requestDelete(vehicle)')
+                  a(href='', ng-click='requestDelete(pid)')
                     i.fa.fa-remove
 
     .col-md-5.col-xs-12
       .box.box-primary
         .box-header
-          h3.box-title Create Collection
+          h3.box-title Create PID
         form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
           .box-body
             .form-group
-              label Make
-              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
+              label PID
+              input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='vehiclePid', required)
               .form-group
-              label Model
-              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
-              .form-group
-              label Year
-              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
-              .form-group
-              label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Enter Description', ng-model='collectionDesc')
+              label Network
+              input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='vehicleNet', required)
           .box-footer
-            button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
+            button.btn.btn-primary(type='submit',ng-disabled='addPID.$invalid')
               i.fa.fa-plus-square-o
               |  Create

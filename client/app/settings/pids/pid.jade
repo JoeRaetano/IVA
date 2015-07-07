@@ -15,37 +15,37 @@ block content
           table.table.table-hover
             tbody
               tr
-                th PID
-                th Network
+                th Description
+                th Bytes
                 th ID
                 th
-              tr(ng-repeat='p in currentItem.pid_id | orderBy:"pid"')
-                td(ng-click="goToPIDDetails(p._id)") {{p.pid}}
-                td(ng-click="goToPIDDetails(p._id)") {{p.network}}
-                td(ng-click="goToPIDDetails(p._id)") {{p._id}}
-                td(ng-click="goToPIDDetails(p._id)")
+              tr(ng-repeat='f in currentItem.funcs | orderBy:"bytes"')
+                td(ng-click="goToFuncDetails(p._id)") {{f.desc}}
+                td(ng-click="goToFuncDetails(p._id)") {{f.bytes}}
+                td(ng-click="goToFuncDetails(p._id)") {{f._id}}
+                td(ng-click="goToFuncDetails(p._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(vehicle._id)')
+                  a(href='', ng-click='goToRecordDetails(pid._id)')
                     i.fa.fa-edit
                   =' '
-                  a(href='', ng-click='requestDelete(vehicle)')
+                  a(href='', ng-click='requestDelete(pid)')
                     i.fa.fa-remove
 
     .col-md-5.col-xs-12
       .box.box-primary
         .box-header
-          h3.box-title Add PID
-        form(name='addPID', ng-submit='addPid(addPID)', novalidate='')
+          h3.box-title Add Function
+        form(name='addFunc', ng-submit='addSubRecord(addFunc)', novalidate='')
           .box-body
             .form-group
-              label PID
-              input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='vehiclePid', required)
+              label Description
+              input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='funcDesc', required)
               .form-group
-              label Network
-              input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='vehicleNet', required)
+              label Byte Sequence
+              input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='funcBytes', required)
           .box-footer
-            button.btn.btn-primary(type='submit',ng-disabled='addPID.$invalid')
+            button.btn.btn-primary(type='submit',ng-disabled='addFunc.$invalid')
               i.fa.fa-plus-square-o
               |  Create

@@ -58,11 +58,8 @@ angular.module('IVA_App')
       $location.path( '/settings/pids/' + id );
     };
 
-    $scope.goToPIDDetails = function(id) {
-      $location.path( '/settings/pids/' + $routeParams.id + "/" + id );
-  /*    $http.get('/api/collection/' + $routeParams.id + '/' + id).success(function(collectionData) {
-        $scope.currentItem = collectionData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + $routeParams.id + '/' + id});*/
+    $scope.goToFuncDetails = function(id) {
+      $location.path( '/settings/functions/' + id );
     };
 
     /**
@@ -83,27 +80,23 @@ angular.module('IVA_App')
     $scope.addRecord = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        if (!$scope.vehicleMake || $scope.vehicleMake === '') {
+        if (!$scope.vehiclePid || $scope.vehiclePid === '') {
           return;
         }
 
-        $http.post('/api/collection', {
-          make: $scope.vehicleMake,
-          model: $scope.vehicleModel,
-          year: $scope.vehicleYear,
-          desc: $scope.collectionDesc,
-          active: false
+        $http.post('/api/pid',
+        {
+          pid: $scope.vehiclePid,
+          network: $scope.vehicleNet
         }).then(function() {
-          $scope.message = 'Data Collection Added';
+          $scope.message = 'PID Data Added';
 
-          $http.get('/api/collection').success(function(collectionData) {
-            $scope.data = collectionData;
+          $http.get('/api/pid').success(function(pidData) {
+            $scope.data = pidData;
           });
 
-          $scope.vehicleMake = '';
-          $scope.vehicleModel = '';
-          $scope.vehicleYear = '';
-          $scope.collectionDesc = '';
+          $scope.vehiclePid = '';
+          $scope.vehicleNetwork = '';
         }).catch(function() {
           // set invalid
           $scope.errors.other = 'Unable to save collection';
@@ -119,7 +112,7 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.CollectionController
      */
-    $scope.addPid = function(form)
+    $scope.addSubRecord = function(form)
     {
       $scope.submitted = true;
       if(form.$valid)
@@ -130,44 +123,28 @@ angular.module('IVA_App')
         }
 
         // Make new PID document in PID collection
-        $http.post
+        $http.put
         (
-          '/api/pid',
+          '/api/pid/func/' + $scope.currentItem._id,
           {
-            pid: $scope.vehiclePid,
-            network: $scope.vehicleNet
+            desc: $scope.funcDesc,
+            bytes: $scope.funcBytes
           }
         ).then(function()
-        {
-          // Add newly created PID document to the current vehicles list of PIDs
-          $http.put
-          (
-            '/api/collection/' + $scope.currentItem._id,
-            {
-              pid_id:
-              [
-                {
-                  pid: $scope.vehiclePid,
-                  network: $scope.vehicleNet
-                }
-              ]
-            }
-          ).then(function ()
           {
             $scope.message = 'Successfully Updated Item';
             $scope.inEditMode = false;
-            $http.get('/api/collection/'+ $scope.currentItem._id).success(function(collectionData)
+            $http.get('/api/pid/'+ $scope.currentItem._id).success(function(pidData)
             {
-              $scope.currentItem = collectionData;
-              $scope.vehiclePid = '';
-              $scope.vehicleNet = '';
+              $scope.currentItem = pidData;
+              $scope.funcDesc = '';
+              $scope.funcBytes = '';
             });
           }).catch(function () {
             $scope.errors.other = 'unable to save changes to collection';
             $scope.message = '';
             dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
           });
-        });
       }
     };
 
@@ -185,12 +162,9 @@ angular.module('IVA_App')
         }
       }
 
-      $http.put('/api/collection/' + $scope.currentItem._id, {
-        make: $scope.currentItem.make,
-        model: $scope.currentItem.model,
-        year: $scope.currentItem.year,
-        desc: $scope.currentItem.desc,
-        active: $scope.currentItem.active
+      $http.put('/api/pid/' + $scope.currentItem._id, {
+        pid: $scope.currentItem.pid,
+        network: $scope.currentItem.network,
       }).then(function() {
         $scope.message = 'Successfully Updated Item';
         $scope.inEditMode = false;
@@ -212,11 +186,11 @@ angular.module('IVA_App')
         return;
       }
 
-      $http.delete('/api/collection/' + record._id, {
+      $http.delete('/api/pid/' + record._id, {
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
-        $location.path('/settings/collections/');
+        $location.path('/settings/pids/');
       }).catch(function() {
         $scope.errors.other = 'unable to save changes to collection mode';
         $scope.message = '';
@@ -232,8 +206,8 @@ angular.module('IVA_App')
      */
     $scope.requestDelete = function(item) {
       var dlg = dialogs.confirm(
-        'Delete Collection Mode',
-        'Are you certain you want to delete this collection mode? (' + item.name + ')');
+        'Delete PID ',
+        'Are you certain you want to delete this PID? (' + item.name + ')');
       dlg.result.then(function(btn){
         $scope.confirmed = 'You thought this quite awesome!';
         $scope.deleteRecord(item);
