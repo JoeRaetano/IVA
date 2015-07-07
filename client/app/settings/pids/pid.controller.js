@@ -26,8 +26,6 @@ angular.module('IVA_App')
 
     // attempt to get the ID from the route params
     var currentId = $routeParams.id;
-    console.log(currentId)
-    dialogs.confirm(currentId)
 
     if (currentId) {
       $http.get('/api/pid/' + currentId).success(function(collectionData) {
