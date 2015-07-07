@@ -55,3 +55,7 @@ client/app/settings/collections/collection.html
 client/app/settings/pids/pids.html
 
 client/app/settings/pids/pid.html
+
+client/app/settings/functions/function.html
+
+client/app/settings/functions/functions.html
