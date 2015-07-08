@@ -10,7 +10,6 @@ var VehicleSchema = new Schema({
   make: String,
   model: String,
   year: Number,
-  pids: [],
   desc: String
 });
 
