@@ -7,6 +7,7 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
+router.get('/vehicle/:id', controller.showPidsForVehicle);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.put('/func/:id', controller.updateFunc);

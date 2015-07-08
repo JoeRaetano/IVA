@@ -32,6 +32,15 @@ exports.show = function(req, res) {
   });
 };
 
+exports.showPidsForVehicle = function(req, res) {
+  Pids.find({ collections: req.params.id}, function (err, c2)
+  {
+    if(err) { return handleError(res, err); }
+    if(!c2) { return res.send(404); }
+    return res.json(c2);
+  });
+};
+
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   Pids.create(req.body, function(err, c2)
