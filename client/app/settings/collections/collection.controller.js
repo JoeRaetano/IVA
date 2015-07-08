@@ -59,6 +59,10 @@ angular.module('IVA_App')
       $location.path( '/settings/collections/' + id );
     };
 
+    $scope.goToEditRecord = function(id) {
+      $location.path( '/settings/collections/edit/' + id );
+    };
+
     $scope.goToPIDDetails = function(id) {
       $location.path( '/settings/pids/' + id );
     };
