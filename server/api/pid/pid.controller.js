@@ -97,16 +97,9 @@ exports.updateFunc = function(req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-console.log(req.params.id);
-  var tmp = Pids.find({_id: req.params.id});
-  console.log(tmp._id)
   Pids.findById(req.params.id, function (err, pid) {
     if(err) { return handleError(res, err); }
     if(!pid) { return res.send(404); }
-
-console.log(length(pid.collections))
-    length
-
 
     pid.remove(function(err) {
       if(err) { return handleError(res, err); }
