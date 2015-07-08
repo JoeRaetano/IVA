@@ -211,6 +211,32 @@ angular.module('IVA_App')
     };
 
     /**
+     * @name deleteRecord
+     * @desc Deletes a record
+     * @param record The record to delete
+     * @memberOf IVA.CollectionController
+     */
+    $scope.deleteSubRecord = function(record) {
+      if (!record || record._id === '') {
+        return;
+      }
+
+      $http.delete('/api/pid/' + record._id, {
+      }).then(function() {
+        $http.get('/api/collection/' + currentId).success(function(collectionData) {
+          $scope.currentItem = collectionData;
+          $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + currentId});
+        });
+        $scope.message = 'Successfully deleted Item';
+        $scope.inEditMode = false;
+      }).catch(function() {
+        $scope.errors.other = 'unable to save changes to collection mode';
+        $scope.message = '';
+        dialogs.error('Collection Record Not Deleted', 'An error occurred while deleting the collection.');
+      });
+    };
+
+    /**
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
@@ -218,11 +244,30 @@ angular.module('IVA_App')
      */
     $scope.requestDelete = function(item) {
       var dlg = dialogs.confirm(
-        'Delete Collection Mode',
-        'Are you certain you want to delete this collection mode? (' + item.name + ')');
+        'Delete Vehicle',
+        'Are you certain you want to delete this vehicle (' + item.make + ' ' + item.model + ', ' + item.year + ')?');
       dlg.result.then(function(btn){
         $scope.confirmed = 'You thought this quite awesome!';
         $scope.deleteRecord(item);
+        // here's where we actually delete the item
+      },function(btn){
+        // operation was cancelled. Continue on as if nothing happened.
+      });
+    }
+
+    /**
+     * @name requestDelete
+     * @desc Requests the deletion of an item & forces the user to confirm before continuing
+     * @param item The item to be deleted
+     * @memberOf IVA.CollectionController
+     */
+    $scope.requestPIDDelete = function(item) {
+      var dlg = dialogs.confirm(
+        'Delete PID',
+        'Are you certain you want to delete this PID? (' + item.name + ')');
+      dlg.result.then(function(btn){
+        $scope.confirmed = 'You thought this quite awesome!';
+        $scope.deleteSubRecord(item);
         // here's where we actually delete the item
       },function(btn){
         // operation was cancelled. Continue on as if nothing happened.
