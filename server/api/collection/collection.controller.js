@@ -84,8 +84,11 @@ exports.updatePid = function(req, res) {
       if (!pid) {
         return res.send(404);
       }
+
       collection.pids.push(pid);
       collection.save();
+      pid.collections.push(collection._id);
+      pid.save();
     });
   });
 };
