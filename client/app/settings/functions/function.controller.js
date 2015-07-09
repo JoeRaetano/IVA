@@ -4,13 +4,13 @@
 'use strict';
 
 /**
- * Collection Controller
+ * Pid Controller
  * @namespace IVA.PidController
  */
 angular.module('IVA_App')
   .controller('FunctionController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
 
-    // general page initialization stuff
+    // General page initialization stuff
     $scope.errors = {};
     $scope.pageTitle = 'Function Management';
     $scope.pageSubTitle = 'manage function data';
@@ -24,9 +24,10 @@ angular.module('IVA_App')
     $scope.currentItem = null;
     $scope.inEditMode = false;
 
-    // attempt to get the ID from the route params
+    // Attempt to get the ID from the route params
     var currentId = $routeParams.id;
 
+    // If there is an ID
     if (currentId) {
       $http.get('/api/function/' + currentId).success(function(collectionData) {
         $scope.currentItem = collectionData;
