@@ -19,11 +19,11 @@ block content
                 th Bytes
                 th ID
                 th
-              tr(ng-repeat='f in currentItem.funcs | orderBy:"bytes"')
-                td(ng-click="goToFuncDetails(p._id)") {{f.desc}}
-                td(ng-click="goToFuncDetails(p._id)") {{f.bytes}}
-                td(ng-click="goToFuncDetails(p._id)") {{f._id}}
-                td(ng-click="goToFuncDetails(p._id)")
+              tr(ng-repeat='func in data | orderBy:"bytes"')
+                td(ng-click="goToFuncDetails(func._id)") {{func.desc}}
+                td(ng-click="goToFuncDetails(func._id)") {{func.bytes}}
+                td(ng-click="goToFuncDetails(func._id)") {{func._id}}
+                td(ng-click="goToFuncDetails(func._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
