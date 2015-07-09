@@ -58,6 +58,11 @@ angular.module('IVA_App')
         controller: 'FunctionController',
         authenticate: true
       })
+      .when('/settings/functions/edit/:id', {
+        templateUrl: 'app/settings/functions/edit_function.html',
+        controller: 'FunctionController',
+        authenticate: true
+      })
       .when('/settings', {
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
