@@ -30,10 +30,8 @@ exports.show = function(req, res) {
 exports.showPidsForVehicle = function(req, res) {
   Pids.find(req.params.id, function (err, c2)
   {
-
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
-    console.log(c2)
     return res.json(c2);
   });
 };
@@ -98,7 +96,6 @@ exports.updatePid = function(req, res) {
 
       pid.vehicles.push(vehicle._id);
       pid.save();
-      console.log(pid)
     });
   });
 };

@@ -268,7 +268,7 @@ angular.module('IVA_App')
       },function(btn){
         // operation was cancelled. Continue on as if nothing happened.
       });
-    }
+    };
 
     /**
      * @name requestDelete
