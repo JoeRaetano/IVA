@@ -32,6 +32,10 @@ angular.module('IVA_App')
         $scope.currentItem = pidData;
         $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/pids/' + currentId});
       });
+
+      $http.get('/api/pid/func/' + currentId).success(function( pidData ) {
+        $scope.data = pidData;
+      });
     } else {
       $http.get('/api/pid').success(function(pidData) {
         $scope.data = pidData;
@@ -139,20 +143,23 @@ angular.module('IVA_App')
             bytes: $scope.funcBytes
           }
         ).then(function()
+        {
+          $scope.message = 'Successfully Updated Item';
+          $scope.inEditMode = false;
+          $http.get('/api/pid/'+ $scope.currentItem._id).success(function(pidData)
           {
-            $scope.message = 'Successfully Updated Item';
-            $scope.inEditMode = false;
-            $http.get('/api/pid/'+ $scope.currentItem._id).success(function(pidData)
-            {
-              $scope.currentItem = pidData;
-              $scope.funcDesc = '';
-              $scope.funcBytes = '';
-            });
-          }).catch(function () {
-            $scope.errors.other = 'unable to save changes to pid';
-            $scope.message = '';
-            dialogs.error('PID Record Not Updated', 'An error occurred while updating the collection.');
+            $scope.currentItem = pidData;
+            $scope.funcDesc = '';
+            $scope.funcBytes = '';
           });
+          $http.get('/api/pid/func/' + currentId).success(function( pidData ) {
+            $scope.data = pidData;
+          });
+        }).catch(function () {
+          $scope.errors.other = 'unable to save changes to pid';
+          $scope.message = '';
+          dialogs.error('PID Record Not Updated', 'An error occurred while updating the collection.');
+        });
       }
     };
 
