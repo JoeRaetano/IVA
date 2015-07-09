@@ -32,6 +32,15 @@ exports.show = function(req, res) {
   });
 };
 
+exports.showFuncsForPid = function(req, res) {
+  Functions.find(req.params.id, function (err, c2)
+  {
+    if(err) { return handleError(res, err); }
+    if(!c2) { return res.send(404); }
+    return res.json(c2);
+  });
+};
+
 // Creates a new PID in the DB.
 exports.create = function(req, res) {
   Pids.create(req.body, function(err, c2)
