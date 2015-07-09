@@ -19,15 +19,15 @@ block content
                 th Network
                 th ID
                 th
-              tr(ng-repeat='pids in data | orderBy:"make"')
-                td(ng-click="goToRecordDetails(pids._id)") {{pids.pid}}
-                td(ng-click="goToRecordDetails(pids._id)") {{pids.network}}
-                td(ng-click="goToRecordDetails(pids._id)") {{pids._id}}
-                td(ng-click="goToRecordDetails(pids._id)")
+              tr(ng-repeat='pid in data | orderBy:"make"')
+                td(ng-click="goToRecordDetails(pid._id)") {{pid.pid}}
+                td(ng-click="goToRecordDetails(pid._id)") {{pid.network}}
+                td(ng-click="goToRecordDetails(pid._id)") {{pid._id}}
+                td(ng-click="goToRecordDetails(pid._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(pid._id)')
+                  a(href='', ng-click='goToEditRecord(pid._id)')
                     i.fa.fa-edit
                   =' '
                   a(href='', ng-click='requestDelete(pid)')
