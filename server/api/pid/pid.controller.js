@@ -96,8 +96,8 @@ exports.updateFunc = function(req, res) {
       if (!func) {return res.send(404);}
 
       // Specified PID's ID to newly created function's list of PIDs
-      pid.funcs.push(func);
-      pid.save();
+      func.pids.push(pid);
+      func.save();
     });
   });
 };
