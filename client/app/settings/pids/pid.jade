@@ -27,10 +27,10 @@ block content
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(pid._id)')
+                  a(href='', ng-click='goToEditSubRecord(func._id)')
                     i.fa.fa-edit
                   =' '
-                  a(href='', ng-click='requestDelete(pid)')
+                  a(href='', ng-click='requestFuncDelete(func)')
                     i.fa.fa-remove
 
     .col-md-5.col-xs-12
