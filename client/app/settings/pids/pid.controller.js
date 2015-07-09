@@ -66,6 +66,10 @@ angular.module('IVA_App')
       $location.path( '/settings/functions/' + id );
     };
 
+    $scope.goToEditSubRecord = function(id) {
+      $location.path( '/settings/functions/edit/' + id );
+    };
+
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off
