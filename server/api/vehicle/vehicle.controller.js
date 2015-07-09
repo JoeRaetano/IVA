@@ -5,12 +5,12 @@
 'use strict';
 
 var _ = require('lodash');
-var Collections = require('./collection.model');
+var Vehicles = require('./vehicle.model');
 var Pids = require('../pid/pid.model');
 
 // Get list of modes
 exports.index = function(req, res) {
-  Collections.find(function (err, c2s)
+  Vehicles.find(function (err, c2s)
   {
     if(err) { return handleError(res, err); }
     return res.json(200, c2s);
@@ -19,7 +19,7 @@ exports.index = function(req, res) {
 
 // Get a single mode
 exports.show = function(req, res) {
-  Collections.findById(req.params.id, function (err, c2)
+  Vehicles.findById(req.params.id, function (err, c2)
   {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
@@ -27,9 +27,20 @@ exports.show = function(req, res) {
   });
 };
 
+exports.showPidsForVehicle = function(req, res) {
+  Pids.find(req.params.id, function (err, c2)
+  {
+
+    if(err) { return handleError(res, err); }
+    if(!c2) { return res.send(404); }
+    console.log(c2)
+    return res.json(c2);
+  });
+};
+
 // Creates a new mode in the DB.
 exports.create = function(req, res) {
-  Collections.create(req.body, function(err, c2)
+  Vehicles.create(req.body, function(err, c2)
   {
     if(err) { return handleError(res, err); }
     return res.json(201, c2);
@@ -39,7 +50,7 @@ exports.create = function(req, res) {
 // Updates an existing mode in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Collections.findById(req.params.id, function (err, c2)
+  Vehicles.findById(req.params.id, function (err, c2)
   {
     if (err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
@@ -67,12 +78,12 @@ exports.updatePid = function(req, res) {
     return res.json(201, pid);
   });
 
-  Collections.findById(req.params.id, function (err, collection)
+  Vehicles.findById(req.params.id, function (err, vehicle)
   {
     if (err) {
       return handleError(res, err);
     }
-    if (!collection) {
+    if (!vehicle) {
       return res.send(404);
     }
 
@@ -85,15 +96,16 @@ exports.updatePid = function(req, res) {
         return res.send(404);
       }
 
-      pid.collections.push(collection._id);
+      pid.vehicles.push(vehicle._id);
       pid.save();
+      console.log(pid)
     });
   });
 };
 
 // Deletes a mode from the DB.
 exports.destroy = function(req, res) {
-  Collections.findById(req.params.id, function (err, c2)
+  Vehicles.findById(req.params.id, function (err, c2)
   {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }

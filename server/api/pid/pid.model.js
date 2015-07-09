@@ -7,7 +7,7 @@ var PidSchema = new Schema(
   {
     pid: Number,
     network: String,
-    collections: [],
+    vehicles: [],
     funcs: []
   });
 

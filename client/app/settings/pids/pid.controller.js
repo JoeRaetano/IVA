@@ -4,7 +4,7 @@
 'use strict';
 
 /**
- * Collection Controller
+ * Pid Controller
  * @namespace IVA.PidController
  */
 angular.module('IVA_App')
@@ -28,13 +28,13 @@ angular.module('IVA_App')
     var currentId = $routeParams.id;
 
     if (currentId) {
-      $http.get('/api/pid/' + currentId).success(function(collectionData) {
-        $scope.currentItem = collectionData;
+      $http.get('/api/pid/' + currentId).success(function(pidData) {
+        $scope.currentItem = pidData;
         $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/pids/' + currentId});
       });
     } else {
-      $http.get('/api/pid').success(function(collectionData) {
-        $scope.data = collectionData;
+      $http.get('/api/pid').success(function(pidData) {
+        $scope.data = pidData;
       });
     }
 
@@ -42,7 +42,7 @@ angular.module('IVA_App')
       /**
      * @name returnToList
      * @desc Returns the page back to the main/parent listing
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.returnToList = function() {
       $location.path('/settings/pids/');
@@ -52,10 +52,14 @@ angular.module('IVA_App')
      * @name goToRecordDetails
      * @desc Redirects to the record-level detail view
      * @param {String} id Id number of the record
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.goToRecordDetails = function(id) {
       $location.path( '/settings/pids/' + id );
+    };
+
+    $scope.goToEditRecord = function(id) {
+      $location.path( '/settings/pids/edit/' + id );
     };
 
     $scope.goToFuncDetails = function(id) {
@@ -65,7 +69,7 @@ angular.module('IVA_App')
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.toggleEditMode = function(){
       $scope.inEditMode = $scope.inEditMode === false;
@@ -75,7 +79,7 @@ angular.module('IVA_App')
      * @name addRecord
      * @desc Creates a new record based on user input
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.addRecord = function(form) {
       $scope.submitted = true;
@@ -99,9 +103,9 @@ angular.module('IVA_App')
           $scope.vehicleNetwork = '';
         }).catch(function() {
           // set invalid
-          $scope.errors.other = 'Unable to save collection';
+          $scope.errors.other = 'Unable to save pid data';
           $scope.message = '';
-          dialogs.error('Collection Record Not Created', 'An error occurred while creating the collection.');
+          dialogs.error('Pid Record Not Created', 'An error occurred while creating the pid.');
         });
       }
     };
@@ -110,7 +114,7 @@ angular.module('IVA_App')
      * @name addPID
      * @desc Updates a records list of PIDs
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.addSubRecord = function(form)
     {
@@ -141,9 +145,9 @@ angular.module('IVA_App')
               $scope.funcBytes = '';
             });
           }).catch(function () {
-            $scope.errors.other = 'unable to save changes to collection';
+            $scope.errors.other = 'unable to save changes to pid';
             $scope.message = '';
-            dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+            dialogs.error('PID Record Not Updated', 'An error occurred while updating the collection.');
           });
       }
     };
@@ -152,7 +156,7 @@ angular.module('IVA_App')
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.editRecord = function(form) {
       $scope.submitted = true;
@@ -169,9 +173,9 @@ angular.module('IVA_App')
         $scope.message = 'Successfully Updated Item';
         $scope.inEditMode = false;
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection';
+        $scope.errors.other = 'unable to save changes to pid';
         $scope.message = '';
-        dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+        dialogs.error('Pid Record Not Updated', 'An error occurred while updating the collection.');
       });
     };
 
@@ -179,7 +183,7 @@ angular.module('IVA_App')
      * @name deleteRecord
      * @desc Deletes a record
      * @param record The record to delete
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.deleteRecord = function(record) {
       if (!record || record._id === '') {
@@ -192,9 +196,9 @@ angular.module('IVA_App')
         $scope.inEditMode = false;
         $location.path('/settings/pids/');
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection mode';
+        $scope.errors.other = 'unable to save changes to pid';
         $scope.message = '';
-        dialogs.error('Collection Record Not Deleted', 'An error occurred while deleting the collection.');
+        dialogs.error('Pid Record Not Deleted', 'An error occurred while deleting the collection.');
       });
     };
 
@@ -202,7 +206,7 @@ angular.module('IVA_App')
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.PidController
      */
     $scope.requestDelete = function(item) {
       var dlg = dialogs.confirm(

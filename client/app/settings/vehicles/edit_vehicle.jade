@@ -1,7 +1,7 @@
 //Created by jrs on 4/23/15.
 extends ../../main/layout.jade
 block content
-  .row(ng-controller='CollectionController')
+  .row(ng-controller='VehicleController')
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
@@ -19,7 +19,7 @@ block content
               input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='currentItem.year', ng-disabled='!inEditMode')
             .form-group
               label Description
-              input.form-control(type='text', name='collectionDescription' placeholder='Enter Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
+              input.form-control(type='text', name='vehicleDescription' placeholder='Enter Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
             .form-group
               label Status
               br

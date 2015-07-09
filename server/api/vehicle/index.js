@@ -4,12 +4,13 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./collection.controller');
+var controller = require('./vehicle.controller');
 
 var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
+router.get('/pid/:id', controller.showPidsForVehicle);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.put('/pid/:id', controller.updatePid);

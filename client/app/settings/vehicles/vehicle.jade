@@ -1,6 +1,6 @@
 extends ../../main/layout.jade
 block content
-  .row(ng-controller='CollectionController')
+  .row(ng-controller='VehicleController')
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
@@ -19,7 +19,7 @@ block content
                 th Network
                 th ID
                 th
-              tr(ng-repeat='p in currentItem.pids | orderBy:"pid"')
+              tr(ng-repeat='p in data | orderBy:"pid"')
                 td(ng-click="goToPIDDetails(p._id)") {{p.pid}}
                 td(ng-click="goToPIDDetails(p._id)") {{p.network}}
                 td(ng-click="goToPIDDetails(p._id)") {{p._id}}
@@ -27,7 +27,7 @@ block content
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
                 td
-                  a(href='', ng-click='goToRecordDetails(p._id)')
+                  a(href='', ng-click='goToEditSubRecord(p._id)')
                     i.fa.fa-edit
                   =' '
                   a(href='', ng-click='requestPIDDelete(p)')

@@ -4,21 +4,21 @@
 'use strict';
 
 /**
- * Collection Controller
- * @namespace IVA.CollectionController
+ * vehicle Controller
+ * @namespace IVA.VehicleController
  */
 angular.module('IVA_App')
-  .controller('CollectionController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
+  .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
 
     // general page initialization stuff
     $scope.errors = {};
-    $scope.pageTitle = 'Collection Management';
-    $scope.pageSubTitle = 'manage data collection';
+    $scope.pageTitle = 'Vehicle Management';
+    $scope.pageSubTitle = 'manage vehicle data';
     $scope.crumbs = [];
     $scope.crumbs.push(
       {title: 'Home', link: '/'},
       {title: 'Settings', link: '/settings'},
-      {title: 'Collections', link: '/settings/collections'}
+      {title: 'Vehicles', link: '/settings/vehicles'}
     );
     $scope.data = [];
     $scope.currentItem = null;
@@ -30,47 +30,56 @@ angular.module('IVA_App')
     // let's get the data from the database - we will either get all of the records or just
     // the individual based on if we are on the list or detail page
     if (currentId) {
-      $http.get('/api/collection/' + currentId).success(function(collectionData) {
-        $scope.currentItem = collectionData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + currentId});
+      $http.get('/api/vehicle/' + currentId).success(function(vehicleData) {
+        $scope.currentItem = vehicleData;
+        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/vehicles/' + currentId});
       });
+
+      $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
+          $scope.data = vehicleData;
+        });
+
     } else {
-      $http.get('/api/collection').success(function(collectionData) {
-        $scope.data = collectionData;
+      $http.get('/api/vehicle').success(function(vehicleData) {
+        $scope.data = vehicleData;
       });
     }
 
     /**
      * @name returnToList
      * @desc Returns the page back to the main/parent listing
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.returnToList = function() {
-      $location.path('/settings/collections/');
+      $location.path('/settings/vehicles/');
     };
 
     /**
      * @name goToRecordDetails
      * @desc Redirects to the record-level detail view
      * @param {String} id Id number of the record
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.goToRecordDetails = function(id) {
-      $location.path( '/settings/collections/' + id );
+      $location.path( '/settings/vehicles/' + id );
     };
 
     $scope.goToEditRecord = function(id) {
-      $location.path( '/settings/collections/edit/' + id );
+      $location.path( '/settings/vehicles/edit/' + id );
     };
 
     $scope.goToPIDDetails = function(id) {
       $location.path( '/settings/pids/' + id );
     };
 
+    $scope.goToEditSubRecord = function(id) {
+      $location.path( '/settings/pids/edit/' + id );
+    };
+
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.toggleEditMode = function(){
       $scope.inEditMode = $scope.inEditMode === false;
@@ -80,7 +89,7 @@ angular.module('IVA_App')
      * @name addRecord
      * @desc Creates a new record based on user input
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.addRecord = function(form) {
       $scope.submitted = true;
@@ -89,28 +98,28 @@ angular.module('IVA_App')
           return;
         }
 
-        $http.post('/api/collection', {
+        $http.post('/api/vehicle', {
           make: $scope.vehicleMake,
           model: $scope.vehicleModel,
           year: $scope.vehicleYear,
-          desc: $scope.collectionDesc,
+          desc: $scope.vehicleDesc,
           active: false
         }).then(function() {
-          $scope.message = 'Data Collection Added';
+          $scope.message = 'Vehicle Data Added';
 
-          $http.get('/api/collection').success(function(collectionData) {
-            $scope.data = collectionData;
+          $http.get('/api/vehicle').success(function(vehicleData) {
+            $scope.data = vehicleData;
           });
 
           $scope.vehicleMake = '';
           $scope.vehicleModel = '';
           $scope.vehicleYear = '';
-          $scope.collectionDesc = '';
+          $scope.vehicleDesc = '';
         }).catch(function() {
           // set invalid
-          $scope.errors.other = 'Unable to save collection';
+          $scope.errors.other = 'Unable to save vehicle';
           $scope.message = '';
-          dialogs.error('Collection Record Not Created', 'An error occurred while creating the collection.');
+          dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
         });
       }
     };
@@ -119,7 +128,7 @@ angular.module('IVA_App')
      * @name addPID
      * @desc Updates a records list of PIDs
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.addSubRecord = function(form)
     {
@@ -131,10 +140,10 @@ angular.module('IVA_App')
           return;
         }
 
-        // Make new PID document in PID collection
+        // Make new PID document in PID vehicle
         $http.put
         (
-          '/api/collection/pid/' + $scope.currentItem._id,
+          '/api/vehicle/pid/' + $scope.currentItem._id,
           {
             pid: $scope.vehiclePid,
             network: $scope.vehicleNet
@@ -143,16 +152,19 @@ angular.module('IVA_App')
         {
           $scope.message = 'Successfully Updated Item';
           $scope.inEditMode = false;
-          $http.get('/api/collection/'+ $scope.currentItem._id).success(function(collectionData)
+          $http.get('/api/vehicle/'+ $scope.currentItem._id).success(function(vehicleData)
           {
-            $scope.currentItem = collectionData;
+            $scope.currentItem = vehicleData;
             $scope.vehiclePid = '';
             $scope.vehicleNet = '';
           });
+          $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
+            $scope.data = vehicleData;
+          });
         }).catch(function () {
-          $scope.errors.other = 'unable to save changes to collection';
+          $scope.errors.other = 'unable to save changes to vehicle';
           $scope.message = '';
-          dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+          dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
         });
       }
     };
@@ -161,7 +173,7 @@ angular.module('IVA_App')
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
      * @param {Form} form The HTML form object
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.editRecord = function(form) {
       $scope.submitted = true;
@@ -171,7 +183,7 @@ angular.module('IVA_App')
         }
       }
 
-      $http.put('/api/collection/' + $scope.currentItem._id, {
+      $http.put('/api/vehicle/' + $scope.currentItem._id, {
         make: $scope.currentItem.make,
         model: $scope.currentItem.model,
         year: $scope.currentItem.year,
@@ -181,9 +193,9 @@ angular.module('IVA_App')
         $scope.message = 'Successfully Updated Item';
         $scope.inEditMode = false;
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection';
+        $scope.errors.other = 'unable to save changes to vehicle';
         $scope.message = '';
-        dialogs.error('Collection Record Not Updated', 'An error occurred while updating the collection.');
+        dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
       });
     };
 
@@ -191,22 +203,22 @@ angular.module('IVA_App')
      * @name deleteRecord
      * @desc Deletes a record
      * @param record The record to delete
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.deleteRecord = function(record) {
       if (!record || record._id === '') {
         return;
       }
 
-      $http.delete('/api/collection/' + record._id, {
+      $http.delete('/api/vehicle/' + record._id, {
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
-        $location.path('/settings/collections/');
+        $location.path('/settings/vehicles/');
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection mode';
+        $scope.errors.other = 'unable to save changes to vehicle mode';
         $scope.message = '';
-        dialogs.error('Collection Record Not Deleted', 'An error occurred while deleting the collection.');
+        dialogs.error('vehicle Record Not Deleted', 'An error occurred while deleting the vehicle.');
       });
     };
 
@@ -214,7 +226,7 @@ angular.module('IVA_App')
      * @name deleteRecord
      * @desc Deletes a record
      * @param record The record to delete
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.deleteSubRecord = function(record) {
       if (!record || record._id === '') {
@@ -223,16 +235,19 @@ angular.module('IVA_App')
 
       $http.delete('/api/pid/' + record._id, {
       }).then(function() {
-        $http.get('/api/collection/' + currentId).success(function(collectionData) {
-          $scope.currentItem = collectionData;
-          $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + currentId});
+        $http.get('/api/vehicle/' + currentId).success(function(vehicleData) {
+          $scope.currentItem = vehicleData;
+          $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/vehicles/' + currentId});
+        });
+        $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
+          $scope.data = vehicleData;
         });
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
       }).catch(function() {
-        $scope.errors.other = 'unable to save changes to collection mode';
+        $scope.errors.other = 'unable to save changes to vehicle mode';
         $scope.message = '';
-        dialogs.error('Collection Record Not Deleted', 'An error occurred while deleting the collection.');
+        dialogs.error('vehicle Record Not Deleted', 'An error occurred while deleting the vehicle.');
       });
     };
 
@@ -240,7 +255,7 @@ angular.module('IVA_App')
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.requestDelete = function(item) {
       var dlg = dialogs.confirm(
@@ -259,7 +274,7 @@ angular.module('IVA_App')
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
-     * @memberOf IVA.CollectionController
+     * @memberOf IVA.VehicleController
      */
     $scope.requestPIDDelete = function(item) {
       var dlg = dialogs.confirm(

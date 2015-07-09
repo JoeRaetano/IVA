@@ -1,10 +1,10 @@
 extends ../../main/layout.jade
 block content
-  .row(ng-controller='CollectionController')
+  .row(ng-controller='VehicleController')
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
-          h3.box-title Collections
+          h3.box-title Vehicles
           .box-tools
             .input-group
               input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
@@ -38,7 +38,7 @@ block content
     .col-md-5.col-xs-12
       .box.box-primary
         .box-header
-          h3.box-title Create Collection
+          h3.box-title Create Vehicle
         form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
           .box-body
             .form-group
@@ -52,7 +52,7 @@ block content
               input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
               .form-group
               label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Enter Description', ng-model='collectionDesc')
+              input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='vehicleDesc')
           .box-footer
             button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
               i.fa.fa-plus-square-o

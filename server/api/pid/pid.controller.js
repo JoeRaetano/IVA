@@ -13,7 +13,7 @@ var _ = require('lodash');
 var Pids = require('./pid.model');
 var Functions = require('../function/function.model');
 
-// Get list of things
+// Get list of PIDs
 exports.index = function(req, res) {
   Pids.find(function (err, c2s)
   {
@@ -22,7 +22,7 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single thing
+// Get a single PID
 exports.show = function(req, res) {
   Pids.findById(req.params.id, function (err, c2)
   {
@@ -32,16 +32,7 @@ exports.show = function(req, res) {
   });
 };
 
-exports.showPidsForVehicle = function(req, res) {
-  Pids.find({ collections: req.params.id}, function (err, c2)
-  {
-    if(err) { return handleError(res, err); }
-    if(!c2) { return res.send(404); }
-    return res.json(c2);
-  });
-};
-
-// Creates a new thing in the DB.
+// Creates a new PID in the DB.
 exports.create = function(req, res) {
   Pids.create(req.body, function(err, c2)
   {
@@ -50,7 +41,7 @@ exports.create = function(req, res) {
   });
 };
 
-// Updates an existing thing in the DB.
+// Updates an existing PID in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Pids.findById(req.params.id, function (err, c2)
@@ -63,24 +54,30 @@ exports.update = function(req, res) {
         if (_.isArray(a)) {
           return a.concat(b);}}
     );
-    updated.save(function (err) {
+
+    updated.save(function (err)
+    {
       if (err) {
         return handleError(res, err);
       }
       return res.json(200, c2);
     });
+
   });
 };
 
+// Updates the list of functions associated with a specified PID.
 exports.updateFunc = function(req, res) {
   if(req.body._id) { delete req.body._id; }
 
+  // Creates a new function.
   Functions.create(req.body, function(err, func)
   {
     if(err) { return handleError(res, err); }
     return res.json(201, func);
   });
 
+  // Gets the specified PID.
   Pids.findById(req.params.id, function (err, pid)
   {
     if (err) {
@@ -90,14 +87,15 @@ exports.updateFunc = function(req, res) {
       return res.send(404);
     }
 
+    // Gets the newly created function.
+    // Adds the specified PID's ID to the newly created function.
     Functions.findOne(req.body, function (err, func)
     {
-      if (err) {
-        return handleError(res, err);
-      }
-      if (!func) {
-        return res.send(404);
-      }
+      // Error checking.
+      if (err) {return handleError(res, err);}
+      if (!func) {return res.send(404);}
+
+      // Specified PID's ID to newly created function's list of PIDs
       pid.funcs.push(func);
       pid.save();
     });
