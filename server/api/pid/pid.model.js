@@ -7,8 +7,7 @@ var PidSchema = new Schema(
   {
     pid: Number,
     network: String,
-    vehicles: [],
-    funcs: []
+    vehicles: []
   });
 
 module.exports = mongoose.model('Pid', PidSchema);
