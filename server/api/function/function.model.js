@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 var FunctionSchema = new Schema(
   {
     desc: String,
-    bytes: String
+    bytes: String,
+    pids: []
   });
 
 module.exports = mongoose.model('Function', FunctionSchema);
