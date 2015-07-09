@@ -214,6 +214,29 @@ angular.module('IVA_App')
     };
 
     /**
+     * @name deleteRecord
+     * @desc Deletes a record
+     * @param record The record to delete
+     * @memberOf IVA.PidController
+     */
+    $scope.deleteSubRecord = function(record) {
+      if (!record || record._id === '') {
+        return;
+      }
+
+      $http.delete('/api/function/' + record._id, {
+      }).then(function() {
+        $scope.message = 'Successfully deleted Item';
+        $scope.inEditMode = false;
+        $location.path('/settings/pids/');
+      }).catch(function() {
+        $scope.errors.other = 'unable to save changes to function';
+        $scope.message = '';
+        dialogs.error('Function Record Not Deleted', 'An error occurred while deleting the collection.');
+      });
+    };
+
+    /**
      * @name requestDelete
      * @desc Requests the deletion of an item & forces the user to confirm before continuing
      * @param item The item to be deleted
@@ -230,7 +253,20 @@ angular.module('IVA_App')
       },function(btn){
         // operation was cancelled. Continue on as if nothing happened.
       });
-    }
+    };
+
+    $scope.requestFuncDelete = function(item) {
+      var dlg = dialogs.confirm(
+        'Delete Function ',
+        'Are you certain you want to delete this Function? (' + item.name + ')');
+      dlg.result.then(function (btn) {
+        $scope.confirmed = 'You thought this quite awesome!';
+        $scope.deleteSubRecord(item);
+        // here's where we actually delete the item
+      }, function (btn) {
+        // operation was cancelled. Continue on as if nothing happened.
+      });
+    };
   });
 
 
