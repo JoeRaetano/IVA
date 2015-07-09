@@ -72,3 +72,5 @@ client/app/settings/vehicles/edit_vehicle.html
 client/app/settings/pids/edit_pid.html
 
 client/app/settings/collections/edit_collection.html
+
+client/app/settings/functions/edit_function.html
