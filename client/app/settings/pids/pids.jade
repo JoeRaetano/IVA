@@ -19,7 +19,7 @@ block content
                 th Network
                 th ID
                 th
-              tr(ng-repeat='pid in data | orderBy:"make"')
+              tr(ng-repeat='pid in data | orderBy:"pid"')
                 td(ng-click="goToRecordDetails(pid._id)") {{pid.pid}}
                 td(ng-click="goToRecordDetails(pid._id)") {{pid.network}}
                 td(ng-click="goToRecordDetails(pid._id)") {{pid._id}}
