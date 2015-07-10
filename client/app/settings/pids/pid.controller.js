@@ -228,6 +228,9 @@ angular.module('IVA_App')
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
+        $http.get('/api/pid/func/' + currentId).success(function( pidData ) {
+          $scope.data = pidData;
+        });
       }).catch(function() {
         $scope.errors.other = 'unable to save changes to function';
         $scope.message = '';
