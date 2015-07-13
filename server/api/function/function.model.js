@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var FunctionSchema = new Schema(
   {
-    desc: String,
+    function: String,
     bytes: String,
     pids: Array
   });
