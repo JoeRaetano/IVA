@@ -20,7 +20,7 @@ block content
                 th ID
                 th
               tr(ng-repeat='func in data | orderBy:"bytes"')
-                td(ng-click="goToFuncDetails(func._id)") {{func.desc}}
+                td(ng-click="goToFuncDetails(func._id)") {{func.function}}
                 td(ng-click="goToFuncDetails(func._id)") {{func.bytes}}
                 td(ng-click="goToFuncDetails(func._id)") {{func._id}}
                 td(ng-click="goToFuncDetails(func._id)")

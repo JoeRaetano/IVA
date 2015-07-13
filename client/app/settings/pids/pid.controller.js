@@ -139,7 +139,7 @@ angular.module('IVA_App')
         (
           '/api/pid/func/' + $scope.currentItem._id,
           {
-            desc: $scope.funcDesc,
+            function: $scope.funcDesc,
             bytes: $scope.funcBytes
           }
         ).then(function()
