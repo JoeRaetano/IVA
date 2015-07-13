@@ -19,12 +19,14 @@ block content
                 th Model
                 th Year
                 th Description
+                th ID
                 th
               tr(ng-repeat='vehicle in data | orderBy:"make"')
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.make}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.model}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.year}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.desc}}
+                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle._id}}
                 td(ng-click="goToRecordDetails(vehicle._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
@@ -37,23 +39,48 @@ block content
 
     .col-md-5.col-xs-12
       .box.box-primary
-        .box-header
-          h3.box-title Create Vehicle
-        form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
-          .box-body
-            .form-group
-              label Make
-              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
-              .form-group
-              label Model
-              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
-              .form-group
-              label Year
-              input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
-              .form-group
-              label Description
-              input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='vehicleDesc')
-          .box-footer
-            button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
-              i.fa.fa-plus-square-o
-              |  Create
+        tabset
+          tab(heading='Create Vehicle')
+            form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
+              .box-body
+                .form-group
+                  label Make
+                  input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
+                  .form-group
+                  label Model
+                  input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
+                  .form-group
+                  label Year
+                  input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
+                  .form-group
+                  label Description
+                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='vehicleDesc')
+              .box-footer
+                button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
+                  i.fa.fa-plus-square-o
+                  |  Create
+          tab(heading='Query Vehicles',select='alertMe()')
+            <div class="btn-group" dropdown dropdown-append-to-body>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+            Dropdown on Body <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            </ul>
+            </div>
+            form(name='queryForm', ng-submit='queryFunction(queryForm)', novalidate='')
+              .box-body
+                .form-group
+                  label Function
+                  input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='vehicleFunc', required)
+              .box-footer
+                button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid')
+                  i.fa.fa-search
+                  |  Search
+            //|       I've got an HTML heading, and a select callback. Pretty cool!
+
+
