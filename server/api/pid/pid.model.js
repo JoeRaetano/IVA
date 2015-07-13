@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
 
 var PidSchema = new Schema(
   {
-    pid: Number,
+    pid: String,
     network: String,
-    vehicles: []
+    vehicles: Array
   });
 
 module.exports = mongoose.model('Pid', PidSchema);

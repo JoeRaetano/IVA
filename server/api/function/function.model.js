@@ -7,7 +7,7 @@ var FunctionSchema = new Schema(
   {
     desc: String,
     bytes: String,
-    pids: []
+    pids: Array
   });
 
 module.exports = mongoose.model('Function', FunctionSchema);

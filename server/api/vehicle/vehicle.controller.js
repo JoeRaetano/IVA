@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var Vehicles = require('./vehicle.model');
 var Pids = require('../pid/pid.model');
+var mongoose = require('mongoose');
 
 // Get list of modes
 exports.index = function(req, res) {
@@ -28,7 +29,9 @@ exports.show = function(req, res) {
 };
 
 exports.showPidsForVehicle = function(req, res) {
-  Pids.find(req.params.id, function (err, c2)
+  var id = mongoose.Types.ObjectId(req.params.id);
+
+  Pids.find({vehicles : id}, function (err, c2)
   {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }

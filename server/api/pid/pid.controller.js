@@ -12,6 +12,8 @@
 var _ = require('lodash');
 var Pids = require('./pid.model');
 var Functions = require('../function/function.model');
+var mongoose = require('mongoose');
+
 
 // Get list of PIDs
 exports.index = function(req, res) {
@@ -33,7 +35,9 @@ exports.show = function(req, res) {
 };
 
 exports.showFuncsForPid = function(req, res) {
-  Functions.find(req.params.id, function (err, c2)
+  var id = mongoose.Types.ObjectId(req.params.id);
+
+  Functions.find({pids : id}, function (err, c2)
   {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
@@ -105,7 +109,7 @@ exports.updateFunc = function(req, res) {
       if (!func) {return res.send(404);}
 
       // Specified PID's ID to newly created function's list of PIDs
-      func.pids.push(pid);
+      func.pids.push(pid._id);
       func.save();
     });
   });
