@@ -18,6 +18,7 @@ module.exports = function(app) {
   app.use('/api/vehicle', require('./api/vehicle'));
   app.use('/api/pid', require('./api/pid'));
   app.use('/api/function', require('./api/function'));
+  app.use('/api/file', require('./api/file'));
 
   app.use('/auth', require('./auth'));
 
