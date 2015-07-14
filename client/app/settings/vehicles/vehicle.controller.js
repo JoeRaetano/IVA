@@ -301,7 +301,15 @@ angular.module('IVA_App')
       },function(btn){
         // operation was cancelled. Continue on as if nothing happened.
       });
-    }
+    };
+
+    $scope.uploadFile = function(form)
+    {
+      var file = $scope.userFile;
+      //$scope.log(file)
+      dialogs.confirm(file);
+      $http.post('/api/file/', $scope.userFile );
+    };
   });
 
 
