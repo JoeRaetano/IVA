@@ -4,29 +4,31 @@ var express = require('express');
 var multer = require('multer');
 var fs = require('fs');
 var Parse = require('csv-parse');
+var vehicle_id;
+var Pids = require('../pid/pid.model');
+var Functions = require('../function/function.model');
+var mongoose = require('mongoose');
 
 
 var controller = require('./file.controller');
 
 var router = express.Router();
 
+var pid_array = [];
+
 router.post('/', [multer({ dest: './uploads/'}), function(req,res)
   {
-    console.log(req.files.userFile);
     var filePath = req.files.userFile.path;
-    console.log(filePath);
+    vehicle_id = mongoose.Types.ObjectId(req.headers.referer.replace(/^.*(\\|\/|\:)/, ''));
+
     var columns = true;
-    parseCSVFile(filePath, columns, onNewRecord, onError, done);
-
-     res.send("Post call completed");
-
+    parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
   }]);
 
 module.exports = router;
 
-var output = [];
 
-function parseCSVFile(sourceFilePath, columns, onNewRecord, handleError, done){
+function parseCSVFile(sourceFilePath, vehicleId, columns, onNewRecord, handleError, done){
 
   var source = fs.createReadStream(sourceFilePath);
 
@@ -39,7 +41,8 @@ function parseCSVFile(sourceFilePath, columns, onNewRecord, handleError, done){
 
   parser.on("readable", function(){
     var record;
-    while (record = parser.read()) {
+    while (record = parser.read())
+    {
       linesRead++;
       onNewRecord(record);
     }
@@ -56,8 +59,66 @@ function parseCSVFile(sourceFilePath, columns, onNewRecord, handleError, done){
   source.pipe(parser);
 }
 
-function onNewRecord(record){
+function onNewRecord(record) {
+  //console.log(record.pid)
+  // console.log(record.pid.toString())
+  // console.log(vehicle_id)
+  pid_array.push(record);
+}
+
+function updateDataBase(record)
+{
   console.log(record)
+  // Search to see if the PID specified by the record has already been created in the Pids database.
+  Pids.find(
+    {pid: record.pid, network: record.network, vehicles: vehicle_id},
+    function(err, pid_data)
+    {
+      if(err)
+      {return handleError(res, err);}
+      console.log("*****")
+      console.log(pid_data)
+      console.log("*****")
+
+      // If the PID has not already been created, then create a new PID with the specified information.
+      if(pid_data.length == 0)
+      {
+        Pids.create({pid: record.pid, network: record.network, vehicles: vehicle_id}, function(err, pid)
+        {
+          if(err) { return handleError(res, err); }
+          console.log(pid)
+          pid_data = pid;
+        });
+      }
+
+      // Find the function specified by the record.
+      Functions.find(
+        {function: record.function, bytes: record.bytes, pids: pid_data._id},
+        function(err, func_data)
+        {
+          if (err)
+          {
+            return handleError(res, err);
+          }
+
+          // If the function has not already been created, create a new function with the specified information.
+          if (func_data.length == 0)
+          {
+            Functions.create(
+              {
+                function: record.function,
+                bytes: record.bytes,
+                pids: pid_data._id
+              },
+              function (err, func) {
+                if (err)
+                {return handleError(res, err);}
+              });
+          } // if(!func_data)
+        }
+      );
+    }
+  );
 }
 
 function onError(error){
@@ -70,6 +131,10 @@ function done(linesRead, sourceFilePath){
   fs.unlink( sourceFilePath, function (err) {
     if (err) throw err;
     console.log('successfully deleted file after parsing');
+    for(var i = 0; i < pid_array.length; i++)
+    {
+      updateDataBase(pid_array[i])
+    }
   });
 }
 
