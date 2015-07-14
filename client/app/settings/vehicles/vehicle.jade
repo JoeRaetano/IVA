@@ -36,21 +36,23 @@ block content
     .col-md-5.col-xs-12
       .box.box-primary
         .box-header
-          h3.box-title Add PID(s)
-        form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
-          .box-body
-            .form-group
-              label PID
-              input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='vehiclePid', required)
-              .form-group
-              label Network
-              input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='vehicleNet', required)
-          .box-footer
-            button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
-              i.fa.fa-plus-square-o
-              |  Create
-        form(name='fileForm', enctype='multipart/form-data', action='/api/file', method='post')
-          input(type='file', name='userFile', ng-model='userFile')
-          button.btn.btn-primary(type='submit',value = 'upload File')
-            i.fa.fa-plus-square-o
-            |  Upload
+          tabset
+            tab(heading='Add Pid')
+              form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
+                .box-body
+                  .form-group
+                    label PID
+                    input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='data.vehiclePid', required)
+                    .form-group
+                    label Network
+                    input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='data.vehicleNet', required)
+                .box-footer
+                  button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
+                    i.fa.fa-plus-square-o
+                    |  Create
+            tab(heading='Upload File',select='alertMe()')
+              form(name='fileForm', enctype='multipart/form-data', action='/api/file', method='post')
+                input(type='file', name='userFile', ng-model='data.userFile')
+                button.btn.btn-primary(type='submit',value = 'upload File')
+                  i.fa.fa-plus-square-o
+                  |  Upload
