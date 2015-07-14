@@ -19,14 +19,14 @@ block content
                 th Model
                 th Year
                 th Description
-                th ID
+                //th ID
                 th
               tr(ng-repeat='vehicle in data | orderBy:"make"')
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.make}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.model}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.year}}
                 td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.desc}}
-                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle._id}}
+                //td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle._id}}
                 td(ng-click="goToRecordDetails(vehicle._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded

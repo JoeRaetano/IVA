@@ -17,12 +17,12 @@ block content
               tr
                 th PID
                 th Network
-                th ID
+                //th ID
                 th
               tr(ng-repeat='pid in data | orderBy:"pid"')
                 td(ng-click="goToRecordDetails(pid._id)") {{pid.pid}}
                 td(ng-click="goToRecordDetails(pid._id)") {{pid.network}}
-                td(ng-click="goToRecordDetails(pid._id)") {{pid._id}}
+                //td(ng-click="goToRecordDetails(pid._id)") {{pid._id}}
                 td(ng-click="goToRecordDetails(pid._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded

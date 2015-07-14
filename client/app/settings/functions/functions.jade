@@ -17,12 +17,12 @@ block content
               tr
                 th Description
                 th Byte Sequence
-                th ID
+                //th ID
                 th
               tr(ng-repeat='funcs in data | orderBy:"bytes"')
                 td(ng-click="goToRecordDetails(funcs._id)") {{funcs.function}}
                 td(ng-click="goToRecordDetails(funcs._id)") {{funcs.bytes}}
-                td(ng-click="goToRecordDetails(funcs._id)") {{funcs._id}}
+                //td(ng-click="goToRecordDetails(funcs._id)") {{funcs._id}}
                 td(ng-click="goToRecordDetails(funcs._id)")
                   span.label.label-success(ng-show='c2.active') Uploaded
                   span.label.label-warning(ng-hide='c2.active') Not Uploaded
