@@ -108,15 +108,16 @@ angular.module('IVA_App')
     $scope.addRecord = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        if (!$scope.vehicleMake || $scope.vehicleMake === '') {
+
+        if (!$scope.data.vehicleMake || $scope.data.vehicleMake === '') {
           return;
         }
 
         $http.post('/api/vehicle', {
-          make: $scope.vehicleMake,
-          model: $scope.vehicleModel,
-          year: $scope.vehicleYear,
-          desc: $scope.vehicleDesc,
+          make: $scope.data.vehicleMake,
+          model: $scope.data.vehicleModel,
+          year: $scope.data.vehicleYear,
+          desc: $scope.data.vehicleDesc,
           active: false
         }).then(function() {
           $scope.message = 'Vehicle Data Added';
@@ -125,10 +126,10 @@ angular.module('IVA_App')
             $scope.data = vehicleData;
           });
 
-          $scope.vehicleMake = '';
-          $scope.vehicleModel = '';
-          $scope.vehicleYear = '';
-          $scope.vehicleDesc = '';
+          $scope.data.vehicleMake = '';
+          $scope.data.vehicleModel = '';
+          $scope.data.vehicleYear = '';
+          $scope.data.vehicleDesc = '';
         }).catch(function() {
           // set invalid
           $scope.errors.other = 'Unable to save vehicle';
@@ -159,8 +160,8 @@ angular.module('IVA_App')
         (
           '/api/vehicle/pid/' + $scope.currentItem._id,
           {
-            pid: $scope.vehiclePid,
-            network: $scope.vehicleNet
+            pid: $scope.data.vehiclePid,
+            network: $scope.data.vehicleNet
           }
         ).then(function()
         {
@@ -169,8 +170,8 @@ angular.module('IVA_App')
           $http.get('/api/vehicle/'+ $scope.currentItem._id).success(function(vehicleData)
           {
             $scope.currentItem = vehicleData;
-            $scope.vehiclePid = '';
-            $scope.vehicleNet = '';
+            $scope.data.vehiclePid = '';
+            $scope.data.vehicleNet = '';
           });
           $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
             $scope.data = vehicleData;

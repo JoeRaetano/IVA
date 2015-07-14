@@ -45,16 +45,16 @@ block content
               .box-body
                 .form-group
                   label Make
-                  input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='vehicleMake', required)
+                  input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='data.vehicleMake', required)
                   .form-group
                   label Model
-                  input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='vehicleModel')
+                  input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='data.vehicleModel')
                   .form-group
                   label Year
-                  input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='vehicleYear')
+                  input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='data.vehicleYear')
                   .form-group
                   label Description
-                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='vehicleDesc')
+                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='data.vehicleDesc')
               .box-footer
                 button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
                   i.fa.fa-plus-square-o
