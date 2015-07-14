@@ -36,7 +36,7 @@ block content
     .col-md-5.col-xs-12
       .box.box-primary
         .box-header
-          h3.box-title Add PID
+          h3.box-title Add PID(s)
         form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
           .box-body
             .form-group
@@ -49,3 +49,8 @@ block content
             button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
               i.fa.fa-plus-square-o
               |  Create
+        form(name='fileForm', enctype='multipart/form-data', action='/api/file', method='post')
+          input(type='file', name='userFile', ng-model='userFile')
+          button.btn.btn-primary(type='submit',value = 'upload File')
+            i.fa.fa-plus-square-o
+            |  Upload
