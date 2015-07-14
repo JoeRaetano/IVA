@@ -23,8 +23,8 @@ Vehicles.find({}).remove(function() {
   Vehicles.create(
   {
     make: "Ford",
-    model: "Focus",
-    year: 2001,
+    model: "Cmax",
+    year: 2013,
     desc: "This is a ford car."
   },
   {
