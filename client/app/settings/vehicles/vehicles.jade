@@ -48,13 +48,13 @@ block content
                   input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='data.vehicleMake', required)
                   .form-group
                   label Model
-                  input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='data.vehicleModel')
+                  input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='data.vehicleModel', required)
                   .form-group
                   label Year
-                  input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='data.vehicleYear')
+                  input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='data.vehicleYear', required)
                   .form-group
                   label Description
-                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='data.vehicleDesc')
+                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='data.vehicleDesc', required)
               .box-footer
                 button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
                   i.fa.fa-plus-square-o
@@ -64,7 +64,7 @@ block content
               .box-body
                 .form-group
                   label Function
-                  input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='vehicleFunc', required)
+                  input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
               .box-footer
                 button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid')
                   i.fa.fa-search
