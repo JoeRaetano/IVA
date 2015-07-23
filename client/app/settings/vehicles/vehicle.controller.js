@@ -218,6 +218,13 @@ angular.module('IVA_App')
       }
     };
 
+    $scope.getSubRecordDetails = function(id, i)
+    {
+      $http.get('/api/vehicle/pid/' + id).success(function( pidData ) {
+        $scope.data.pid[i] = pidData;
+      });
+    }
+
     /**
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
