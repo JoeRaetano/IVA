@@ -42,20 +42,15 @@ angular.module('IVA_App')
       $scope.status.isopen = !$scope.status.isopen;
     };
 
-    // attempt to get the ID from the route params
-    var currentId = $routeParams.id;
+    $http.get('/api/vehicle').success(function(vehicleData) {
+      $scope.data.vehicle = vehicleData;
 
-    // let's get the data from the database - we will either get all of the records or just
-    // the individual based on if we are on the list or detail page
-    if (currentId) {
-      $http.get('/api/vehicle/' + currentId).success(function(vehicleData) {
-        $scope.currentItem = vehicleData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/vehicles/' + currentId});
-      });
-
-      $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
-          $scope.data = vehicleData;
-        });
+      for( var i = 0; i < $scope.data.vehicle.length; i++)
+      {
+        $scope.range.push(i);
+      }
+      $scope.data.vehicle.length
+    })
 
     } else {
       $http.get('/api/vehicle').success(function(vehicleData) {
