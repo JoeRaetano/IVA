@@ -72,14 +72,32 @@ angular.module('IVA_App')
       $location.path( '/settings/vehicles/' + id );
     };
 
+    /**
+     * @name goToEditRecord
+     * @desc Redirects to the page designed to edit the record's information
+     * @param {String} id Id number of the record
+     * @memberOf IVA.VehicleController
+     */
     $scope.goToEditRecord = function(id) {
       $location.path( '/settings/vehicles/edit/' + id );
     };
 
+    /**
+     * @name goToPIDDetails
+     * @desc Redirects to the record-level detail view for a specified PID
+     * @param {String} id Id number of the PID selected
+     * @memberOf IVA.VehicleController
+     */
     $scope.goToPIDDetails = function(id) {
       $location.path( '/settings/pids/' + id );
     };
 
+    /**
+     * @name goToEditSubRecord
+     * @desc Redirects to the page designed to edit the specified PID's information
+     * @param {String} id Id number of the record
+     * @memberOf IVA.VehicleController
+     */
     $scope.goToEditSubRecord = function(id) {
       $location.path( '/settings/pids/edit/' + id );
     };
