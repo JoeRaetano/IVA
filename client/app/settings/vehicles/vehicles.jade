@@ -17,7 +17,7 @@ block content
               accordion-heading {{data.vehicle[i].year}} {{data.vehicle[i].make}} {{data.vehicle[i].model}}
               accordian
                 accordion-group
-                  accordion-heading(text-align='center')
+                  accordion-heading
                     | Add Pid
                   form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
                     .box-body
@@ -58,7 +58,6 @@ block content
                   =' '
                   a(href='', ng-click='requestDelete(vehicle)')
                     i.fa.fa-remove
-
     .col-md-5.col-xs-12
       .box.box-primary
         tabset
