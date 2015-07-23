@@ -12,6 +12,28 @@ block content
                 button.btn.btn-sm.btn-default
                   i.fa.fa-search
         .box-body.table-responsive.no-padding
+          accordion(close-others='oneAtATime')
+            accordion-group(ng-repeat='i in range' ng-click="getSubRecordDetails(data.vehicle[i]._id, i)")
+              accordion-heading {{data.vehicle[i].year}} {{data.vehicle[i].make}} {{data.vehicle[i].model}}
+              accordian
+                accordion-group
+                  accordion-heading(text-align='center')
+                    | Add Pid
+                  form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
+                    .box-body
+                      .form-group
+                        label PID
+                        input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='data.vehiclePid', required)
+                        .form-group
+                        label Network
+                        input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='data.vehicleNet', required)
+                    .box-footer
+                      button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
+                        i.fa.fa-plus-square-o
+                        |  Create
+                accordion-group(ng-repeat='pid in data.pid[i] | orderBy:"pid"')
+                  accordion-heading PID: {{pid.pid}} On Network: {{pid.network}}
+
           table.table.table-hover
             tbody
               tr
