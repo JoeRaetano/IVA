@@ -7,6 +7,7 @@
 var _ = require('lodash');
 var Vehicles = require('./vehicle.model');
 var Pids = require('../pid/pid.model');
+var Functions = require('../function/function.model')
 var mongoose = require('mongoose');
 
 // Get list of modes
@@ -27,6 +28,24 @@ exports.show = function(req, res) {
     return res.json(c2);
   });
 };
+
+exports.query = function( req, res )
+{
+  console.log(req.params.term)
+
+  Functions
+    .find
+    (
+      { function: req.params.term },
+      function(err, funcs)
+      {
+        if(err) { return handleError(res, err); }
+        if(!funcs) {return}
+
+        console.log(funcs)
+      }
+    );
+}
 
 exports.showPidsForVehicle = function(req, res) {
   var id = mongoose.Types.ObjectId(req.params.id);
