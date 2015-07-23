@@ -119,35 +119,57 @@ angular.module('IVA_App')
      */
     $scope.addRecord = function(form) {
       $scope.submitted = true;
-      if(form.$valid) {
+      if(form.$valid)
+      {
+        // Creates a new record in the Vehicle Collection.
+        // The new record is created with the information specified in the supplied form.
+        $http.post
+        (
+          '/api/vehicle', // Post to Vehicle Collection
+          {
+            make: $scope.data.vehicleMake,
+            model: $scope.data.vehicleModel,
+            year: $scope.data.vehicleYear,
+            desc: $scope.data.vehicleDesc,
+            active: false
+          }
+        )
+        .then // Once the post has been made, perform the following commands:
+        (
+          function()
+          {
+            $scope.message = 'Vehicle Data Added';
 
-        if (!$scope.data.vehicleMake || $scope.data.vehicleMake === '') {
-          return;
-        }
+            // Fetch the updated Vehicle Collection data
+            $http.get('/api/vehicle').success
+            (
+              function(vehicleData)
+              {
+                // Set the scope's data to the fetched data
+                $scope.data.vehicle = vehicleData;
 
-        $http.post('/api/vehicle', {
-          make: $scope.data.vehicleMake,
-          model: $scope.data.vehicleModel,
-          year: $scope.data.vehicleYear,
-          desc: $scope.data.vehicleDesc,
-          active: false
-        }).then(function() {
-          $scope.message = 'Vehicle Data Added';
+                $scope.range.push($scope.range.length);
+                $scope.data.pid.length = $scope.data.vehicle.length
+              }
+            );
 
-          $http.get('/api/vehicle').success(function(vehicleData) {
-            $scope.data = vehicleData;
-          });
-
-          $scope.data.vehicleMake = '';
-          $scope.data.vehicleModel = '';
-          $scope.data.vehicleYear = '';
-          $scope.data.vehicleDesc = '';
-        }).catch(function() {
-          // set invalid
-          $scope.errors.other = 'Unable to save vehicle';
-          $scope.message = '';
-          dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
-        });
+            // Reset the form values to blank
+            $scope.data.vehicleMake = '';
+            $scope.data.vehicleModel = '';
+            $scope.data.vehicleYear = '';
+            $scope.data.vehicleDesc = '';
+          }
+        )
+        .catch // Catch any thrown errors
+        (
+          function()
+          {
+            // set invalid
+            $scope.errors.other = 'Unable to save vehicle';
+            $scope.message = '';
+            dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
+          }
+        );
       }
     };
 
