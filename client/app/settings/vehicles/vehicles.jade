@@ -60,19 +60,7 @@ block content
                   i.fa.fa-plus-square-o
                   |  Create
           tab(heading='Query Vehicles',select='alertMe()')
-            <div class="btn-group" dropdown dropdown-append-to-body>
-            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
-            Dropdown on Body <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            </ul>
-            </div>
-            form(name='queryForm', ng-submit='queryFunction(queryForm)', novalidate='')
+            form(name='queryForm', ng-submit='queryRecords(queryForm)', novalidate='')
               .box-body
                 .form-group
                   label Function
