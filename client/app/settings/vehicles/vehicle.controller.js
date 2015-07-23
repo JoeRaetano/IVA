@@ -225,6 +225,27 @@ angular.module('IVA_App')
       });
     }
 
+
+
+    $scope.queryRecords = function(form)
+    {
+      $scope.submitted = true;
+
+      if(form.$valid)
+      {
+        $http.get('/api/vehicle/query/' + $scope.data.vehicleFunc).success
+        (
+          function(vehicleData)
+          {
+            // Set the scope's data to the fetched data
+            $scope.data = vehicleData;
+          }
+        )
+        $scope.data.vehicleFunc = '';
+      }
+    }
+
+
     /**
      * @name editRecord
      * @desc Updates a record based on user input and returns to non-edit mode
