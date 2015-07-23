@@ -21,6 +21,10 @@ angular.module('IVA_App')
       {title: 'Vehicles', link: '/settings/vehicles'}
     );
     $scope.data = [];
+    $scope.data.vehicle = [];
+    $scope.data.pid = [];
+    $scope.range = [];
+
     $scope.currentItem = null;
     $scope.inEditMode = false;
 
