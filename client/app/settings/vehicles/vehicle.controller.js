@@ -52,11 +52,6 @@ angular.module('IVA_App')
       $scope.data.vehicle.length
     })
 
-    } else {
-      $http.get('/api/vehicle').success(function(vehicleData) {
-        $scope.data = vehicleData;
-      });
-    }
 
     /**
      * @name returnToList
