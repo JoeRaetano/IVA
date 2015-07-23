@@ -12,6 +12,8 @@ var mongoose = require('mongoose');
 
 var controller = require('./file.controller');
 
+var waiting = false;
+
 var router = express.Router();
 
 var pid_array = [];
@@ -23,7 +25,7 @@ router.post('/', [multer({ dest: './uploads/'}), function(req,res)
 
     var columns = true;
     parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
-    console.log('done')
+//    console.log('done')
     //res.redirect('/settings/vehicles/' + vehicle_id);
   }]);
 
@@ -70,7 +72,10 @@ function onNewRecord(record) {
 
 function updateDataBase(record)
 {
+  console.log("function updateDataBase(record)")
   console.log(record)
+  console.log("")
+
   // Search to see if the PID specified by the record has already been created in the Pids database.
   Pids.find(
     {pid: record.pid, network: record.network, vehicles: vehicle_id},
@@ -78,9 +83,9 @@ function updateDataBase(record)
     {
       if(err)
       {return handleError(res, err);}
-      console.log("*****")
+      console.log("Pids.find(")
       console.log(pid_data)
-      console.log("*****")
+      console.log("")
 
       // If the PID has not already been created, then create a new PID with the specified information.
       if(pid_data.length == 0)
@@ -88,56 +93,114 @@ function updateDataBase(record)
         Pids.create({pid: record.pid, network: record.network, vehicles: vehicle_id}, function(err, pid)
         {
           if(err) { return handleError(res, err); }
+          console.log("if(pid_data.length == 0)")
           console.log(pid)
+          console.log("")
+
           pid_data = pid;
+
+          findFunction( record.function, record.bytes, pid_data._id)
         });
+      }
+      else
+      {
+        findFunction( record.function, record.bytes, pid_data._id)
       }
 
       // Find the function specified by the record.
-      Functions.find(
-        {function: record.function, bytes: record.bytes, pids: pid_data._id},
-        function(err, func_data)
-        {
-          if (err)
-          {
-            return handleError(res, err);
-          }
 
-          // If the function has not already been created, create a new function with the specified information.
-          if (func_data.length == 0)
+      console.log("Done Functions.find")
+    }
+  );
+  console.log("Done Pids.find")
+}
+
+function findFunction(argFunc, argBytes, argID)
+{
+  Functions.find(
+    {function: argFunc, bytes: argBytes, pids: argID},
+    function(err, func_data)
+    {
+      if (err)
+      {
+        return handleError(res, err);
+      }
+      console.log("Functions.find(")
+      console.log(func_data)
+      console.log("")
+
+
+      // If the function has not already been created, create a new function with the specified information.
+      if (func_data.length == 0)
+      {
+        Functions.create
+        (
           {
-            Functions.create(
-              {
-                function: record.function,
-                bytes: record.bytes,
-                pids: pid_data._id
-              },
-              function (err, func) {
-                if (err)
-                {return handleError(res, err);}
-              });
-          } // if(!func_data)
-        }
-      );
+            function: argFunc,
+            bytes: argBytes,
+            pids: argID
+          },
+          function (err, func)
+          {
+            if (err)
+            {return handleError(res, err);}
+            console.log("Functions.create")
+            console.log(func)
+            console.log("")
+            waiting = false;
+          }
+        );
+        console.log("Done Function Create")
+
+      } // if(!func_data)
+      else
+      {
+        waiting = false;
+      }
+      console.log("Done if(!func_data)")
     }
   );
 }
 
 function onError(error){
-  console.log(error)
+ // console.log(error)
 }
 
 function done(linesRead, sourceFilePath){
-  console.log("Done parsing file");
-  console.log(linesRead);
+ // console.log("Done parsing file");
+ // console.log(linesRead);
   fs.unlink( sourceFilePath, function (err) {
     if (err) throw err;
-    console.log('successfully deleted file after parsing');
+
+  //  var i = 0;
+  //  while (i < pid_array.length)
+  //  {
+  //    if( !waiting )
+  //    {
+  //      updateDataBase(pid_array[i]);
+  //      i++;
+  //    }
+  //    waiting = true;
+  //  }
+ //   console.log('successfully deleted file after parsing');
     for(var i = 0; i < pid_array.length; i++)
     {
+      console.log("starting iteration" + i)
+  //    waiting = true;
       updateDataBase(pid_array[i])
+      //while(waiting){}
+      console.log("ending iteration" + i)
+
     }
-    console.log('done here')
+  //  console.log("-----")
+  //  console.log(pid_array[0])
+  //  console.log("-----")
+
+  //  updateDataBase(pid_array[0])
+  //  updateDataBase(pid_array[1])
+
+
+    //  console.log('done here')
   });
 }
 
