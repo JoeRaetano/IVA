@@ -9,7 +9,7 @@ var Pids = require('../pid/pid.model');
 var Functions = require('../function/function.model');
 var mongoose = require('mongoose');
 
-
+var vehicle_id = ""
 var controller = require('./file.controller');
 
 var waiting = false;
@@ -20,8 +20,12 @@ var pid_array = [];
 
 router.post('/', [multer({ dest: './uploads/'}), function(req,res)
   {
-    var filePath = req.files.userFile.path;
-    vehicle_id = mongoose.Types.ObjectId(req.headers.referer.replace(/^.*(\\|\/|\:)/, ''));
+    for( var file in req.files )
+    {
+      var filePath = req.files[file].path;
+      vehicle_id = mongoose.Types.ObjectId(file);
+      break
+    }
 
     var columns = true;
     parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
