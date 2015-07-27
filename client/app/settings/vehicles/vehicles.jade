@@ -13,12 +13,12 @@ block content
                   i.fa.fa-search
         .box-body.table-responsive.no-padding
           accordion(close-others='oneAtATime')
-            accordion-group(ng-repeat='i in range' ng-click="getSubRecordDetails(data.vehicle[i]._id, i)")
-              accordion-heading {{data.vehicle[i].year}} {{data.vehicle[i].make}} {{data.vehicle[i].model}}
+            accordion-group(ng-repeat='v_index in range' ng-click="getSubRecordDetails(data.vehicle[v_index]._id, v_index)")
+              accordion-heading {{data.vehicle[v_index].year}} {{data.vehicle[v_index].make}} {{data.vehicle[v_index].model}}
               accordian
                 accordion-group
                   accordion-heading Add Pid
-                  form(name='addPid', ng-submit='addSubRecord(addPid, data.vehicle[i], i)', novalidate='')
+                  form(name='addPid', ng-submit='addSubRecord(addPid, data.vehicle[v_index], v_index)', novalidate='')
                     .box-body
                       .form-group
                         label PID
@@ -33,36 +33,17 @@ block content
                 accordion-group
                   accordion-heading Upload File
                   form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
+                    input(type='file', name='{{data.vehicle[v_index]._id}}', id='userFile' ng-model='data.userFile')
+                    button.btn.btn-primary(type='submit',value = 'upload File')
+                      i.fa.fa-plus-square-o
+                      |  Upload
+                accordion-group(ng-repeat='p_index in pid_range[data.vehicle[v_index]._id]' )
+                  accordion-heading PID: {{data.pid[v_index][p_index].pid}} On Network: {{data.pid[v_index][p_index].network}}
+                  form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
                     input(type='file', name='{{data.vehicle[i]._id}}', id='userFile' ng-model='data.userFile')
                     button.btn.btn-primary(type='submit',value = 'upload File')
                       i.fa.fa-plus-square-o
                       |  Upload
-                accordion-group(ng-repeat='pid in data.pid[i] | orderBy:"pid"')
-                  accordion-heading PID: {{pid.pid}} On Network: {{pid.network}}
-          table.table.table-hover
-            tbody
-              tr
-                th Make
-                th Model
-                th Year
-                th Description
-                //th ID
-                th
-              tr(ng-repeat='vehicle in data | orderBy:"make"')
-                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.make}}
-                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.model}}
-                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.year}}
-                td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle.desc}}
-                //td(ng-click="goToRecordDetails(vehicle._id)") {{vehicle._id}}
-                td(ng-click="goToRecordDetails(vehicle._id)")
-                  span.label.label-success(ng-show='c2.active') Uploaded
-                  span.label.label-warning(ng-hide='c2.active') Not Uploaded
-                td
-                  a(href='', ng-click='goToEditRecord(vehicle._id)')
-                    i.fa.fa-edit
-                  =' '
-                  a(href='', ng-click='requestDelete(vehicle)')
-                    i.fa.fa-remove
     .col-md-5.col-xs-12
       .box.box-primary
         tabset
