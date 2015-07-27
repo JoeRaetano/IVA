@@ -179,20 +179,15 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.addSubRecord = function(form)
+    $scope.addSubRecord = function(form, vehicle, index)
     {
       $scope.submitted = true;
       if(form.$valid)
       {
-        if (!$scope.currentItem || $scope.currentItem._id === '')
-        {
-          return;
-        }
-
         // Make new PID document in PID vehicle
         $http.put
         (
-          '/api/vehicle/pid/' + $scope.currentItem._id,
+          '/api/vehicle/pid/' + vehicle._id,
           {
             pid: $scope.data.vehiclePid,
             network: $scope.data.vehicleNet
@@ -201,21 +196,18 @@ angular.module('IVA_App')
         {
           $scope.message = 'Successfully Updated Item';
           $scope.inEditMode = false;
-          $http.get('/api/vehicle/'+ $scope.currentItem._id).success(function(vehicleData)
-          {
-            $scope.currentItem = vehicleData;
-            $scope.data.vehiclePid = '';
-            $scope.data.vehicleNet = '';
-          });
-          $http.get('/api/vehicle/pid/' + currentId).success(function( vehicleData ) {
-            $scope.data = vehicleData;
-          });
+          $scope.getSubRecordDetails(vehicle._id, index)
+          //$http.get('/api/vehicle/pid/' + vehicle._id).success(function( pidData ) {
+            //$scope.data.pid[index] = pidData;
+          //});
         }).catch(function () {
           $scope.errors.other = 'unable to save changes to vehicle';
           $scope.message = '';
           dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
         });
       }
+      $scope.data.vehiclePid = '';
+      $scope.data.vehicleNet = '';
     };
 
     $scope.getSubRecordDetails = function(id, i)
@@ -366,7 +358,7 @@ angular.module('IVA_App')
       });
     };
 
-    $scope.uploadFile = function(form)
+    $scope.uploadFile = function(form, id, index)
     {
       var file = $scope.userFile;
       //$scope.log(file)
