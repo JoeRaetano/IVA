@@ -22,8 +22,9 @@ angular.module('IVA_App')
     );
     $scope.data = [];
     $scope.data.vehicle = [];
-    $scope.data.pid = [];
+    $scope.data.pid;
     $scope.range = [];
+    $scope.pid_range = {};
 
     $scope.currentItem = null;
     $scope.inEditMode = false;
@@ -49,7 +50,7 @@ angular.module('IVA_App')
       {
         $scope.range.push(i);
       }
-      $scope.data.vehicle.length
+      $scope.data.pid = new Array($scope.data.vehicle.length)
     })
 
 
@@ -194,12 +195,9 @@ angular.module('IVA_App')
           }
         ).then(function()
         {
+          $scope.getSubRecordDetails(vehicle._id, index)
           $scope.message = 'Successfully Updated Item';
           $scope.inEditMode = false;
-          $scope.getSubRecordDetails(vehicle._id, index)
-          //$http.get('/api/vehicle/pid/' + vehicle._id).success(function( pidData ) {
-            //$scope.data.pid[index] = pidData;
-          //});
         }).catch(function () {
           $scope.errors.other = 'unable to save changes to vehicle';
           $scope.message = '';
@@ -210,10 +208,16 @@ angular.module('IVA_App')
       $scope.data.vehicleNet = '';
     };
 
-    $scope.getSubRecordDetails = function(id, i)
+    $scope.getSubRecordDetails = function(id, index)
     {
       $http.get('/api/vehicle/pid/' + id).success(function( pidData ) {
-        $scope.data.pid[i] = pidData;
+        $scope.data.pid[index] = pidData;
+
+        $scope.pid_range[id] = [];
+        for( var i = 0; i < $scope.data.pid[index].length; i++)
+        {
+          $scope.pid_range[id].push(i)
+        }
       });
     }
 
