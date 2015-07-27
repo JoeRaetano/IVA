@@ -360,10 +360,24 @@ angular.module('IVA_App')
 
     $scope.uploadFile = function(form, id, index)
     {
-      var file = $scope.userFile;
-      //$scope.log(file)
-      dialogs.confirm(file);
-      $http.post('/api/file/', $scope.userFile );
+      if(form.$valid)
+      {
+        var file = document.getElementById("userFile").value;
+
+        //var file = $scope.data.userFile;
+        dialogs.confirm(file);
+
+        //$scope.log(file)
+        $http.post
+        (
+          '/api/file',
+          {
+            Name: "yes",
+            File: file,
+            id: id
+          }
+        );
+      }
     };
   });
 
