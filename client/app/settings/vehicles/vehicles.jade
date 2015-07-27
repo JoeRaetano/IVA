@@ -17,9 +17,8 @@ block content
               accordion-heading {{data.vehicle[i].year}} {{data.vehicle[i].make}} {{data.vehicle[i].model}}
               accordian
                 accordion-group
-                  accordion-heading
-                    | Add Pid
-                  form(name='addPid', ng-submit='addSubRecord(addPid)', novalidate='')
+                  accordion-heading Add Pid
+                  form(name='addPid', ng-submit='addSubRecord(addPid, data.vehicle[i], i)', novalidate='')
                     .box-body
                       .form-group
                         label PID
