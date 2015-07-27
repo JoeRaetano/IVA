@@ -30,9 +30,15 @@ block content
                       button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
                         i.fa.fa-plus-square-o
                         |  Create
+                accordion-group
+                  accordion-heading Upload File
+                  form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
+                    input(type='file', name='{{data.vehicle[i]._id}}', id='userFile' ng-model='data.userFile')
+                    button.btn.btn-primary(type='submit',value = 'upload File')
+                      i.fa.fa-plus-square-o
+                      |  Upload
                 accordion-group(ng-repeat='pid in data.pid[i] | orderBy:"pid"')
                   accordion-heading PID: {{pid.pid}} On Network: {{pid.network}}
-
           table.table.table-hover
             tbody
               tr
