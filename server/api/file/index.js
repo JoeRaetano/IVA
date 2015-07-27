@@ -25,7 +25,6 @@ router.post('/', [multer({ dest: './uploads/'}), function(req,res)
 
     var columns = true;
     parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
-//    console.log('done')
     //res.redirect('/settings/vehicles/' + vehicle_id);
   }]);
 
