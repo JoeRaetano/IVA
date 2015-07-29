@@ -13,30 +13,46 @@ block content
                   i.fa.fa-search
         .box-body.table-responsive.no-padding
           accordion(close-others='oneAtATime')
+            //  LIST VEHICLES
+                Iterates over every Vehicle in the Vehicles Collection and displays the Vehicle information.
+                Each vehicle is an item in the accordian list.
             accordion-group(ng-repeat='v_index in range' ng-click="getSubRecordDetails(data.vehicle[v_index]._id, v_index)")
               accordion-heading {{data.vehicle[v_index].year}} {{data.vehicle[v_index].make}} {{data.vehicle[v_index].model}}
-              accordian
+              // Accordion information for each Vehicle in the Vehicles Collection
+              accordion
+                // Item for adding new PID to list of the Vehicle's PIDs
                 accordion-group
                   accordion-heading Add Pid
+                  // Form for submitting new PID information
                   form(name='addPid', ng-submit='addSubRecord(addPid, data.vehicle[v_index], v_index)', novalidate='')
                     .box-body
                       .form-group
+                        // Form component for inputing PID data
                         label PID
                         input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='data.vehiclePid', required)
+                        // Form component for inputing Network data
                         .form-group
                         label Network
                         input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='data.vehicleNet', required)
                     .box-footer
+                      // Button to submit new PID
                       button.btn.btn-primary(type='submit',ng-disabled='addPid.$invalid')
                         i.fa.fa-plus-square-o
                         |  Create
+                // Item for uploading a file of PID and Function items
                 accordion-group
                   accordion-heading Upload File
+                  // Form for uploading PID and Function file
                   form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
+                    //  The name attribute is {{data.vehicle[v_index]._id}} so that the /api/file script can have
+                        access to the id of the vehicle that the files information is being saved to.
                     input(type='file', name='{{data.vehicle[v_index]._id}}', id='userFile' ng-model='data.userFile')
                     button.btn.btn-primary(type='submit',value = 'upload File')
                       i.fa.fa-plus-square-o
                       |  Upload
+                //  LIST PIDS
+                    Iterates over every PID that belongs to the current Vehicle, and displays the PID's information
+                    Each PID is an item in the accordion list
                 accordion-group(ng-repeat='p_index in pid_range[data.vehicle[v_index]._id]' )
                   accordion-heading PID: {{data.pid[v_index][p_index].pid}} On Network: {{data.pid[v_index][p_index].network}}
                   form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
