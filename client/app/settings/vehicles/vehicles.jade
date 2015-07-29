@@ -55,11 +55,26 @@ block content
                     Each PID is an item in the accordion list
                 accordion-group(ng-repeat='p_index in pid_range[data.vehicle[v_index]._id]' )
                   accordion-heading PID: {{data.pid[v_index][p_index].pid}} On Network: {{data.pid[v_index][p_index].network}}
-                  form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
-                    input(type='file', name='{{data.vehicle[i]._id}}', id='userFile' ng-model='data.userFile')
-                    button.btn.btn-primary(type='submit',value = 'upload File')
-                      i.fa.fa-plus-square-o
-                      |  Upload
+                  accordion
+                    // Item for adding a new Function to the PID
+                    accordion-group
+                      accordion-heading Add Function
+                      form(name='addFunc', ng-submit='addSubRecord(addFunc)', novalidate='')
+                        .box-body
+                          .form-group
+                            label Function
+                            input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='funcDesc', required)
+                            .form-group
+                            label Byte Sequence
+                            input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='funcBytes', required)
+                        .box-footer
+                          button.btn.btn-primary(type='submit',ng-disabled='addFunc.$invalid')
+                            i.fa.fa-plus-square-o
+                            |  Create
+
+
+
+
     .col-md-5.col-xs-12
       .box.box-primary
         tabset
