@@ -206,6 +206,36 @@ angular.module('IVA_App')
       }
       $scope.data.vehiclePid = '';
       $scope.data.vehicleNet = '';
+
+      if(form.$valid)
+      {
+        // Make new PID document in PID collection
+        $http.put
+        (
+          '/api/pid/func/' + $scope.currentItem._id,
+          {
+            function: $scope.funcDesc,
+            bytes: $scope.funcBytes
+          }
+        ).then(function()
+          {
+            $scope.message = 'Successfully Updated Item';
+            $scope.inEditMode = false;
+            $http.get('/api/pid/'+ $scope.currentItem._id).success(function(pidData)
+            {
+              $scope.currentItem = pidData;
+              $scope.funcDesc = '';
+              $scope.funcBytes = '';
+            });
+            $http.get('/api/pid/func/' + currentId).success(function( pidData ) {
+              $scope.data = pidData;
+            });
+          }).catch(function () {
+            $scope.errors.other = 'unable to save changes to pid';
+            $scope.message = '';
+            dialogs.error('PID Record Not Updated', 'An error occurred while updating the collection.');
+          });
+      }
     };
 
     $scope.getSubRecordDetails = function(id, index)
