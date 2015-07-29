@@ -51,7 +51,7 @@ angular.module('IVA_App')
         $scope.range.push(i);
       }
       $scope.data.pid = new Array($scope.data.vehicle.length)
-    })
+    });
 
 
     /**
@@ -59,9 +59,9 @@ angular.module('IVA_App')
      * @desc Returns the page back to the main/parent listing
      * @memberOf IVA.VehicleController
      */
-    $scope.returnToList = function() {
-      $location.path('/settings/vehicles/');
-    };
+   // $scope.returnToList = function() {
+     // $location.path('/settings/vehicles/');
+    //};
 
     /**
      * @name goToRecordDetails
@@ -69,9 +69,9 @@ angular.module('IVA_App')
      * @param {String} id Id number of the record
      * @memberOf IVA.VehicleController
      */
-    $scope.goToRecordDetails = function(id) {
-      $location.path( '/settings/vehicles/' + id );
-    };
+    //$scope.goToRecordDetails = function(id) {
+      //$location.path( '/settings/vehicles/' + id );
+    //};
 
     /**
      * @name goToEditRecord
@@ -89,9 +89,9 @@ angular.module('IVA_App')
      * @param {String} id Id number of the PID selected
      * @memberOf IVA.VehicleController
      */
-    $scope.goToPIDDetails = function(id) {
-      $location.path( '/settings/pids/' + id );
-    };
+    //$scope.goToPIDDetails = function(id) {
+      //$location.path( '/settings/pids/' + id );
+    //};
 
     /**
      * @name goToEditSubRecord
@@ -99,18 +99,18 @@ angular.module('IVA_App')
      * @param {String} id Id number of the record
      * @memberOf IVA.VehicleController
      */
-    $scope.goToEditSubRecord = function(id) {
-      $location.path( '/settings/pids/edit/' + id );
-    };
+    //$scope.goToEditSubRecord = function(id) {
+      //$location.path( '/settings/pids/edit/' + id );
+    //};
 
     /**
      * @name toggleEditMode
      * @desc Flips edit mode on/off
      * @memberOf IVA.VehicleController
      */
-    $scope.toggleEditMode = function(){
-      $scope.inEditMode = $scope.inEditMode === false;
-    };
+   // $scope.toggleEditMode = function(){
+     // $scope.inEditMode = $scope.inEditMode === false;
+    //};
 
     /**
      * @name addRecord
