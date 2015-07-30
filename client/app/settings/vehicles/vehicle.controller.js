@@ -21,10 +21,10 @@ angular.module('IVA_App')
       {title: 'Vehicles', link: '/settings/vehicles'}
     );
     $scope.data = [];
-    $scope.data.vehicle = [];
-    $scope.data.pid;
-    $scope.range = [];
-    $scope.pid_range = {};
+    $scope.data.vehicles = {};
+    $scope.data.pids = {};
+    $scope.v_range = {};
+    $scope.p_range = {};
 
     //$scope.currentItem = null;
     $scope.inEditMode = false;
@@ -43,12 +43,11 @@ angular.module('IVA_App')
       $scope.status.isopen = !$scope.status.isopen;
     };
 
-    $http.get('/api/vehicle').success(function(vehicleData) {
-      $scope.data.vehicle = vehicleData;
+    $http.get('/api/vehicle').success(function (vehicleData) {
+      $scope.data.vehicles["base"] = vehicleData;
 
-      for( var i = 0; i < $scope.data.vehicle.length; i++)
-      {
-        $scope.range.push(i);
+      for (var i = 0; i < $scope.data.vehicle.length; i++) {
+        $scope.v_range["base"].push(i);
       }
       //$scope.data.pid = new Array($scope.data.vehicle.length)
     });
@@ -182,21 +181,20 @@ angular.module('IVA_App')
         // Make new PID document in PID vehicle
         $http.put
         (
-          '/api/vehicle/pid/' + vehicle._id,
+          '/api/vehicle/pid/' + id,
           {
             pid: $scope.data.vehiclePid,
             network: $scope.data.vehicleNet
           }
-        ).then(function()
-        {
-          $scope.getSubRecordDetails(vehicle._id, index)
-          $scope.message = 'Successfully Updated Item';
-          $scope.inEditMode = false;
-        }).catch(function () {
-          $scope.errors.other = 'unable to save changes to vehicle';
-          $scope.message = '';
-          dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
-        });
+        ).then(function () {
+            $scope.getSubRecordDetails(id)
+            $scope.message = 'Successfully Updated Item';
+            $scope.inEditMode = false;
+          }).catch(function () {
+            $scope.errors.other = 'unable to save changes to vehicle';
+            $scope.message = '';
+            dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
+          });
       }
       $scope.data.vehiclePid = '';
       $scope.data.vehicleNet = '';
@@ -231,10 +229,10 @@ angular.module('IVA_App')
       */
     };
 
-    $scope.getSubRecordDetails = function(id, index)
-    {
-      $http.get('/api/vehicle/pid/' + id).success(function( pidData ) {
-        $scope.data.pid[index] = pidData;
+    $scope.getSubRecordDetails = function (id) {
+      $http.get('/api/vehicle/pid/' + id).success(function (pidData) {
+        $scope.data.pids[id] = pidData;
+
 
         $scope.pid_range[id] = [];
         for (var i = 0; i < $scope.data.pid[index].length; i++) {
