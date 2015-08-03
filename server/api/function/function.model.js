@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
 
 var FunctionSchema = new Schema(
   {
-    function: String,
-    bytes: String,
-    pids: Array
+    function : String,  // A short description of this function
+    bytes    : String,  // The bytes associated with this function
+    pid      : String   // The document id of the PID this function is associated with
   });
 
 module.exports = mongoose.model('Function', FunctionSchema);
