@@ -48,65 +48,6 @@ angular.module('IVA_App')
       $scope.data.vehicles["base"] = vehicleData;
     });
 
-
-    /**
-     * @name returnToList
-     * @desc Returns the page back to the main/parent listing
-     * @memberOf IVA.VehicleController
-     */
-    // $scope.returnToList = function() {
-    // $location.path('/settings/vehicles/');
-    //};
-
-    /**
-     * @name goToRecordDetails
-     * @desc Redirects to the record-level detail view
-     * @param {String} id Id number of the record
-     * @memberOf IVA.VehicleController
-     */
-    //$scope.goToRecordDetails = function(id) {
-    //$location.path( '/settings/vehicles/' + id );
-    //};
-
-    /**
-     * @name goToEditRecord
-     * @desc Redirects to the page designed to edit the record's information
-     * @param {String} id Id number of the record
-     * @memberOf IVA.VehicleController
-     */
-    $scope.goToEditRecord = function (id) {
-      $location.path('/settings/vehicles/edit/' + id);
-    };
-
-    /**
-     * @name goToPIDDetails
-     * @desc Redirects to the record-level detail view for a specified PID
-     * @param {String} id Id number of the PID selected
-     * @memberOf IVA.VehicleController
-     */
-    //$scope.goToPIDDetails = function(id) {
-    //$location.path( '/settings/pids/' + id );
-    //};
-
-    /**
-     * @name goToEditSubRecord
-     * @desc Redirects to the page designed to edit the specified PID's information
-     * @param {String} id Id number of the record
-     * @memberOf IVA.VehicleController
-     */
-    //$scope.goToEditSubRecord = function(id) {
-    //$location.path( '/settings/pids/edit/' + id );
-    //};
-
-    /**
-     * @name toggleEditMode
-     * @desc Flips edit mode on/off
-     * @memberOf IVA.VehicleController
-     */
-    // $scope.toggleEditMode = function(){
-    // $scope.inEditMode = $scope.inEditMode === false;
-    //};
-
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
@@ -129,63 +70,9 @@ angular.module('IVA_App')
           year  : $scope.data.vehicleYear
         }
 
-            // Fetch the updated Vehicle Collection data
-            $http.get('/api/vehicle').success
-            (
-              function (vehicleData) {
-                // Set the scope's data to the fetched data
-                $scope.data.vehicle = vehicleData;
-
-                $scope.range.push($scope.range.length);
-                $scope.data.pid.length = $scope.data.vehicle.length
-              }
-            );
-
-            // Reset the form values to blank
-            $scope.data.vehicleMake = '';
-            $scope.data.vehicleModel = '';
-            $scope.data.vehicleYear = '';
-            $scope.data.vehicleDesc = '';
-          }
-        )
-          .catch // Catch any thrown errors
-        (
-          function () {
-            // set invalid
-            $scope.errors.other = 'Unable to save vehicle';
-            $scope.message = '';
-            dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
-          }
-        );
       }
     };
 
-    /**
-     * @name addPID
-     * @desc Updates a records list of PIDs
-     * @param {Form} form The HTML form object
-     * @memberOf IVA.VehicleController
-     */
-    $scope.addSubRecord = function (form, id) {
-      $scope.submitted = true;
-      if (form.$valid) {
-        // Make new PID document in PID vehicle
-        $http.put
-        (
-          '/api/vehicle/pid/' + id,
-          {
-            pid: $scope.data.vehiclePid,
-            network: $scope.data.vehicleNet
-          }
-        ).then(function () {
-            $scope.getSubRecordDetails(id)
-            $scope.message = 'Successfully Updated Item';
-            $scope.inEditMode = false;
-          }).catch(function () {
-            $scope.errors.other = 'unable to save changes to vehicle';
-            $scope.message = '';
-            dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
-          });
       }
       $scope.data.vehiclePid = '';
       $scope.data.vehicleNet = '';
@@ -217,8 +104,7 @@ angular.module('IVA_App')
             dialogs.error('PID Record Not Updated', 'An error occurred while updating the collection.');
           });
       }
-      */
-    };
+      else { return }
 
       if (form.$valid)
       {
@@ -286,21 +172,6 @@ angular.module('IVA_App')
         }
       });
     };
-    /*
-     $scope.getSubRecordDetails = function(id, index)
-     {
-     $http.get('/api/vehicle/pid/' + id).success(function( pidData ) {
-     $scope.data.pid[index] = pidData;
-
-     $scope.pid_range[id] = [];
-     for( var i = 0; i < $scope.data.pid[index].length; i++)
-     {
-     $scope.pid_range[id].push(i)
-     }
-     });
-     }
-     */
-
 
     $scope.queryRecords = function (form) {
       $scope.submitted = true;
@@ -435,13 +306,6 @@ angular.module('IVA_App')
       });
     };
 
-    /**
-     * @name requestDelete
-     * @desc Requests the deletion of an item & forces the user to confirm before continuing
-     * @param item The item to be deleted
-     * @memberOf IVA.VehicleController
-     */
-    $scope.requestPIDDelete = function (item) {
       var dlg = dialogs.confirm(
         'Delete PID',
         'Are you certain you want to delete this PID? (' + item.name + ')');
@@ -452,26 +316,6 @@ angular.module('IVA_App')
       }, function (btn) {
         // operation was cancelled. Continue on as if nothing happened.
       });
-    };
-
-    $scope.uploadFile = function (form, id, index) {
-      if (form.$valid) {
-        var file = document.getElementById("userFile").value;
-
-        //var file = $scope.data.userFile;
-        dialogs.confirm(file);
-
-        //$scope.log(file)
-        $http.post
-        (
-          '/api/file',
-          {
-            Name: "yes",
-            File: file,
-            id: id
-          }
-        );
-      }
     };
   });
 
