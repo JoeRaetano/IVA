@@ -6,12 +6,12 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var VehicleSchema = new Schema({
-  make: String,
-  model: String,
-  year: Number,
-  desc: String
-});
+var VehicleSchema = new Schema(
+  {
+    make  : String, // The make of the vehicle
+    model : String, // The model of the vehicle
+    year  : Number  // The year the vehicle was made
+  });
 
 module.exports = mongoose.model('Vehicle', VehicleSchema);
 
