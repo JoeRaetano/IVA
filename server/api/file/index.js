@@ -1,18 +1,14 @@
 'use strict';
 
-var express = require('express');
-var multer = require('multer');
-var fs = require('fs');
-var Parse = require('csv-parse');
-var vehicle_id;
-var Pids = require('../pid/pid.model');
-var Functions = require('../function/function.model');
-var mongoose = require('mongoose');
-
-var vehicle_id = ""
 var controller = require('./file.controller');
-
-var waiting = false;
+var express    = require('express');
+var fs         = require('fs');
+var Functions  = require('../function/function.model');
+var mongoose   = require('mongoose');
+var multer     = require('multer');
+var Parse      = require('csv-parse');
+var Pids       = require('../pid/pid.model');
+//var search     = require('js-search');
 
 var router = express.Router();
 
