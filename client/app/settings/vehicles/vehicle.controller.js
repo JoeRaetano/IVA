@@ -23,8 +23,9 @@ angular.module('IVA_App')
     $scope.data = [];
     $scope.data.vehicles = {};
     $scope.data.pids = {};
-    $scope.v_range = {};
-    $scope.p_range = {};
+    $scope.data.functions = {};
+    //$scope.v_range = {};
+    //$scope.p_range = {};
 
     //$scope.currentItem = null;
     $scope.inEditMode = false;
@@ -45,11 +46,6 @@ angular.module('IVA_App')
 
     $http.get('/api/vehicle').success(function (vehicleData) {
       $scope.data.vehicles["base"] = vehicleData;
-
-      for (var i = 0; i < $scope.data.vehicle.length; i++) {
-        $scope.v_range["base"].push(i);
-      }
-      //$scope.data.pid = new Array($scope.data.vehicle.length)
     });
 
 
@@ -117,26 +113,21 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.addRecord = function (form) {
-      $scope.submitted = true;
-      if (form.$valid) {
-        // Creates a new record in the Vehicle Collection.
-        // The new record is created with the information specified in the supplied form.
-        $http.post
-        (
-          '/api/vehicle', // Post to Vehicle Collection
-          {
-            make: $scope.data.vehicleMake,
-            model: $scope.data.vehicleModel,
-            year: $scope.data.vehicleYear,
-            desc: $scope.data.vehicleDesc,
-            active: false
-          }
-        )
-          .then // Once the post has been made, perform the following commands:
-        (
-          function () {
-            $scope.message = 'Vehicle Data Added';
+    $scope.addRecord = function (collection, form, id) {
+      var post_route = "";
+      var get_route = "";
+      var collection_data = {};
+
+      if( collection == "vehicle" )
+      {
+        post_route = vehicle_route;
+        get_route  = vehicle_route;
+        collection_data =
+        {
+          make  : $scope.data.vehicleMake,
+          model : $scope.data.vehicleModel,
+          year  : $scope.data.vehicleYear
+        }
 
             // Fetch the updated Vehicle Collection data
             $http.get('/api/vehicle').success
@@ -229,14 +220,69 @@ angular.module('IVA_App')
       */
     };
 
-    $scope.getSubRecordDetails = function (id) {
-      $http.get('/api/vehicle/pid/' + id).success(function (pidData) {
-        $scope.data.pids[id] = pidData;
+      if (form.$valid)
+      {
+        // Creates a new record in the Vehicle Collection.
+        // The new record is created with the information specified in the supplied form.
+          $http.post
+          (
+            post_route, // Post to Vehicle Collection
+            collection_data
+          )
+            .then // Once the post has been made, perform the following commands:
+          (
+            function () {
+              // Fetch the updated Vehicle Collection data
+              $scope.getRecordDetails( get_route, id )
 
+            }
+          )
+            .catch // Catch any thrown errors
+          (
+            function () {
+              // set invalid
+              $scope.errors.other = 'Unable to save vehicle';
+              $scope.message = '';
+              dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
+            }
+          );
+      }
 
-        $scope.pid_range[id] = [];
-        for (var i = 0; i < $scope.data.pid[index].length; i++) {
-          $scope.pid_range[id].push(i)
+      // Reset the form values to blank
+      if( collection == "vehicle" )
+      {
+        $scope.data.vehicleMake  = '';
+        $scope.data.vehicleModel = '';
+        $scope.data.vehicleYear  = '';
+      }
+      else if( collection == "pid" )
+      {
+        $scope.data.vehiclePid   = '';
+        $scope.data.vehicleNet   = '';
+      }
+      else if( collection == "function" )
+      {
+        $scope.data.funcDesc     = '';
+        $scope.data.funcBytes    = '';
+      }
+    };
+
+    $scope.getRecordDetails = function ( get_route, id )
+    {
+      //dialogs.confirm(id)
+      $http.get( get_route + id ).success( function (recordData)
+      {
+        if( get_route == vehicle_route )
+        {
+          $scope.data.vehicles["base"] = recordData;
+        }
+        else if( get_route == (pid_route + "vehicle/") )
+        {
+          $scope.data.pids[id] = recordData;
+        }
+        else if( get_route == function_route + "pid/" )
+        {
+          $scope.data.functions[id] = recordData;
         }
       });
     };
@@ -278,29 +324,47 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.editRecord = function (form) {
-      $scope.submitted = true;
-      if (form.$valid) {
-        if (!$scope.currentItem || $scope.currentItem._id === '') {
-          return;
+    $scope.editRecord = function (collection, form, record_id, subrecord_id) {
+      var post_route = "";
+      var get_route = "";
+      var collection_data = {};
+
+      if( collection == "vehicle" )
+      {
+        post_route = vehicle_route;
+        get_route  = vehicle_route;
+        collection_data =
+        {
+          make  : $scope.data.vehicleMake,
+          model : $scope.data.vehicleModel,
+          year  : $scope.data.vehicleYear
+        }
+
+      }
+      else if( collection == "pid" )
+      {
+        post_route = pid_route;
+        get_route  = pid_route + "vehicle/";
+        collection_data =
+        {
+          pid     : $scope.data.vehiclePid,
+          network : $scope.data.vehicleNet,
+          vehicle : record_id.toString()
+        }
+
+      }
+      else if( collection == "function" )
+      {
+        post_route = function_route;
+        get_route  = function_route + "pid/";
+        collection_data =
+        {
+          function : $scope.data.funcDesc,
+          bytes    : $scope.data.funcBytes,
+          pid      : record_id.toString()
         }
       }
-
-      $http.put('/api/vehicle/' + $scope.currentItem._id, {
-        make: $scope.currentItem.make,
-        model: $scope.currentItem.model,
-        year: $scope.currentItem.year,
-        desc: $scope.currentItem.desc,
-        active: $scope.currentItem.active
-      }).then(function () {
-        $scope.message = 'Successfully Updated Item';
-        $scope.inEditMode = false;
-      }).catch(function () {
-        $scope.errors.other = 'unable to save changes to vehicle';
-        $scope.message = '';
-        dialogs.error('vehicle Record Not Updated', 'An error occurred while updating the vehicle.');
-      });
-    };
+      else { return }
 
     /**
      * @name deleteRecord
