@@ -79,42 +79,6 @@ exports.update = function(req, res) {
   });
 };
 
-// Updates the list of functions associated with a specified PID.
-exports.updateFunc = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-
-  // Creates a new function.
-  Functions.create(req.body, function(err, func)
-  {
-    if(err) { return handleError(res, err); }
-    return res.json(201, func);
-  });
-
-  // Gets the specified PID.
-  Pids.findById(req.params.id, function (err, pid)
-  {
-    if (err) {
-      return handleError(res, err);
-    }
-    if (!pid) {
-      return res.send(404);
-    }
-
-    // Gets the newly created function.
-    // Adds the specified PID's ID to the newly created function.
-    Functions.findOne(req.body, function (err, func)
-    {
-      // Error checking.
-      if (err) {return handleError(res, err);}
-      if (!func) {return res.send(404);}
-
-      // Specified PID's ID to newly created function's list of PIDs
-      func.pids.push(pid._id);
-      func.save();
-    });
-  });
-};
-
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
   Pids.findById(req.params.id, function (err, pid) {
