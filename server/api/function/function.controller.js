@@ -29,6 +29,18 @@ exports.show = function(req, res) {
   });
 };
 
+exports.getPids = function(req, res) {
+  var id = req.params.id.toString()
+
+  Functions.find({pid : id}, function (err, c2)
+  {
+    if(err) { return handleError(res, err); }
+    if(!c2) { return res.send(404); }
+    return res.json(c2);
+  });
+};
+
+
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   Functions.create(req.body, function(err, c2) {
