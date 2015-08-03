@@ -70,7 +70,7 @@ function onNewRecord(record)
   pid_array.push(record);
 }
 
-function updateDataBase(record)
+function updateDataBase(index)
 {
   var record = pid_array[index]
 
@@ -95,21 +95,24 @@ function updateDataBase(record)
           {
             if (err) { return handleError(res, err)}
 
-          findFunction( record.function, record.bytes, pid_data._id)
-        });
+            pid_data = pid;
+            findFunction(record.function, record.bytes, pid_data._id, index);
+          }
+        );
       }
       else
       {
-        findFunction( record.function, record.bytes, pid_data._id)
+        findFunction(record.function, record.bytes, pid_data[0]._id, index)
       }
     }
   )
 }
 
-function findFunction(argFunc, argBytes, argID)
+function findFunction(argFunc, argBytes, argID, index)
 {
-  Functions.find(
-    {function: argFunc, bytes: argBytes, pids: argID},
+  Functions.find
+  (
+    {function: argFunc, bytes: argBytes, pid: argID},
     function(err, func_data)
     {
       if(err) { return handleError(res, err); }
@@ -122,7 +125,7 @@ function findFunction(argFunc, argBytes, argID)
           {
             function: argFunc,
             bytes: argBytes,
-            pids: argID
+            pid: argID
           },
           function (err, func)
           {
@@ -138,7 +141,11 @@ function findFunction(argFunc, argBytes, argID)
       } // if(!func_data)
       else
       {
-        waiting = false;
+        index += 1;
+        if( index < pid_array.length )
+        {
+          updateDataBase( index )
+        }
       }
     }
   );
@@ -156,6 +163,10 @@ function done(linesRead, sourceFilePath)
     {
       if (err) throw err;
 
+      if( pid_array.length > 0)
+      {
+        updateDataBase(0)
+      }
     }
   );
 }
