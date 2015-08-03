@@ -10,6 +10,12 @@
 angular.module('IVA_App')
   .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
 
+    // Local variable
+    var vehicle_route  = "/api/vehicle/"
+    var pid_route      = "/api/pid/"
+    var function_route = "/api/function/"
+
+
     // general page initialization stuff
     $scope.errors = {};
     $scope.pageTitle = 'Vehicle Management';
@@ -44,7 +50,7 @@ angular.module('IVA_App')
       $scope.status.isopen = !$scope.status.isopen;
     };
 
-    $http.get('/api/vehicle').success(function (vehicleData) {
+    $http.get(vehicle_route).success(function (vehicleData) {
       $scope.data.vehicles["base"] = vehicleData;
     });
 
