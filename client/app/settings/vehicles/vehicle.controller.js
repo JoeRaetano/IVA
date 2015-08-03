@@ -259,15 +259,23 @@ angular.module('IVA_App')
         );
       }
 
-      $http.delete('/api/vehicle/' + record._id, {}).then(function () {
-        $scope.message = 'Successfully deleted Item';
-        $scope.inEditMode = false;
-        $location.path('/settings/vehicles/');
-      }).catch(function () {
-        $scope.errors.other = 'unable to save changes to vehicle mode';
-        $scope.message = '';
-        dialogs.error('vehicle Record Not Deleted', 'An error occurred while deleting the vehicle.');
-      });
+      // Reset the form values to blank
+      if( collection == "vehicle" )
+      {
+        $scope.data.vehicleMake  = '';
+        $scope.data.vehicleModel = '';
+        $scope.data.vehicleYear  = '';
+      }
+      else if( collection == "pid" )
+      {
+        $scope.data.vehiclePid   = '';
+        $scope.data.vehicleNet   = '';
+      }
+      else if( collection == "function" )
+      {
+        $scope.data.funcDesc     = '';
+        $scope.data.funcBytes    = '';
+      }
     };
 
     /**
