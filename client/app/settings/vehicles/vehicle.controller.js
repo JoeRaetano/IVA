@@ -329,25 +329,28 @@ angular.module('IVA_App')
      * @param item The item to be deleted
      * @memberOf IVA.VehicleController
      */
-    $scope.requestDelete = function (item) {
-      var dlg = dialogs.confirm(
-        'Delete Vehicle',
-        'Are you certain you want to delete this vehicle (' + item.make + ' ' + item.model + ', ' + item.year + ')?');
-      dlg.result.then(function (btn) {
-        $scope.confirmed = 'You thought this quite awesome!';
-        $scope.deleteRecord(item);
-        // here's where we actually delete the item
-      }, function (btn) {
-        // operation was cancelled. Continue on as if nothing happened.
-      });
-    };
+    $scope.requestDelete = function (collection, item) {
+      var item_data = "";
+      if( collection == "Vehicle" )
+      {
+        item_data = item.make + " " + item.model + " " + item.year;
+      }
+      else if( collection == "PID" )
+      {
+        item_data = item.pid + " On Network " + item.network;
+      }
+      else if( collection == "Function" )
+      {
+        item_data = item.function + " With Byte Sequence " + item.bytes
+      }
+      else{ return }
 
       var dlg = dialogs.confirm(
-        'Delete PID',
-        'Are you certain you want to delete this PID? (' + item.name + ')');
+        'Delete ' + collection,
+        'Are you certain you want to delete this ' + collection + ' (' + item_data + ')?');
       dlg.result.then(function (btn) {
         $scope.confirmed = 'You thought this quite awesome!';
-        $scope.deleteSubRecord(item);
+        $scope.deleteRecord(collection, item);
         // here's where we actually delete the item
       }, function (btn) {
         // operation was cancelled. Continue on as if nothing happened.
