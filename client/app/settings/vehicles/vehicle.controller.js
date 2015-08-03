@@ -77,7 +77,16 @@ angular.module('IVA_App')
         }
 
       }
-    };
+      else if( collection == "pid" )
+      {
+        post_route = pid_route;
+        get_route  = pid_route + "vehicle/";
+        collection_data =
+        {
+          pid     : $scope.data.vehiclePid,
+          network : $scope.data.vehicleNet,
+          vehicle : id.toString()
+        }
 
       }
       $scope.data.vehiclePid = '';
