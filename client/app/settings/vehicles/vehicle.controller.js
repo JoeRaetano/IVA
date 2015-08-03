@@ -187,7 +187,7 @@ angular.module('IVA_App')
 
     /**
      * @name editRecord
-     * @desc Updates a record based on user input and returns to non-edit mode
+     * @desc Creates a new record based on user input
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
