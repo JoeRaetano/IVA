@@ -233,15 +233,30 @@ angular.module('IVA_App')
       }
       else { return }
 
-    /**
-     * @name deleteRecord
-     * @desc Deletes a record
-     * @param record The record to delete
-     * @memberOf IVA.VehicleController
-     */
-    $scope.deleteRecord = function (record) {
-      if (!record || record._id === '') {
-        return;
+      if (form.$valid) {
+        // Creates a new record in the Vehicle Collection.
+        // The new record is created with the information specified in the supplied form.
+        $http.put
+        (
+          post_route + subrecord_id.toString(), // Post to Vehicle Collection
+          collection_data
+        )
+          .then // Once the post has been made, perform the following commands:
+        (
+          function () {
+            // Fetch the updated Vehicle Collection data
+            $scope.getRecordDetails( get_route, record_id )
+          }
+        )
+          .catch // Catch any thrown errors
+        (
+          function () {
+            // set invalid
+            $scope.errors.other = 'Unable to save vehicle';
+            $scope.message = '';
+            dialogs.error('Vehicle Record Not Created', 'An error occurred while creating the vehicle.');
+          }
+        );
       }
 
       $http.delete('/api/vehicle/' + record._id, {}).then(function () {
