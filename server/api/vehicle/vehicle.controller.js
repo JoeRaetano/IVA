@@ -45,17 +45,6 @@ exports.query = function( req, res )
         console.log(funcs)
       }
     );
-}
-
-exports.showPidsForVehicle = function(req, res) {
-  var id = mongoose.Types.ObjectId(req.params.id);
-
-  Pids.find({vehicles : id}, function (err, c2)
-  {
-    if(err) { return handleError(res, err); }
-    if(!c2) { return res.send(404); }
-    return res.json(c2);
-  });
 };
 
 // Creates a new mode in the DB.
@@ -85,39 +74,6 @@ exports.update = function(req, res) {
         return handleError(res, err);
       }
       return res.json(200, c2);
-    });
-  });
-};
-
-exports.updatePid = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-
-  Pids.create(req.body, function(err, pid)
-  {
-    if(err) { return handleError(res, err); }
-    return res.json(201, pid);
-  });
-
-  Vehicles.findById(req.params.id, function (err, vehicle)
-  {
-    if (err) {
-      return handleError(res, err);
-    }
-    if (!vehicle) {
-      return res.send(404);
-    }
-
-    Pids.findOne(req.body, function (err, pid)
-    {
-      if (err) {
-        return handleError(res, err);
-      }
-      if (!pid) {
-        return res.send(404);
-      }
-
-      pid.vehicles.push(vehicle._id);
-      pid.save();
     });
   });
 };
