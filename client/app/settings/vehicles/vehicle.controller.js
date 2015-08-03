@@ -284,19 +284,34 @@ angular.module('IVA_App')
      * @param record The record to delete
      * @memberOf IVA.VehicleController
      */
-    $scope.deleteSubRecord = function (record) {
-      if (!record || record._id === '') {
-        return;
+    $scope.deleteRecord = function (collection, record) {
+      var delete_route = "";
+      var get_route    = "";
+      var get_id       = "";
+
+      if (!record || record._id === '') { return; }
+
+      if( collection == "Vehicle" )
+      {
+        delete_route = vehicle_route;
+        get_route    = vehicle_route;
+        get_id       = "";
+      }
+      else if( collection == "PID" )
+      {
+        delete_route = pid_route;
+        get_route    = pid_route + 'vehicle/'
+        get_id       = record.vehicle;
+      }
+      else if( collection == "Function" )
+      {
+        delete_route = function_route;
+        get_route    = function_route + 'pid/'
+        get_id       = record.pid;
       }
 
-      $http.delete('/api/pid/' + record._id, {}).then(function () {
-        $http.get('/api/vehicle/' + currentId).success(function (vehicleData) {
-          $scope.currentItem = vehicleData;
-          $scope.crumbs.push({title: $scope.currentItem.name, link: '/settings/vehicles/' + currentId});
-        });
-        $http.get('/api/vehicle/pid/' + currentId).success(function (vehicleData) {
-          $scope.data = vehicleData;
-        });
+
+      $http.delete(delete_route + record._id, {}).then(function () {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
       }).catch(function () {
