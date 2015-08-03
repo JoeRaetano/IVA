@@ -64,41 +64,35 @@ function parseCSVFile(sourceFilePath, vehicleId, columns, onNewRecord, handleErr
   source.pipe(parser);
 }
 
-function onNewRecord(record) {
-  //console.log(record.pid)
-  // console.log(record.pid.toString())
-  // console.log(vehicle_id)
+function onNewRecord(record)
+{
   pid_array.push(record);
 }
 
 function updateDataBase(record)
 {
-  console.log("function updateDataBase(record)")
-  console.log(record)
-  console.log("")
+  var record = pid_array[index]
 
   // Search to see if the PID specified by the record has already been created in the Pids database.
-  Pids.find(
-    {pid: record.pid, network: record.network, vehicles: vehicle_id},
-    function(err, pid_data)
-    {
-      if(err)
-      {return handleError(res, err);}
-      console.log("Pids.find(")
-      console.log(pid_data)
-      console.log("")
+  Pids.find
+  (
+    {pid: record.pid, network: record.network, vehicle: vehicle_id},
+    function (err, pid_data) {
+      if(err) { return handleError(res, err); }
 
       // If the PID has not already been created, then create a new PID with the specified information.
-      if(pid_data.length == 0)
+      if (pid_data.length == 0)
       {
-        Pids.create({pid: record.pid, network: record.network, vehicles: vehicle_id}, function(err, pid)
-        {
-          if(err) { return handleError(res, err); }
-          console.log("if(pid_data.length == 0)")
-          console.log(pid)
-          console.log("")
-
-          pid_data = pid;
+        Pids.create
+        (
+          {
+            pid: record.pid,
+            network: record.network,
+            vehicle: vehicle_id
+          },
+          function (err, pid)
+          {
+            if (err) { return handleError(res, err)}
 
           findFunction( record.function, record.bytes, pid_data._id)
         });
@@ -107,13 +101,8 @@ function updateDataBase(record)
       {
         findFunction( record.function, record.bytes, pid_data._id)
       }
-
-      // Find the function specified by the record.
-
-      console.log("Done Functions.find")
     }
-  );
-  console.log("Done Pids.find")
+  )
 }
 
 function findFunction(argFunc, argBytes, argID)
@@ -122,14 +111,7 @@ function findFunction(argFunc, argBytes, argID)
     {function: argFunc, bytes: argBytes, pids: argID},
     function(err, func_data)
     {
-      if (err)
-      {
-        return handleError(res, err);
-      }
-      console.log("Functions.find(")
-      console.log(func_data)
-      console.log("")
-
+      if(err) { return handleError(res, err); }
 
       // If the function has not already been created, create a new function with the specified information.
       if (func_data.length == 0)
@@ -143,22 +125,20 @@ function findFunction(argFunc, argBytes, argID)
           },
           function (err, func)
           {
-            if (err)
-            {return handleError(res, err);}
-            console.log("Functions.create")
-            console.log(func)
-            console.log("")
-            waiting = false;
+            if(err) { return handleError(res, err); }
+
+            index += 1;
+            if( index < pid_array.length )
+            {
+              updateDataBase( index )
+            }
           }
         );
-        console.log("Done Function Create")
-
       } // if(!func_data)
       else
       {
         waiting = false;
       }
-      console.log("Done if(!func_data)")
     }
   );
 }
@@ -167,42 +147,16 @@ function onError(error){
  // console.log(error)
 }
 
-function done(linesRead, sourceFilePath){
- // console.log("Done parsing file");
- // console.log(linesRead);
-  fs.unlink( sourceFilePath, function (err) {
-    if (err) throw err;
-
-  //  var i = 0;
-  //  while (i < pid_array.length)
-  //  {
-  //    if( !waiting )
-  //    {
-  //      updateDataBase(pid_array[i]);
-  //      i++;
-  //    }
-  //    waiting = true;
-  //  }
- //   console.log('successfully deleted file after parsing');
-    for(var i = 0; i < pid_array.length; i++)
+function done(linesRead, sourceFilePath)
+{
+  fs.unlink
+  ( sourceFilePath,
+    function (err)
     {
-      console.log("starting iteration" + i)
-  //    waiting = true;
-      updateDataBase(pid_array[i])
-      //while(waiting){}
-      console.log("ending iteration" + i)
+      if (err) throw err;
 
     }
-  //  console.log("-----")
-  //  console.log(pid_array[0])
-  //  console.log("-----")
-
-  //  updateDataBase(pid_array[0])
-  //  updateDataBase(pid_array[1])
-
-
-    //  console.log('done here')
-  });
+  );
 }
 
 
