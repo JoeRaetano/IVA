@@ -314,10 +314,12 @@ angular.module('IVA_App')
       $http.delete(delete_route + record._id, {}).then(function () {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
+        $scope.getRecordDetails( get_route, get_id )
+        //$location.path('/settings/vehicles/');
       }).catch(function () {
-        $scope.errors.other = 'unable to save changes to vehicle mode';
+        $scope.errors.other = 'unable to save changes to item';
         $scope.message = '';
-        dialogs.error('vehicle Record Not Deleted', 'An error occurred while deleting the vehicle.');
+        dialogs.error( collection + ' Record Not Deleted', 'An error occurred while deleting the ' + collection);
       });
     };
 
