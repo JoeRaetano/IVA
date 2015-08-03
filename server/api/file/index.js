@@ -13,6 +13,7 @@ var Pids       = require('../pid/pid.model');
 var router = express.Router();
 
 var pid_array = [];
+var vehicle_id = ""
 
 router.post('/', [multer({ dest: './uploads/'}), function(req,res)
   {
