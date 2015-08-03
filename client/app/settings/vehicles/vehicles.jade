@@ -14,17 +14,40 @@ block content
         .box-body.table-responsive.no-padding
           accordion(close-others='oneAtATime')
             //  LIST VEHICLES
-                Iterates over every Vehicle in the Vehicles Collection and displays the Vehicle information.
-                Each vehicle is an item in the accordian list.
-            accordion-group(ng-repeat='v_index in range' ng-click="getSubRecordDetails(data.vehicle[v_index]._id, v_index)")
-              accordion-heading {{data.vehicle[v_index].year}} {{data.vehicle[v_index].make}} {{data.vehicle[v_index].model}}
-              // Accordion information for each Vehicle in the Vehicles Collection
-              accordion
+                Iterates over every Vehicle in the Vehicle Collection, and displays the Vehicle's information
+                Each Vehicle is an item in the accordion list
+            accordion-group(ng-repeat='vehicle in data.vehicles["base"] | orderBy:"make"')
+              accordion-heading
+                a(ng-click='getRecordDetails("/api/pid/vehicle/", vehicle._id)') {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
+                a(href='', ng-click='requestDelete("Vehicle", vehicle)', style='float:right')
+                  i.fa.fa-remove
+              accordion(close-others='oneAtATime')
+                // Item for editing the current Vehicles information
+                accordion-group
+                  accordion-heading
+                    span Edit Vehicle Information
+                  // Form for submitting edits to the current Vehicles information
+                  form(name='editVehicle', ng-submit='editRecord("vehicle", editVehicle, "", vehicle._id)', novalidate='')
+                    .box-body
+                      .form-group
+                        label Make
+                        input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='data.vehicleMake', required)
+                        .form-group
+                        label Model
+                        input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='data.vehicleModel', required)
+                        .form-group
+                        label Year
+                        input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='data.vehicleYear', required)
+                    .box-footer
+                      button.btn.btn-primary(type='submit',ng-disabled='editVehicle.$invalid')
+                        i.fa.fa-edit
+                        |  Edit
                 // Item for adding new PID to list of the Vehicle's PIDs
                 accordion-group
-                  accordion-heading Add Pid
+                  accordion-heading
+                    span Add Pid
                   // Form for submitting new PID information
-                  form(name='addPid', ng-submit='addSubRecord(addPid, data.vehicle[v_index], v_index)', novalidate='')
+                  form(name='addPid', ng-submit='addRecord( "pid", addPid, vehicle._id )', novalidate='')
                     .box-body
                       .form-group
                         // Form component for inputing PID data
@@ -41,45 +64,99 @@ block content
                         |  Create
                 // Item for uploading a file of PID and Function items
                 accordion-group
-                  accordion-heading Upload File
+                  accordion-heading
+                    span Upload File
                   // Form for uploading PID and Function file
                   form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
-                    //  The name attribute is {{data.vehicle[v_index]._id}} so that the /api/file script can have
+                    //  The name attribute is {{vehicle._id}} so that the /api/file script can have
                         access to the id of the vehicle that the files information is being saved to.
-                    input(type='file', name='{{data.vehicle[v_index]._id}}', id='userFile' ng-model='data.userFile')
+                    input(type='file', name='{{vehicle._id}}', id='userFile' ng-model='data.userFile')
                     button.btn.btn-primary(type='submit',value = 'upload File')
-                      i.fa.fa-plus-square-o
+                      i.fa.fa-upload
                       |  Upload
                 //  LIST PIDS
                     Iterates over every PID that belongs to the current Vehicle, and displays the PID's information
                     Each PID is an item in the accordion list
-                accordion-group(ng-repeat='p_index in pid_range[data.vehicle[v_index]._id]' )
-                  accordion-heading PID: {{data.pid[v_index][p_index].pid}} On Network: {{data.pid[v_index][p_index].network}}
-                  accordion
+                accordion-group(ng-repeat='pid in data.pids[vehicle._id] | orderBy:"pid"')
+                  accordion-heading
+                    a(ng-click='getRecordDetails("/api/function/pid/", pid._id)')
+                      | PID: {{pid.pid}}
+                      br
+                      | Network: {{pid.network}}
+                    a(href='', ng-click='requestDelete("PID", pid)', style='float:right')
+                      i.fa.fa-remove
+                  accordion(close-others='oneAtATime')
+                    // Item for editing the PID's information
+                    accordion-group
+                      accordion-heading
+                        span Edit Pid Information
+                      // Form for editing the PID's information
+                      form(name='editPid', ng-submit='editRecord( "pid", editPid, vehicle._id, pid._id )', novalidate='')
+                        .box-body
+                          .form-group
+                            // Form component for inputing PID data
+                            label PID
+                            input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='data.vehiclePid', required)
+                            // Form component for inputing Network data
+                            .form-group
+                            label Network
+                            input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='data.vehicleNet', required)
+                        .box-footer
+                          // Button to submit new PID
+                          button.btn.btn-primary(type='submit',ng-disabled='editPid.$invalid')
+                            i.fa.fa-edit
+                            |  Edit
                     // Item for adding a new Function to the PID
                     accordion-group
-                      accordion-heading Add Function
-                      form(name='addFunc', ng-submit='addSubRecord(addFunc)', novalidate='')
+                      accordion-heading
+                        span Add Function
+                      // Form for adding new Function to the current PID
+                      form(name='addFunc', ng-submit='addRecord("function", addFunc, pid._id)', novalidate='')
                         .box-body
                           .form-group
                             label Function
-                            input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='funcDesc', required)
+                            input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='data.funcDesc', required)
                             .form-group
                             label Byte Sequence
-                            input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='funcBytes', required)
+                            input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='data.funcBytes', required)
                         .box-footer
                           button.btn.btn-primary(type='submit',ng-disabled='addFunc.$invalid')
                             i.fa.fa-plus-square-o
                             |  Create
-
-
+                    // LIST FUNCTIONS
+                    accordion-group(ng-repeat='function in data.functions[pid._id] | orderBy:"function"')
+                      accordion-heading
+                        a
+                          | Function: {{function.function}}
+                          br
+                          | Byte Sequence: {{function.bytes}}
+                        a(href='', ng-click='requestDelete("Function", function)', style='float:right')
+                          i.fa.fa-remove
+                      accordion(close-others='oneAtATime')
+                        // Item for editing the Functions's information
+                        accordion-group
+                          accordion-heading
+                            span Edit Function Information
+                          // Form for editing current Function information
+                          form(name='editFunc', ng-submit='editRecord("function", editFunc, pid._id, function._id)', novalidate='')
+                            .box-body
+                              .form-group
+                                label Function
+                                input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='data.funcDesc', required)
+                                .form-group
+                                label Byte Sequence
+                                input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='data.funcBytes', required)
+                            .box-footer
+                              button.btn.btn-primary(type='submit',ng-disabled='editFunc.$invalid')
+                                i.fa.fa-edit
+                                |  Edit
 
 
     .col-md-5.col-xs-12
       .box.box-primary
         tabset
           tab(heading='Create Vehicle')
-            form(name='addForm', ng-submit='addRecord(addForm)', novalidate='')
+            form(name='addVehicle', ng-submit='addRecord("vehicle", addVehicle, "")', novalidate='')
               .box-body
                 .form-group
                   label Make
@@ -90,11 +167,8 @@ block content
                   .form-group
                   label Year
                   input.form-control(type='text', name='vehicleYear' placeholder='Enter Vehicle Year', ng-model='data.vehicleYear', required)
-                  .form-group
-                  label Description
-                  input.form-control(type='text', name='vehicleDesc' placeholder='Enter Description', ng-model='data.vehicleDesc', required)
               .box-footer
-                button.btn.btn-primary(type='submit',ng-disabled='addForm.$invalid')
+                button.btn.btn-primary(type='submit',ng-disabled='addVehicle.$invalid')
                   i.fa.fa-plus-square-o
                   |  Create
           tab(heading='Query Vehicles',select='alertMe()')
