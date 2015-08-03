@@ -34,10 +34,10 @@ exports.show = function(req, res) {
   });
 };
 
-exports.showFuncsForPid = function(req, res) {
-  var id = mongoose.Types.ObjectId(req.params.id);
+exports.getVehicles = function(req, res) {
+  var id = req.params.id.toString()
 
-  Functions.find({pids : id}, function (err, c2)
+  Pids.find({vehicle : id}, function (err, c2)
   {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
@@ -47,6 +47,7 @@ exports.showFuncsForPid = function(req, res) {
 
 // Creates a new PID in the DB.
 exports.create = function(req, res) {
+  console.log(req.body)
   Pids.create(req.body, function(err, c2)
   {
     if(err) { return handleError(res, err); }
