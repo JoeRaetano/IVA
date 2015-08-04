@@ -81,10 +81,11 @@ block content
                   accordion-heading
                     a(ng-click='getRecordDetails("/api/function/pid/", pid._id)')
                       | PID: {{pid.pid}}
-                      br
-                      | Network: {{pid.network}}
                     a(href='', ng-click='requestDelete("PID", pid)', style='float:right')
                       i.fa.fa-remove
+                    br
+                    a
+                      | Network: {{pid.network}}
                   accordion(close-others='oneAtATime')
                     // Item for editing the PID's information
                     accordion-group
@@ -126,13 +127,14 @@ block content
                     // LIST FUNCTIONS
                     accordion-group(ng-repeat='function in data.functions[pid._id] | orderBy:"function"')
                       accordion-heading
-                        a
+                        a Tags:
                         a( ng-repeat='tag in function.tags' )
-                          | {{tag}}
-                          br
-                          | Byte Sequence: {{function.bytes}}
+                          |   {{tag}}
                         a(href='', ng-click='requestDelete("Function", function)', style='float:right')
                           i.fa.fa-remove
+                        br
+                        a
+                          | Byte Sequence: {{function.bytes}}
                       accordion(close-others='oneAtATime')
                         // Item for editing the Functions's information
                         accordion-group
