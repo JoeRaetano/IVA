@@ -11,7 +11,6 @@
 
 var _ = require('lodash');
 var Pids = require('./pid.model');
-var Functions = require('../function/function.model');
 var mongoose = require('mongoose');
 
 
@@ -47,7 +46,6 @@ exports.getVehicles = function(req, res) {
 
 // Creates a new PID in the DB.
 exports.create = function(req, res) {
-  console.log(req.body)
   Pids.create(req.body, function(err, c2)
   {
     if(err) { return handleError(res, err); }

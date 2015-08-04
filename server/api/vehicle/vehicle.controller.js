@@ -6,8 +6,6 @@
 
 var _ = require('lodash');
 var Vehicles = require('./vehicle.model');
-var Pids = require('../pid/pid.model');
-var Functions = require('../function/function.model')
 var mongoose = require('mongoose');
 
 // Get list of modes
@@ -29,6 +27,7 @@ exports.show = function(req, res) {
   });
 };
 
+/*
 exports.query = function( req, res )
 {
   console.log(req.params.term)
@@ -46,6 +45,7 @@ exports.query = function( req, res )
       }
     );
 };
+*/
 
 // Creates a new mode in the DB.
 exports.create = function(req, res) {
