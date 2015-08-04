@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Functions = require('./function.model');
+var natural = require('natural')
 
 // Get list of things
 exports.index = function(req, res) {
@@ -43,6 +44,9 @@ exports.getPids = function(req, res) {
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
+  natural.PorterStemmer.attach();
+  console.log(req.body.function)
+  console.log(req.body.function.toLowerCase().tokenizeAndStem())
   Functions.create(req.body, function(err, c2) {
     if(err) { return handleError(res, err); }
     return res.json(201, c2);
