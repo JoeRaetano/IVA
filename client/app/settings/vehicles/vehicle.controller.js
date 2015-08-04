@@ -95,9 +95,9 @@ angular.module('IVA_App')
         get_route  = function_route + "pid/";
         collection_data =
         {
-          function : $scope.data.funcDesc,
-          bytes    : $scope.data.funcBytes,
-          pid      : id.toString()
+          tags  : $scope.data.funcDesc,
+          bytes : $scope.data.funcBytes,
+          pid   : id.toString()
         }
       }
       else { return }
