@@ -71,6 +71,7 @@ block content
                     //  The name attribute is {{vehicle._id}} so that the /api/file script can have
                         access to the id of the vehicle that the files information is being saved to.
                     input(type='file', name='{{vehicle._id}}', id='userFile' ng-model='data.userFile')
+                    br
                     button.btn.btn-primary(type='submit',value = 'upload File')
                       i.fa.fa-upload
                       |  Upload
