@@ -62,6 +62,11 @@ angular.module('IVA_App')
     {
       $scope.data.expression.push(string);
     };
+      
+    $scope.removeFromExpression = function()
+    {
+      $scope.data.expression.pop();
+    };
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
