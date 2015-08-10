@@ -124,11 +124,15 @@ exports.update = function(req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  Functions.findById(req.params.id, function (err, c2) {
+  Functions.findById(req.params.id, function (err, c2) 
+  {
     if(err) { return handleError(res, err); }
     if(!c2) { return res.send(404); }
-    c2.remove(function(err) {
+    
+    c2.remove(function(err) 
+    {
       if(err) { return handleError(res, err); }
+      
       return res.send(204);
     });
   });
