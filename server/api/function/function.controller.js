@@ -13,6 +13,7 @@ var _ = require('lodash');
 var Functions = require('./function.model');
 var natural = require('natural')
 
+
 // Get list of things
 exports.index = function(req, res) {
   Functions.find(function (err, c2s) {
@@ -39,6 +40,53 @@ exports.getPids = function(req, res) {
     if(!c2) { return res.send(404); }
     return res.json(c2);
   });
+};
+
+exports.getTags = function(req,res)
+{
+  Functions.find
+  (
+      function(err, functions)
+      {
+        var tmp_tags = {};
+        var groups = [];
+        var tags = {};
+        
+        for( var i = 0; i <  functions.length; i++)
+        {
+          var func = functions[i];
+          
+          for( var j = 0; j < func.tags.length; j++ )
+          {
+            var tag = func.tags[j];
+            
+            if( tmp_tags[tag[0]] == undefined )
+            {
+              tmp_tags[tag[0]] = [];
+              tmp_tags[tag[0]].push(tag);
+            }
+            
+            if( groups.indexOf(tag[0]) == -1 )
+            {
+              groups.push(tag[0]);
+            }
+            
+            if( tmp_tags[tag[0]].indexOf( tag ) == -1 )
+            {
+              tmp_tags[tag[0]].push(tag);
+              tmp_tags[tag[0]].sort();
+            }
+          }
+        }
+        
+        groups.sort()
+        for( var i = 0; i < groups.length; i++ )
+        {
+          tags[groups[i]] = tmp_tags[groups[i]]
+        }
+        return res.json(200, tags);
+      }
+  );
 };
 
 
