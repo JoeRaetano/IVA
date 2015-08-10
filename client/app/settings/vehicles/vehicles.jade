@@ -207,6 +207,6 @@ block content
                     i.fa.fa-arrow-left
                   //input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
               .box-footer
-                button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid')
+                button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid', ng-click='queryRecords(queryForm)')
                   i.fa.fa-search
                   |  Search
