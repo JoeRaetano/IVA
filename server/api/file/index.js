@@ -100,23 +100,23 @@ function updateDataBase(index)
             if (err) { return handleError(res, err)}
 
             pid_data = pid;
-            findFunction(record.function, record.bytes, pid_data._id, index);
+            findFunction(record.tags, record.bytes, pid_data._id, index);
           }
         );
       }
       else
       {
-        findFunction(record.function, record.bytes, pid_data[0]._id, index)
+        findFunction(record.tags, record.bytes, pid_data[0]._id, index)
       }
     }
   )
 }
 
-function findFunction(argFunc, argBytes, argID, index)
+function findFunction(argTags, argBytes, argID, index)
 {
   Functions.find
   (
-    {function: argFunc, bytes: argBytes, pid: argID},
+    {function: argTags, bytes: argBytes, pid: argID},
     function(err, func_data)
     {
       if(err) { return handleError(res, err); }
