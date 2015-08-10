@@ -182,8 +182,30 @@ block content
             form(name='queryForm', novalidate='')
               .box-body
                 .form-group
-                  label Function
-                  input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
+                  label Tag Components
+                  br
+                  tabset
+                    tab(ng-repeat='(group, tags) in data.tags | orderBy: group')
+                      tab-heading {{group}}
+                      button.btn(ng-repeat='tag in tags', ng-click='addToExpression(tag)') {{tag}}
+                  br
+                  br
+                  label Logical Components
+                  br
+                  button.btn(ng-click='addToExpression("(")') (
+                  button.btn(ng-click='addToExpression(")")') )
+                  button.btn(ng-click='addToExpression("AND")') AND
+                  button.btn(ng-click='addToExpression("OR")') OR
+                  button.btn(ng-click='addToExpression("NOT")') NOT
+                  br
+                  br
+                  label Generated Expression
+                  br
+                  input.form-control(type='text', name='' placeholder='', value='{{data.expression.join(" ")}}', disabled)
+                  br
+                  button.btn(ng-click='removeFromExpression()')
+                    i.fa.fa-arrow-left
+                  //input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
               .box-footer
                 button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid')
                   i.fa.fa-search
