@@ -6,6 +6,7 @@ var fs         = require('fs');
 var Functions  = require('../function/function.model');
 var mongoose   = require('mongoose');
 var multer     = require('multer');
+var natural    = require('natural');
 var Parse      = require('csv-parse');
 var Pids       = require('../pid/pid.model');
 //var search     = require('js-search');
@@ -67,6 +68,9 @@ function parseCSVFile(sourceFilePath, vehicleId, columns, onNewRecord, handleErr
 
 function onNewRecord(record)
 {
+  natural.PorterStemmer.attach();
+  record.tags = record.function.toLowerCase().tokenizeAndStem().sort()
+
   pid_array.push(record);
 }
 
