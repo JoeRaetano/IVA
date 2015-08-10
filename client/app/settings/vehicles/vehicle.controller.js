@@ -57,6 +57,11 @@ angular.module('IVA_App')
       $scope.data.vehicles["base"] = vehicleData;
     });
 
+      
+    $scope.addToExpression = function( string )
+    {
+      $scope.data.expression.push(string);
+    };
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
