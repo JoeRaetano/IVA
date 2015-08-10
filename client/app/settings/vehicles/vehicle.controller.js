@@ -31,6 +31,7 @@ angular.module('IVA_App')
     $scope.data.pids = {};
     $scope.data.functions = {};
     //$scope.v_range = {};
+    $scope.data.expression = [];
     //$scope.p_range = {};
 
     //$scope.currentItem = null;
