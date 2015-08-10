@@ -197,7 +197,10 @@ angular.module('IVA_App')
       $scope.submitted = true;
 
       if (form.$valid) {
-        $http.get('/api/vehicle/query/' + $scope.data.vehicleFunc).success
+        $http.get
+        (
+          function_route + 'query/' + $scope.data.expression.join(" ")
+        ).success
         (
           function (vehicleData) {
             // Set the scope's data to the fetched data
