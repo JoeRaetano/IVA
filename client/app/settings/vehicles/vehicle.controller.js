@@ -30,8 +30,10 @@ angular.module('IVA_App')
     $scope.data.vehicles = {};
     $scope.data.pids = {};
     $scope.data.functions = {};
-    //$scope.v_range = {};
+    $scope.data.tags = {};
     $scope.data.expression = [];
+
+      //$scope.v_range = {};
     //$scope.p_range = {};
 
     //$scope.currentItem = null;
