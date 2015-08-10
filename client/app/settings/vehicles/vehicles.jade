@@ -178,8 +178,8 @@ block content
                 button.btn.btn-primary(type='submit',ng-disabled='addVehicle.$invalid')
                   i.fa.fa-plus-square-o
                   |  Create
-          tab(heading='Query Vehicles',select='alertMe()')
-            form(name='queryForm', ng-submit='queryRecords(queryForm)', novalidate='')
+          tab(heading='Query Vehicles',select='getTags()')
+            form(name='queryForm', novalidate='')
               .box-body
                 .form-group
                   label Function
