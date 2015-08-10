@@ -138,6 +138,25 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.query = function(req, res)
+{
+  var components = [];
+  var tokenizer = new natural.WordTokenizer();
+  var query = ""//{"tags : "+ req.params.expression };
+  
+  components = tokenizer.tokenize(req.params.expression);
+  
+  Functions.find
+  (
+      query, 
+      function (err, c2)
+      {
+        console.log(c2)
+      }
+  );
+  return res.send(204);
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }
