@@ -85,7 +85,7 @@ block content
                     a(href='', ng-click='requestDelete("PID", pid)', style='float:right')
                       i.fa.fa-remove
                     br
-                    a
+                    a(ng-click='getRecordDetails("/api/function/pid/", pid._id)')
                       | Network: {{pid.network}}
                   accordion(close-others='oneAtATime')
                     // Item for editing the PID's information
