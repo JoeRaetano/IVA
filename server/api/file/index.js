@@ -127,7 +127,7 @@ function findFunction(argTags, argBytes, argID, index)
         Functions.create
         (
           {
-            function: argFunc,
+            tags: argTags,
             bytes: argBytes,
             pid: argID
           },
