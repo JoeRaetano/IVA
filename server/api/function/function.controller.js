@@ -93,9 +93,8 @@ exports.getTags = function(req,res)
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   natural.PorterStemmer.attach();
-  //console.log(req.body.function)
-  //console.log(req.body.function.toLowerCase().tokenizeAndStem())
-  req.body.tags = req.body.tags.toLowerCase().tokenizeAndStem()
+  req.body.tags = req.body.tags.toLowerCase().tokenizeAndStem().sort()
+  
   Functions.create(req.body, function(err, c2) {
     if(err) { return handleError(res, err); }
     return res.json(201, c2);
