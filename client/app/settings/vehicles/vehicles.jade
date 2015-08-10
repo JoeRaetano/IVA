@@ -128,9 +128,9 @@ block content
                     // LIST FUNCTIONS
                     accordion-group(ng-repeat='function in data.functions[pid._id] | orderBy:"function"')
                       accordion-heading
-                        a Tags:
-                        a( ng-repeat='tag in function.tags' )
-                          |   {{tag}}
+                        //a Tags:
+                        //a( ng-repeat='tag in function.tags' )
+                          |   {{tag.toUpperCase()}}
                         a(href='', ng-click='requestDelete("Function", function)', style='float:right')
                           i.fa.fa-remove
                         br
