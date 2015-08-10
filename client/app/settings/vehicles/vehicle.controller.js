@@ -67,6 +67,17 @@ angular.module('IVA_App')
     {
       $scope.data.expression.pop();
     };
+      
+    $scope.getTags = function()
+    {
+      
+      $http.get(function_route + "tags").success(function(tagData)
+      {
+        $scope.data.tags = tagData;
+      })
+    };
+      
+      
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
