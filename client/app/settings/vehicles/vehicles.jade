@@ -135,7 +135,10 @@ block content
                           i.fa.fa-remove
                         //br
                         a
-                          | Byte Sequence: {{function.bytes}}
+                          //| Byte Sequence: {{function.bytes}}
+                          | {{function.bytes}}
+                        br
+                        button.btn(ng-repeat='tag in function.tags', disabled) {{tag}}
                       accordion(close-others='oneAtATime')
                         // Item for editing the Functions's information
                         accordion-group
