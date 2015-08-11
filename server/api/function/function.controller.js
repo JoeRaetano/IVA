@@ -11,7 +11,7 @@
 
 var _ = require('lodash');
 var Functions = require('./function.model');
-var natural = require('natural')
+var natural = require('natural');
 
 
 // Get list of things
