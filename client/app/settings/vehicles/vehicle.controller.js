@@ -8,14 +8,13 @@
  * @namespace IVA.VehicleController
  */
 angular.module('IVA_App')
-  .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
-
-    // Local variable
-    var vehicle_route  = "/api/vehicle/"
-    var pid_route      = "/api/pid/"
-    var function_route = "/api/function/"
-
-
+  .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) 
+  {
+      // Local variable
+    var vehicle_route  = "/api/vehicle/";
+    var pid_route      = "/api/pid/";
+    var function_route = "/api/function/";
+      
     // general page initialization stuff
     $scope.errors = {};
     $scope.pageTitle = 'Vehicle Management';
@@ -26,58 +25,61 @@ angular.module('IVA_App')
       {title: 'Settings', link: '/settings'},
       {title: 'Vehicles', link: '/settings/vehicles'}
     );
-    $scope.data = [];
-    $scope.data.vehicles = {};
-    $scope.data.pids = {};
-    $scope.data.functions = {};
-    $scope.data.tags = {};
-    $scope.data.expression = [];
+      
+    // Required data structures
+    $scope.data = [];             // Base structure for all data.
+    $scope.data.vehicles = {};    // Hash Table that stores arrays of Vehicle documents by "base"
+    $scope.data.pids = {};        // Hash Table that stores arrays of PID documents by vehicle ID
+    $scope.data.functions = {};   // Hash Table that stores arrays of Function documents by PID ID
+    $scope.data.tags = {};        // Hash Table that stores arrays of Tags by first letter of Tag
+    $scope.data.expression = [];  // Stores components of expression that will be used to query the Functions
 
-      //$scope.v_range = {};
-    //$scope.p_range = {};
-
-    //$scope.currentItem = null;
-    $scope.inEditMode = false;
-
-    $scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function (open) {
-      $log.log('Dropdown is now: ', open);
-    };
-
-    $scope.toggleDropdown = function ($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };
-
+    // The initial get, to get all of the vehicles to display on the vehicles.
     $http.get(vehicle_route).success(function (vehicleData) {
+      // The vehcile data is stored at "base" for robustness and ease of expansion.
+      // If the developers wanted to create a new higher level collection of information, say car manufacturers,
+      // the data structure for the vehicles to be stored in is ready to go. All that is needed is to store each
+      // manufacturers collection of cars under the manucafurers id, instead of storing the data under "base".
       $scope.data.vehicles["base"] = vehicleData;
     });
 
-      
+    /**
+     * @name addToExpression
+     * @desc Adds a component to the expression that will be used to query the functions.
+     * @param {string} The word to add to the generated expression.
+     * @memberOf IVA.VehicleController
+     */
     $scope.addToExpression = function( string )
     {
+      // Push the string onto the end of the generated expression.
       $scope.data.expression.push(string);
     };
-      
+
+    /**
+     * @name removeFromExpression
+     * @desc Removes a component from the expression that will be used to query the functions.
+     * @memberOf IVA.VehicleController
+     */
     $scope.removeFromExpression = function()
     {
+      // Pop the last string added to the end of the generated expression off.
       $scope.data.expression.pop();
     };
-      
+
+    /**
+     * @name getTags
+     * @desc Gets all of the unique tags that are used to describe functions. 
+     * @memberOf IVA.VehicleController
+     */
     $scope.getTags = function()
     {
-      
+      // Get all of the unique tags used to describe functions from the Function collection.
       $http.get(function_route + "tags").success(function(tagData)
       {
         $scope.data.tags = tagData;
       })
     };
-      
-      
+    
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
@@ -85,14 +87,16 @@ angular.module('IVA_App')
      * @memberOf IVA.VehicleController
      */
     $scope.addRecord = function (collection, form, id) {
-      var post_route = "";
-      var get_route = "";
-      var collection_data = {};
+      var post_route = "";      // The route to POST to.
+      var get_route = "";       // The route to GET from.
+      var collection_data = {}; // The data to POST.
 
+      // If the record being added is a Vehicle:
       if( collection == "vehicle" )
       {
-        post_route = vehicle_route;
-        get_route  = vehicle_route;
+        post_route = vehicle_route;   // The route to POST to is "/api/vehicle/"
+        get_route  = vehicle_route;   // The route to GET from is "/api/vehicle/"
+        // The data to POST to "/api/vehicle/"
         collection_data =
         {
           make  : $scope.data.vehicleMake,
@@ -101,10 +105,12 @@ angular.module('IVA_App')
         }
 
       }
+      // Else if the record being added is a PID:
       else if( collection == "pid" )
       {
-        post_route = pid_route;
-        get_route  = pid_route + "vehicle/";
+        post_route = pid_route;                 // The route to POST to is "/api/pid/"
+        get_route  = pid_route + "vehicle/";    // The route to GET from is "/api/pid/vehicle/"
+        // The data to POST to "/api/pid/"
         collection_data =
         {
           pid     : $scope.data.vehiclePid,
@@ -113,10 +119,12 @@ angular.module('IVA_App')
         }
 
       }
+      // Else if the record being added is a function:
       else if( collection == "function" )
       {
-        post_route = function_route;
-        get_route  = function_route + "pid/";
+        post_route = function_route;            // The route to POST to is "/api/function/"
+        get_route  = function_route + "pid/";   // The route to GET from is "/api/function/pid/"
+        // The data to POST to "/api/pid/"
         collection_data =
         {
           tags  : $scope.data.funcDesc,
@@ -124,12 +132,14 @@ angular.module('IVA_App')
           pid   : id.toString()
         }
       }
+      // Else return without doing anything.
       else { return }
 
+      // If the form is valid
       if (form.$valid)
       {
-        // Creates a new record in the Vehicle Collection.
-        // The new record is created with the information specified in the supplied form.
+        // Creates a new record in the Collection specified by the preset POST route.
+        // The new record is created with the information specified by the preset collection data.
           $http.post
           (
             post_route, // Post to Vehicle Collection
@@ -138,7 +148,7 @@ angular.module('IVA_App')
             .then // Once the post has been made, perform the following commands:
           (
             function () {
-              // Fetch the updated Vehicle Collection data
+              // Fetch the updated Collection data specified by the preset GET route.
               $scope.getRecordDetails( get_route, id )
 
             }
@@ -173,21 +183,36 @@ angular.module('IVA_App')
       }
     };
 
+    /**
+     * @name getRecordDetails
+     * @desc Gets the documents associated with the specified document ID
+     * @param {get_route} Route to GET the documents from
+     * @param {id} Document ID of the record to GET the associated documents from
+     * @memberOf IVA.VehicleController
+     */
     $scope.getRecordDetails = function ( get_route, id )
     {
       //dialogs.confirm(id)
       $http.get( get_route + id ).success( function (recordData)
       {
+        // If the supplied route is the vehicle route, then the data retrieved is the list of all of the Vehicles Documents.
         if( get_route == vehicle_route )
         {
+          // Store the retrieved Documents in the Vehicles hash table under "base" as this is the base level of data.
           $scope.data.vehicles["base"] = recordData;
         }
+        // If the supplied route is the pid route + "vehicles/" then the data retrieved is the list of Vehicle Documents that 
+        // the PID with the supplied ID belongs to.
         else if( get_route == (pid_route + "vehicle/") )
         {
+          // Store the retrieved Documents in the PID hash table under the specified Document ID.
           $scope.data.pids[id] = recordData;
         }
+        // If the supplied route is the function route + "pid/" then the data retrieved is the list of PID Documents that
+        // the Function with the supplied ID belongs to.
         else if( get_route == function_route + "pid/" )
         {
+          // Store the retrieved Documents in the Function Hash Table under the specified ID.
           $scope.data.functions[id] = recordData;
         }
       });
