@@ -246,7 +246,117 @@ angular.module('IVA_App')
         if( expression.length == 0 ) 
         { return }
 
-      if (form.$valid) {
+        // Check to make sure the first element is not an OR or AND.
+        if( expression[0] == "OR" || expression[0] == "AND" )
+        {
+          dialogs.error('Query Not Performed', 'An ' + expression[0] + ' must have a tag on either side.');
+          return
+        }
+        // Check to make sure the last element is not an OR, AND, or NOT.
+        if( logic.indexOf( expression[ expression.length-1 ] ) != -1 )
+        {
+          dialogs.error('Query Not Performed', 'An ' + expression[ expression.length-1 ] + ' must have a tag on either side.');
+          return
+        }
+        
+        // Test generated expression for errors
+        for( var i = 0; i < expression.length; i++ )
+        {
+          // Check to make sure no two logic operations are side by side.
+          if( (logic.indexOf(expression[i]) != -1) && (logic.indexOf(expression[i+1]) != -1) && (i+1 < expression.length) )
+          {
+            dialogs.error('Query Not Performed', 'An ' + expression[i] + ' must have a tag on either side.');
+            return
+          }
+          
+          // Check to make sure no two tags are side by side.
+          if( (not_tag.indexOf(expression[i]) == -1) && (not_tag.indexOf(expression[i+1]) == -1) && (i+1 < expression.length) )
+          {
+            dialogs.error('Query Not Performed', 'Tags must have a logical operator between them.');
+            return
+          }
+          
+          switch( expression[i])
+          {
+            case "AND":
+              if( !is_logic_set )
+              {
+                logic_stack.push("AND");
+                is_logic_set = true;
+              }
+              else if( logic_stack[ logic_stack.length-1 ] != "AND" )
+              {
+
+                dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
+                return
+              }
+              break;
+                  
+            case  "OR":
+              if( !is_logic_set )
+              {
+                logic_stack.push("OR");
+                is_logic_set = true;
+              }
+              else if( logic_stack[ logic_stack.length-1 ] != "OR" )
+              {
+                dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
+                return
+              }
+              break;
+            
+            case "NOT":
+              if( !is_logic_set )
+              {
+                logic_stack.push("NOT");
+                is_logic_set = true;
+              }
+              else if( logic_stack[ logic_stack.length-1 ] != "NOT" )
+              {
+                dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
+                return
+              }
+                  
+              if( i != 0 && expression[i-1] != "(" )
+              {
+                // Check to make sure no two logic operations are side by side.
+                dialogs.error('Query Not Performed', 'An ' + expression[i] + ' can only only have one tag adjacent to its left. Use parenthesis to specify order of operations.');
+                return
+              }
+              break;
+
+            case   "(":
+              paren_stack.push( "(" );
+              is_logic_set = false;
+              break;
+
+            case   ")":
+              if( paren_stack.length <= 0 )
+              {
+                dialogs.error('Query Not Performed', 'There are mismatched parenthesis.');
+                return
+              }
+              paren_stack.pop();
+              logic_stack.pop();
+              is_logic_set = false;
+
+              if( logic_stack.length > 0 )
+              {
+                is_logic_set = true;
+              }
+              break;
+
+            default   :
+                  is_logic_set = is_logic_set;
+          }
+        }
+        
+        if( paren_stack.length > 0 )
+        {
+          dialogs.error('Query Not Performed', 'There are mismatched parenthesis.');
+          return
+        }
+          
         $http.get
         (
           function_route + 'query/' + $scope.data.expression.join(" ")
