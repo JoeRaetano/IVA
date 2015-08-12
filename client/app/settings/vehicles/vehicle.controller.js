@@ -366,10 +366,10 @@ angular.module('IVA_App')
             // Set the scope's data to the fetched data
             //$scope.data = vehicleData;
           }
-        )
+        );
         //$scope.data.vehicleFunc = '';
       }
-    }
+    };
 
 
     /**
