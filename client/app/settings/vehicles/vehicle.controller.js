@@ -10,7 +10,7 @@
 angular.module('IVA_App')
   .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) 
   {
-      // Local variable
+    // Local variable
     var vehicle_route  = "/api/vehicle/";
     var pid_route      = "/api/pid/";
     var function_route = "/api/function/";
@@ -64,6 +64,17 @@ angular.module('IVA_App')
     {
       // Pop the last string added to the end of the generated expression off.
       $scope.data.expression.pop();
+    };
+
+    /**
+     * @name removeFromExpression
+     * @desc Removes a component from the expression that will be used to query the functions.
+     * @memberOf IVA.VehicleController
+     */
+    $scope.clearExpression = function()
+    {
+      // Pop the last string added to the end of the generated expression off.
+      $scope.data.expression = [];
     };
 
     /**
