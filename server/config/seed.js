@@ -15,11 +15,12 @@ var Pids = require('../api/pid/pid.model');
 var Functions = require('../api/function/function.model');
 
 
-Functions.find({}).remove(function() {});
+Functions.find({})//.remove(function() {});
 
-Pids.find({}).remove(function() {});
+Pids.find({})//.remove(function() {});
 
-Vehicles.find({}).remove(function() {
+Vehicles.find({})
+    /*.remove(function() {
   Vehicles.create(
   {
     make: "Ford",
@@ -33,7 +34,7 @@ Vehicles.find({}).remove(function() {
     year: 1006,
     desc: "This is a toyota car."
   });
-});
+});*/
 
 CollectionMode.find({}).remove(function() {
   CollectionMode.create({
