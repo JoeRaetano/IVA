@@ -229,8 +229,22 @@ angular.module('IVA_App')
       });
     };
 
-    $scope.queryRecords = function (form) {
-      $scope.submitted = true;
+    $scope.queryRecords = function (form) 
+    {
+      var paren_stack = []; // Stack for keeping track of matching parenthesis.
+      var logic_stack = []; // Stack for keeping track of current logical operation. 
+      var logic = [ "AND", "OR", "NOT"];              // Simplifies code by allowing generic comparisons.
+      var not_tag = [ "(", ")", "AND", "OR", "NOT"];  // Simplifies code by allowing generic comparisons.
+      var expression = $scope.data.expression;        // Simplifies code by making things more compact.
+      var is_logic_set = false; // There cannot be two different types of logic operators separated by tags, but not be 
+                                // parenthesis. This will be set to true when a logic operator is found, and logic_stack
+                                // will be used to compare future logic operators to the current scopes logic operation.
+        
+      if (form.$valid) 
+      {
+        // If the expression string is empty then you "find" everything.
+        if( expression.length == 0 ) 
+        { return }
 
       if (form.$valid) {
         $http.get
