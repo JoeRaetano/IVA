@@ -203,9 +203,9 @@ block content
                   br
                   input.form-control(type='text', name='' placeholder='', value='{{data.expression.join(" ")}}', disabled)
                   br
-                  button.btn(ng-click='removeFromExpression()')
-                    i.fa.fa-arrow-left
-                  //input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
+                  button.btn(ng-click='removeFromExpression()') Delete
+                  button.btn(ng-click='clearExpression()') Clear
+              //input.form-control(type='text', name='vehicleFunc' placeholder='Enter Function To Search For', ng-model='data.vehicleFunc', required)
               .box-footer
                 button.btn.btn-primary(type='submit',ng-disabled='queryForm.$invalid', ng-click='queryRecords(queryForm)')
                   i.fa.fa-search
