@@ -14,6 +14,9 @@ angular.module('IVA_App')
     var vehicle_route  = "/api/vehicle/";
     var pid_route      = "/api/pid/";
     var function_route = "/api/function/";
+    
+    // Determines if the page should show query results or all of the data
+    var query_mode = false;
       
     // general page initialization stuff
     $scope.errors = {};
@@ -205,6 +208,10 @@ angular.module('IVA_App')
      */
     $scope.getRecordDetails = function ( get_route, id )
     {
+      
+      if( query_mode )
+      { return }
+      
       //dialogs.confirm(id)
       $http.get( get_route + id ).success( function (recordData)
       {
@@ -514,6 +521,7 @@ angular.module('IVA_App')
         (
           function () {
             // Fetch the updated Vehicle Collection data
+            query_mode = false;
             $scope.getRecordDetails( get_route, record_id )
           }
         )
@@ -582,6 +590,7 @@ angular.module('IVA_App')
 
 
       $http.delete(delete_route + record._id, {}).then(function () {
+        query_mode = false;
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
         $scope.getRecordDetails( get_route, get_id )
