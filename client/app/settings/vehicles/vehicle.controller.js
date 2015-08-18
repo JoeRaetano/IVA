@@ -370,6 +370,86 @@ angular.module('IVA_App')
         //$scope.data.vehicleFunc = '';
       }
     };
+    
+    function handleFunction(function_data, index)
+    {
+      if( index < function_data.length )
+      {
+        if( $scope.data.functions[function_data[index].pid] == undefined )
+        {
+          $scope.data.functions[function_data[index].pid] = [ function_data[index] ];
+        }
+        else
+        {
+          $scope.data.functions[function_data[index].pid].push(function_data[index]);
+        }
+
+        $http.get
+        (
+            pid_route + function_data[index].pid
+        ).success
+        (
+          function ( pid )
+          {
+
+            if( $scope.data.pids[pid.vehicle] == undefined )
+            {
+              $scope.data.pids[pid.vehicle] = [ pid ];
+            }
+            else
+            {
+              var is_duplicate = false;
+              for( var i = 0; i < $scope.data.pids[pid.vehicle].length; i++ )
+              {
+                if( $scope.data.pids[pid.vehicle][i]._id == pid._id )
+                {
+                  is_duplicate = true;
+                }
+              }
+
+              if( !is_duplicate )
+              {
+                $scope.data.pids[pid.vehicle].push(pid);
+              }
+            }
+
+            $http.get
+            (
+              vehicle_route + pid.vehicle
+            ).success
+            (
+              function( vehicle )
+              {
+                //dialogs.confirm($scope.data.vehicles["base"].contains( vehicle ));
+                if( $scope.data.vehicles["base"] == undefined )
+                {
+                  $scope.data.vehicles["base"] = [ vehicle ];
+                }
+                else
+                {
+                  var is_duplicate = false;
+                  for( var i = 0; i < $scope.data.vehicles["base"].length; i++ )
+                  {
+                    if( $scope.data.vehicles["base"][i]._id == vehicle._id )
+                    {
+                      is_duplicate = true;
+                    }
+                  }
+
+                  if( !is_duplicate )
+                  {
+                    $scope.data.vehicles["base"].push(vehicle);
+                  }
+                }
+                
+                index++;
+                handleFunction(function_data, index)
+              }
+            );
+          }
+        );
+      }
+    }
 
 
     /**
