@@ -371,9 +371,14 @@ angular.module('IVA_App')
           function_route + 'query/' + $scope.data.expression.join(" ")
         ).success
         (
-          function (vehicleData) {
-            // Set the scope's data to the fetched data
-            //$scope.data = vehicleData;
+          function (function_data) {
+            query_mode = true;
+            $scope.data.vehicles   = {};
+            $scope.data.pids       = {};
+            $scope.data.functions  = {};
+            $scope.data.expression = [];
+
+            handleFunction(function_data, 0);
           }
         );
       }
