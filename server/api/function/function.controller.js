@@ -145,7 +145,6 @@ exports.query = function(req, res)
   var query = {};
   
   components = tokenizer.tokenize(req.params.expression);
-  console.log(components)
   query = parseExpression(components);
 
   Functions.find
@@ -153,7 +152,6 @@ exports.query = function(req, res)
       query,
       function (err, c2)
       {
-        console.log("C2" + c2);
         return res.json(c2);
       }
   );
@@ -230,7 +228,6 @@ function parseExpression( expression )
           { paren_stack.pop() }
           if( expression[i] == "(" )
           { paren_stack.push("(") }
-          console.log("recurs " + recursive_components);
         }
         recursive_components.pop();
           
