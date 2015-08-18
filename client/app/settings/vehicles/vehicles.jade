@@ -67,7 +67,7 @@ block content
                   accordion-heading
                     span Upload File
                   // Form for uploading PID and Function file
-                  form(name='fileForm', enctype='multipart/form-data',action='/api/file', method='post')
+                  form(name='fileForm', enctype='multipart/form-data',action='/api/file', onsubmit="confirmSubmit();" method='post')
                     //  The name attribute is {{vehicle._id}} so that the /api/file script can have
                         access to the id of the vehicle that the files information is being saved to.
                     input(type='file', name='{{vehicle._id}}', id='userFile' ng-model='data.userFile')

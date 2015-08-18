@@ -21,14 +21,20 @@ router.post('/', [multer({ dest: './uploads/'}), function(req,res)
     for( var file in req.files )
     {
       var filePath = req.files[file].path;
+      var isCSV = fileSecurityCheck(filePath);
       vehicle_id = mongoose.Types.ObjectId(file);
       break
     }
 
-    var columns = true;
-    parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
-    //res.redirect('/settings/vehicles/' + vehicle_id);
-
+    if(isCSV == true)
+    {
+      var columns = true;
+      parseCSVFile(filePath, vehicle_id, columns, onNewRecord, onError, done);
+    }
+    else
+    {
+      unlinkFile(filePath);
+    }
     return res.redirect('/settings/vehicles')
   }]);
 
@@ -56,7 +62,7 @@ function parseCSVFile(sourceFilePath, vehicleId, columns, onNewRecord, handleErr
   });
 
   parser.on("error", function(error){
-    handleError(error)
+    handleError(sourceFilePath, error);
   });
 
   parser.on("end", function(){
@@ -155,25 +161,42 @@ function findFunction(argTags, argBytes, argID, index)
   );
 }
 
-function onError(error){
- // console.log(error)
+function onError(sourceFilePath,error){
+  unlinkFile(sourceFilePath)
+  console.log(error)
 }
 
 function done(linesRead, sourceFilePath)
 {
-  fs.unlink
-  ( sourceFilePath,
-    function (err)
-    {
-      if (err) throw err;
-
-      if( pid_array.length > 0)
-      {
+  unlinkFile(sourceFilePath);
+  if( pid_array.length > 0)
+  {
         updateDataBase(0)
-      }
-    }
-  );
+  }
+};
+
+function fileSecurityCheck(sourceFilePath)
+{
+  var length = sourceFilePath.length
+  var expectedExt = "csv"
+  var actualExt = ""
+  var isExtCorrect = true
+  for(var i = (length - 3); i < length; i++)
+  {
+    actualExt += sourceFilePath[i]
+  }
+  if(actualExt != expectedExt)
+  {
+    isExtCorrect = false
+  }
+  return isExtCorrect
 }
 
-
+function unlinkFile(sourceFilePath)
+{
+  fs.unlink(sourceFilePath, function(err)
+  {
+    if(err) throw err;
+  })
+}
 

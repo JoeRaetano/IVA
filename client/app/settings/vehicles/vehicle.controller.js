@@ -641,6 +641,13 @@ angular.module('IVA_App')
         // operation was cancelled. Continue on as if nothing happened.
       });
     };
+
+
   });
 
+  function confirmSubmit()
+  {
+    alert("File is being uploaded. \nIf the file is not the correct format nothing will be added to the database and you " +
+      "will be redirected to the vehicles page.\nThe template for uploading data is on the homepage")
+  }
 

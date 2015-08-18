@@ -6,8 +6,6 @@ angular.module('IVA_App')
     // set up the menu data
     //$scope.menuData = menuData;
 
-
-
     //$scope.selectedIndex = 0;
 
     //$scope.select= function(index) {
@@ -23,8 +21,6 @@ angular.module('IVA_App')
     $scope.crumbs.push(
       {title: 'Home', link: '/'}
     );
-
-
 //    $scope.awesomeThings = [];
 
 
@@ -44,3 +40,5 @@ angular.module('IVA_App')
       $http.delete('/api/things/' + thing._id);
     };
   });
+
+
