@@ -10,24 +10,30 @@ var User = require('../api/user/user.model');
 var Sensor = require('../api/sensor/sensor.model');
 var CollectionMode = require('../api/mode/mode.model');
 var Datatype = require('../api/datatype/datatype.model');
-var Collections = require('../api/collection/collection.model');
+var Vehicles = require('../api/vehicle/vehicle.model');
+var Pids = require('../api/pid/pid.model');
+var Functions = require('../api/function/function.model');
 
-Collections.find({}).remove(function() {
-  Collections.create({
-    name: 'Initial ford collect',
-    desc: 'Slow-collect mode for testing platform and sensors',
-    active: true
-  }, {
-    name: 'Normal Collect',
-    desc: 'Normal rate collect. This is the standard collection mode',
-    active: true
-  }, {
-    name: 'Intense Collect',
-    desc: 'High-rate collection from sensor platform. Used sparingly',
-    active: true
+
+Functions.find({}).remove(function() {});
+
+Pids.find({}).remove(function() {});
+
+Vehicles.find({}).remove(function() {
+  Vehicles.create(
+  {
+    make: "Ford",
+    model: "Cmax",
+    year: 2013,
+    desc: "This is a ford car."
+  },
+  {
+    make: "Toyota",
+    model: "Camry",
+    year: 1006,
+    desc: "This is a toyota car."
   });
 });
-
 
 CollectionMode.find({}).remove(function() {
   CollectionMode.create({
@@ -150,7 +156,20 @@ User.find({}).remove(function() {
       name: 'Joseph Raetano',
       email: 'joseph.raetano@gmail.com',
       password: 'devpass1'
-    }, function() {
+    }, {
+      provider: 'local',
+      role: 'admin',
+      name: 'Joshua Fagan',
+      email: 'jfagan2@vols.utk.edu',
+      password: 'wordpass'
+    },{
+    provider: 'local',
+    role: 'admin',
+    name: 'Jordan Holland',
+    email: 'jholla19@vols.utk.edu',
+    password: 'password'
+  },
+    function() {
       console.log('finished populating users');
     }
   );

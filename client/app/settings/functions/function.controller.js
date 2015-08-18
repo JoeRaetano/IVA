@@ -4,49 +4,49 @@
 'use strict';
 
 /**
- * Collection Controller
- * @namespace IVA.CollectionController
+ * Pid Controller
+ * @namespace IVA.PidController
  */
 angular.module('IVA_App')
-  .controller('CollectionController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
+  .controller('FunctionController', function ($scope, $http, Auth, $location, $routeParams, dialogs) {
 
-    // general page initialization stuff
+    // General page initialization stuff
     $scope.errors = {};
-    $scope.pageTitle = 'Collection Management';
-    $scope.pageSubTitle = 'manage data collection';
+    $scope.pageTitle = 'Function Management';
+    $scope.pageSubTitle = 'manage function data';
     $scope.crumbs = [];
     $scope.crumbs.push(
       {title: 'Home', link: '/'},
       {title: 'Settings', link: '/settings'},
-      {title: 'Collections', link: '/settings/collections'}
+      {title: 'Function', link: '/settings/functions'}
     );
     $scope.data = [];
     $scope.currentItem = null;
     $scope.inEditMode = false;
 
-    // attempt to get the ID from the route params
+    // Attempt to get the ID from the route params
     var currentId = $routeParams.id;
 
-    // let's get the data from the database - we will either get all of the records or just
-    // the individual based on if we are on the list or detail page
+    // If there is an ID
     if (currentId) {
-      $http.get('/api/collection/' + currentId).success(function(collectionData) {
+      $http.get('/api/function/' + currentId).success(function(collectionData) {
         $scope.currentItem = collectionData;
-        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/collections/' + currentId});
+        $scope.crumbs.push({title: $scope.currentItem.name, link:'/settings/functions/' + currentId});
       });
     } else {
-      $http.get('/api/collection').success(function(collectionData) {
+      $http.get('/api/function').success(function(collectionData) {
         $scope.data = collectionData;
       });
     }
 
-    /**
+
+      /**
      * @name returnToList
      * @desc Returns the page back to the main/parent listing
      * @memberOf IVA.CollectionController
      */
     $scope.returnToList = function() {
-      $location.path('/settings/collections/');
+      $location.path('/settings/functions/');
     };
 
     /**
@@ -56,7 +56,11 @@ angular.module('IVA_App')
      * @memberOf IVA.CollectionController
      */
     $scope.goToRecordDetails = function(id) {
-      $location.path( '/settings/collections/' + id );
+      $location.path( '/settings/functions/' + id );
+    };
+
+    $scope.goToEditRecord = function(id) {
+      $location.path( '/settings/functions/edit/' + id );
     };
 
     /**
@@ -77,23 +81,22 @@ angular.module('IVA_App')
     $scope.addRecord = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        if (!$scope.collectionName || $scope.collectionName === '') {
+        if (!$scope.funcDesc || $scope.funcDesc === '') {
           return;
         }
 
-        $http.post('/api/collection', {
-          name: $scope.collectionName,
-          desc: $scope.collectionDesc,
-          active: false
+        $http.post('/api/function', {
+          desc: $scope.funcDesc,
+          bytes: $scope.funcBytes
         }).then(function() {
-          $scope.message = 'Data Collection Added';
+          $scope.message = 'Function Data Added';
 
-          $http.get('/api/collection').success(function(collectionData) {
+          $http.get('/api/function').success(function(collectionData) {
             $scope.data = collectionData;
           });
 
-          $scope.collectionName = '';
-          $scope.collectionDesc = '';
+          $scope.funcDesc = '';
+          $scope.funcBytes = '';
         }).catch(function() {
           // set invalid
           $scope.errors.other = 'Unable to save collection';
@@ -117,10 +120,9 @@ angular.module('IVA_App')
         }
       }
 
-      $http.put('/api/collection/' + $scope.currentItem._id, {
-        name: $scope.currentItem.name,
+      $http.put('/api/function/' + $scope.currentItem._id, {
         desc: $scope.currentItem.desc,
-        active: $scope.currentItem.active
+        bytes: $scope.currentItem.bytes
       }).then(function() {
         $scope.message = 'Successfully Updated Item';
         $scope.inEditMode = false;
@@ -142,11 +144,11 @@ angular.module('IVA_App')
         return;
       }
 
-      $http.delete('/api/collection/' + record._id, {
+      $http.delete('/api/function/' + record._id, {
       }).then(function() {
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
-        $location.path('/settings/collections/');
+        $location.path('/settings/functions/');
       }).catch(function() {
         $scope.errors.other = 'unable to save changes to collection mode';
         $scope.message = '';

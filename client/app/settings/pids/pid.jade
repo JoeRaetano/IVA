@@ -1,0 +1,51 @@
+extends ../../main/layout.jade
+block content
+  .row(ng-controller='PidController')
+    .col-md-7.col-xs-12
+      .box.box-warning
+        .box-header
+          h3.box-title {{currentItem.pid}}, {{currentItem.network}}
+          .box-tools
+            .input-group
+              input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
+              .input-group-btn
+                button.btn.btn-sm.btn-default
+                  i.fa.fa-search
+        .box-body.table-responsive.no-padding
+          table.table.table-hover
+            tbody
+              tr
+                th Description
+                th Bytes
+                //th ID
+                th
+              tr(ng-repeat='func in data | orderBy:"bytes"')
+                td(ng-click="goToFuncDetails(func._id)") {{func.function}}
+                td(ng-click="goToFuncDetails(func._id)") {{func.bytes}}
+                //td(ng-click="goToFuncDetails(func._id)") {{func._id}}
+                td(ng-click="goToFuncDetails(func._id)")
+                  span.label.label-success(ng-show='c2.active') Uploaded
+                  span.label.label-warning(ng-hide='c2.active') Not Uploaded
+                td
+                  a(href='', ng-click='goToEditSubRecord(func._id)')
+                    i.fa.fa-edit
+                  =' '
+                  a(href='', ng-click='requestFuncDelete(func)')
+                    i.fa.fa-remove
+
+    .col-md-5.col-xs-12
+      .box.box-primary
+        .box-header
+          h3.box-title Add Function
+        form(name='addFunc', ng-submit='addSubRecord(addFunc)', novalidate='')
+          .box-body
+            .form-group
+              label Description
+              input.form-control(type='text', name='funcDesc' placeholder='Enter Function Description', ng-model='funcDesc', required)
+              .form-group
+              label Byte Sequence
+              input.form-control(type='text', name='funcBytes' placeholder='Enter Function Byte Sequence', ng-model='funcBytes', required)
+          .box-footer
+            button.btn.btn-primary(type='submit',ng-disabled='addFunc.$invalid')
+              i.fa.fa-plus-square-o
+              |  Create

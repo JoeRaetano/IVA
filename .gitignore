@@ -45,3 +45,40 @@ Thumbs.db
 
 
 
+
+client/app/main/main.html
+
+client/app/settings/collections/collections.html
+
+client/app/settings/collections/collection.html
+
+client/app/settings/pids/pids.html
+
+client/app/settings/pids/pid.html
+
+client/app/settings/functions/function.html
+
+client/app/settings/functions/functions.html
+
+client/app/settings/collections/edit_collection.html
+
+
+client/app/settings/vehicles/vehicles.html
+
+client/app/settings/vehicles/vehicle.html
+
+client/app/settings/vehicles/edit_vehicle.html
+
+client/app/settings/pids/edit_pid.html
+
+client/app/settings/collections/edit_collection.html
+
+client/app/settings/functions/edit_function.html
+
+uploads/PID list Ford C-Max Energi 20131436810353246.csv
+
+uploads/PID list Ford C-Max Energi 20131436817322981.csv
+
+uploads/PID list Ford C-Max Energi 20131436972066417.csv
+
+*.csv

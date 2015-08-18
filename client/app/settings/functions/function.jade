@@ -1,0 +1,50 @@
+extends ../../main/layout.jade
+block content
+  .row(ng-controller='PidController')
+    .col-md-7.col-xs-12
+      .box.box-warning
+        .box-header
+          h3.box-title {{currentItem.desc}}. {{currentItem.bytes}}
+          .box-tools
+            .input-group
+              input.form-control.input-sm.pull-right(name='table_search', type='text', placeholder='Search', style="width:150px;")
+              .input-group-btn
+                button.btn.btn-sm.btn-default
+                  i.fa.fa-search
+        .box-body.table-responsive.no-padding
+          table.table.table-hover
+            tbody
+              tr
+                th
+                th
+                th
+              tr(ng-repeat='p in currentItem.pid_id | orderBy:"pid"')
+                td(ng-click="goToPIDDetails(p._id)")
+                td(ng-click="goToPIDDetails(p._id)")
+                td(ng-click="goToPIDDetails(p._id)")
+                td(ng-click="goToPIDDetails(p._id)")
+                  span.label.label-success(ng-show='c2.active') Uploaded
+                  span.label.label-warning(ng-hide='c2.active') Not Uploaded
+                td
+                  a(href='', ng-click='goToRecordDetails(vehicle._id)')
+                    i.fa.fa-edit
+                  =' '
+                  a(href='', ng-click='requestDelete(vehicle)')
+                    i.fa.fa-remove
+
+    .col-md-5.col-xs-12
+      .box.box-primary
+        .box-header
+          h3.box-title Add PID
+        form(name='addPID', ng-submit='addPid(addPID)', novalidate='')
+          .box-body
+            .form-group
+              label PID
+              input.form-control(type='text', name='vehiclePid' placeholder='Enter Vehicle PID', ng-model='vehiclePid', required)
+              .form-group
+              label Network
+              input.form-control(type='text', name='vehicleNet' placeholder='Enter Vehicle Network', ng-model='vehicleNet', required)
+          .box-footer
+            button.btn.btn-primary(type='submit',ng-disabled='addPID.$invalid')
+              i.fa.fa-plus-square-o
+              |  Create

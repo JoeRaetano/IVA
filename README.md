@@ -1,6 +1,76 @@
 IVA - Front End System :oncoming_automobile:
 ========================================
 
+<<<<<<< HEAD
+OVERVIEW
+--------
+
+The IVA is a front end system built on the MEAN stack as an interface to collect, analyze, and visualize vehicle data. Before
+installing the IVA consult the training section to be able to fully understand and work with the system.
+
+
+FUNDAMENTAL TRAINING
+--------------------
+
+:one: Git
+  - Be sure to fully understand version control and Github before pushing or pulling any code
+  - CodeSchool is a good resource with a class to learn git - https://www.codeschool.com/courses/try-git
+
+:two: HTML/Javascript
+  - These are the two fundamental tools that the MEAN stack builds upon. Make sure you have a good understanding of these
+    before moving forward.
+    
+  - http://nodeschool.io/ (javascript)
+    
+MEAN STACK TRAINING
+-------------------
+
+:one: MongoDB
+  - This is the database service that is used in the MEAN stack.
+  - The best place to learn about MongoDb is http://docs.mongodb.org/manual/
+
+:two: Express
+  - Express is the web framework used in the Mean stack 
+  - http://expressjs.com/starter/installing.html is the best place to get started learning express
+  - All routing in the application is done with Express.
+  
+:three: AngularJs
+  - Angular is the backbone of the MEAN stack. Spend the most time learning this framework to fully understand the system.
+  - CodeSchool's free class is a great place to learn AngularJS and is linked below.
+  - http://campus.codeschool.com/courses/shaping-up-with-angular-js/intro
+  
+:four: NodeJs
+  - Node allows us to use javascript outside of the browser
+  - http://nodeschool.io/ is the best resource to learn the basics of Nodejs
+  
+EXTRA RESOURCES
+---------------
+
+:one: Bower http://bower.io/
+  - What is Bower?  A package manager for the web.
+  - Bower is included in the system.
+
+:two: Grunt http://gruntjs.com/
+  - What is Grunt? A JavaScript Task Runner.
+
+:three: Jade http://jade-lang.com/
+  - What is Jade? A clean, whitespace-sensitive template language for writing HTML - Node Template Engine
+  - Learn Jade http://jade-lang.com/tutorial/
+  
+
+INSTALLATION
+-------------
+
+:one: install WebstormIDE. https://www.jetbrains.com/webstorm/
+
+:two: install Github desktop version. https://desktop.github.com/
+
+:three: clone IVA directory to local folder.
+
+:Four: Install Nodejs
+    IMPORTANT: 
+    When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
+=======
 Install/Setup/Learning Notes
 ---------------------
 
@@ -34,10 +104,12 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Install nodejs
 IMPORTANT (for mac, not sure about pc): 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> fagan_holland_learning
     Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
     Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
-  - Learn nodejs
-    - https://nodejs.org/documentation/
   - Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
     - Learn about npm
       - https://www.npmjs.com/
@@ -49,7 +121,24 @@ When installing node, do not just go to the website and install. If you do, for 
 		- node -v (0.12.2)
 	- update package dependencies (or install if needed)
 	  - sudo npm update -g
+	   
+:five: MongoDB
+  -Download and extract mongo
+  - cd ~/Downloads/mongodb-osx-x86_64-2.6.6/bin/
+  - start mongo daemon
+    - ./mongod --dbpath=../data
+    
+:six: Bower
+  - Ensure you have bower installed
+    - sudo npm install -g bower
+  - update bower packages
+    - bower update
+  - (NOTICE: On Mac) When you execute the install command bower will ask you to install a version of the package angular. There were 4 different versions to choose from. Choose the second version offered, angular#1.4.0.
 
+<<<<<<< HEAD
+:seven: Grunt
+  - Ensure you have grunt installed
+=======
 :four: Bower http://bower.io/
   - What is Bower?  A package manager for the web.
 	- Ensure you have bower installed
@@ -71,28 +160,15 @@ When installing node, do not just go to the website and install. If you do, for 
 :six: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
 	- Ensure you have grunt installed
+>>>>>>> master
 		- sudo npm install -g grunt-cli
   - cd into IVA Repo
     - run grunt by running "grunt serve"
+    - additionally, make sure MongoDB is running along side Grunt
     - you should see grunt script running
     - check your web browser
-    
-:seven: Jade http://jade-lang.com/
-  - What is Jade? A clean, whitespace-sensitive template language for writing HTML - Node Template Engine
-  - Learn Jade http://jade-lang.com/tutorial/
-  
-:eight: Yo http://yeoman.io/
-  - What is Yo? CLI tool for running Yeoman generators
-  - Learn Yo http://yeoman.io/learning/
-  
-:nine: Express http://expressjs.com/
-  - What is express? Fast, unopinionated, minimalist web framework
-  
-:one::zero: Angular https://angularjs.org/
-  - What is Angular? HTML enhanced for web apps
-  - Learn Angular: https://docs.angularjs.org/tutorial
-    
-:one::one: Admin
+
+:eight: Admin
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
@@ -109,7 +185,3 @@ When installing node, do not just go to the website and install. If you do, for 
   - Groups/Roles
     - create / list / update / delete
     - add / remove users from roles
-
-:one::two: Next Steps
-  - see the github Issues section of IVA for more information
-  - get with students to ensure they understand how to fire up the dev environment

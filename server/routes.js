@@ -15,7 +15,10 @@ module.exports = function(app) {
   app.use('/api/sensors', require('./api/sensor'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
-  app.use('/api/collection', require('./api/collection'));
+  app.use('/api/vehicle', require('./api/vehicle'));
+  app.use('/api/pid', require('./api/pid'));
+  app.use('/api/function', require('./api/function'));
+  app.use('/api/file', require('./api/file'));
 
   app.use('/auth', require('./auth'));
 

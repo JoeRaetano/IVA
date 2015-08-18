@@ -5,6 +5,7 @@
 'use strict';
 
 var express = require('express');
+var multer = require('multer');
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var compression = require('compression');
@@ -18,6 +19,7 @@ var passport = require('passport');
 
 module.exports = function(app) {
   var env = app.get('env');
+
 
   app.set('views', config.root + '/server/views');
   app.set('view engine', 'jade');

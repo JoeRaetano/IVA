@@ -1,5 +1,5 @@
 /**
- * Created by jrs on 4/23/15.
+ * Created by jdf on 6/29/15.
  */
 
 'use strict';
@@ -8,11 +8,11 @@ var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 
-describe('GET /api/collection', function() {
+describe('GET /api/functions', function() {
 
   it('should respond with JSON array', function(done) {
     request(app)
-      .get('/api/collection')
+      .get('/api/functions')
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {

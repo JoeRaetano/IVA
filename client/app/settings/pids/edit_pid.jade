@@ -1,21 +1,20 @@
 //Created by jrs on 4/23/15.
 extends ../../main/layout.jade
 block content
-  .row(ng-controller='CollectionController')
+  .row(ng-controller='PidController')
     .col-md-7.col-xs-12
       .box.box-warning
         .box-header
-          h3.box-title Collection Definition
+          h3.box-title Pid Information
         form(name='editForm', ng-submit='editRecord(editForm)', novalidate='')
           .box-body.table-responsive
             .form-group
-              label Name
-              input.form-control(type='text', name='collectionName' placeholder='Enter Collection Name', ng-model='currentItem.name', ng-disabled='!inEditMode')
+              label PID
+              input.form-control(type='text', name='vehicleMake' placeholder='Enter Vehicle Make', ng-model='currentItem.pid', ng-disabled='!inEditMode')
             .form-group
-              label Description
-              input.form-control(type='text', name='collectionDesc' placeholder='Description', ng-model='currentItem.desc', ng-disabled='!inEditMode')
+              label Network
+              input.form-control(type='text', name='vehicleModel' placeholder='Enter Vehicle Model', ng-model='currentItem.network', ng-disabled='!inEditMode')
             .form-group
-              label Status
               br
               input(type='checkbox', ng-model='currentItem.active', ng-disabled='!inEditMode')
               = " "
@@ -36,5 +35,3 @@ block content
               i.fa.fa-save
               |  Save
             button.btn.btn-default(type='button', ng-click='toggleEditMode()', ng-show='inEditMode') Cancel
-
-
