@@ -35,7 +35,8 @@ angular.module('IVA_App')
     $scope.data.expression = [];  // Stores components of expression that will be used to query the Functions
 
     // The initial get, to get all of the vehicles to display on the vehicles.
-    $http.get(vehicle_route).success(function (vehicleData) {
+    $http.get(vehicle_route).success(function (vehicleData) 
+    {
       // The vehcile data is stored at "base" for robustness and ease of expansion.
       // If the developers wanted to create a new higher level collection of information, say car manufacturers,
       // the data structure for the vehicles to be stored in is ready to go. All that is needed is to store each
@@ -97,7 +98,8 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.addRecord = function (collection, form, id) {
+    $scope.addRecord = function (collection, form, id) 
+    {
       var post_route = "";      // The route to POST to.
       var get_route = "";       // The route to GET from.
       var collection_data = {}; // The data to POST.
@@ -347,7 +349,7 @@ angular.module('IVA_App')
               break;
 
             default   :
-                  is_logic_set = is_logic_set;
+              is_logic_set = is_logic_set;
           }
         }
         
@@ -367,7 +369,6 @@ angular.module('IVA_App')
             //$scope.data = vehicleData;
           }
         );
-        //$scope.data.vehicleFunc = '';
       }
     };
     
@@ -458,7 +459,8 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.editRecord = function (collection, form, record_id, subrecord_id) {
+    $scope.editRecord = function (collection, form, record_id, subrecord_id) 
+    {
       var post_route = "";
       var get_route = "";
       var collection_data = {};
@@ -551,7 +553,8 @@ angular.module('IVA_App')
      * @param record The record to delete
      * @memberOf IVA.VehicleController
      */
-    $scope.deleteRecord = function (collection, record) {
+    $scope.deleteRecord = function (collection, record) 
+    {
       var delete_route = "";
       var get_route    = "";
       var get_id       = "";
@@ -596,7 +599,8 @@ angular.module('IVA_App')
      * @param item The item to be deleted
      * @memberOf IVA.VehicleController
      */
-    $scope.requestDelete = function (collection, item) {
+    $scope.requestDelete = function (collection, item) 
+    {
       var item_data = "";
       if( collection == "Vehicle" )
       {
