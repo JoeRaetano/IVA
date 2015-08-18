@@ -141,20 +141,22 @@ exports.destroy = function(req, res) {
 exports.query = function(req, res)
 {
   var components = [];
-  var tokenizer = new natural.WordTokenizer();
-  var query = ""//{"tags : "+ req.params.expression };
+  var tokenizer = new natural.TreebankWordTokenizer();
+  var query = {};
   
   components = tokenizer.tokenize(req.params.expression);
-  
+  console.log(components)
+  query = parseExpression(components);
+
   Functions.find
   (
-      query, 
+      query,
       function (err, c2)
       {
-        console.log(c2)
+        console.log("C2" + c2);
+        return res.json(c2);
       }
   );
-  return res.send(204);
 };
 
 function parseExpression( expression )
