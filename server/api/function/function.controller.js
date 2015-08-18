@@ -157,6 +157,95 @@ exports.query = function(req, res)
   return res.send(204);
 };
 
+function parseExpression( expression )
+{
+  var logic = ["(", ")", "AND", "OR", "NOT"];
+  var operation = "";
+  var query = {};
+  var components = [];
+  var paren_stack = [];
+  
+  // Handle case when array is empty
+  if( expression.length == 0 )
+  {
+    return {};
+  }
+  
+  // Handle case when array has one word in it
+  if( expression.length == 1 && logic.indexOf( expression[0] ) == -1 )
+  {
+    return {tags: expression[0]};
+  }
+  
+  // Iterate over all of the words in the expression
+  for( var i = 0; i < expression.length; i++ )
+  {
+    switch( expression[i] ) 
+    {
+      case "AND":
+        if (operation == "" || operation == "$and") 
+        {
+          operation = "$and";
+        }
+        else 
+        {
+          console.log("there was an error: Mismatched logic operators at AND")
+        }
+
+        break;
+      case "OR":
+        if (operation == "" || operation == "$or") 
+        {
+          operation = "$or";
+        }
+        else 
+        {
+          console.log("there was an error: Mismatched logic operators at OR")
+        }
+
+        break;
+      case "NOT":
+        if (operation == "" || operation == "$nin") 
+        {
+          var tmp = {};
+          tmp["$nin"] = [expression[i + 1]] ;
+          query["tags"] = tmp;
+          return query;
+        }
+        else
+        { console.log( "there was an error: Mismatched logic operators at NOT") }
+          
+        break;
+      case "(":
+        var recursive_components = [];
+          
+        paren_stack.push("(");
+        while( paren_stack.length > 0 )
+        {
+          i++;
+          recursive_components.push(expression[i]);
+          if( expression[i] == ")" )
+          { paren_stack.pop() }
+          if( expression[i] == "(" )
+          { paren_stack.push("(") }
+          console.log("recurs " + recursive_components);
+        }
+        recursive_components.pop();
+          
+        components.push( parseExpression(recursive_components) );
+        break;
+      case ")":
+        console.log( "there was an error: Mismatched logic operators at )")
+        break;
+      default:
+        components.push( {tags: expression[i]});
+                
+    }
+  }
+  query[operation] = components;
+  return query;
+}
+
 function handleError(res, err) {
   return res.send(500, err);
 }
