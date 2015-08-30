@@ -1,7 +1,6 @@
 IVA - Front End System :oncoming_automobile:
 ========================================
 
-<<<<<<< HEAD
 OVERVIEW
 --------
 
@@ -68,8 +67,8 @@ INSTALLATION
 :three: clone IVA directory to local folder.
 
 :Four: Install Nodejs
-    IMPORTANT: 
-    When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
+IMPORTANT: 
+When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
 =======
 Install/Setup/Learning Notes
 ---------------------
@@ -104,10 +103,8 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Install nodejs
 IMPORTANT (for mac, not sure about pc): 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-<<<<<<< HEAD
+
 =======
->>>>>>> master
->>>>>>> fagan_holland_learning
     Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
     Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
   - Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
@@ -135,7 +132,6 @@ When installing node, do not just go to the website and install. If you do, for 
     - bower update
   - (NOTICE: On Mac) When you execute the install command bower will ask you to install a version of the package angular. There were 4 different versions to choose from. Choose the second version offered, angular#1.4.0.
 
-<<<<<<< HEAD
 :seven: Grunt
   - Ensure you have grunt installed
 =======
@@ -160,7 +156,6 @@ When installing node, do not just go to the website and install. If you do, for 
 :six: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
 	- Ensure you have grunt installed
->>>>>>> master
 		- sudo npm install -g grunt-cli
   - cd into IVA Repo
     - run grunt by running "grunt serve"
