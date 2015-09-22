@@ -71,7 +71,6 @@ INSTALLATION
 IMPORTANT: 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
 
-
 If you're using Mac:
 1. in a terminal window run:     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -114,7 +113,8 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 
 - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex 
   client-side development and server-side development with Node.js.
-=======
+
+
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
   - Install updated IDEA (webstorm) editor (free for students)
   - Learn Webstorm
@@ -129,16 +129,14 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 IMPORTANT (for mac, not sure about pc): 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
 
-=======
-=======
+
   - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
   - Install nodejs
 IMPORTANT (for mac, not sure about pc): 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
->>>>>>> origin/fagan_holland_learning
     Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
     Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
-=======
+
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas 
 of your file system that will require you to use sudo everytime you want to execute a command with npm. 
 This is very annoying as you use npm to install all of the packages that you want. 
@@ -150,8 +148,7 @@ Essential Training"
 Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command 
 under the heading "Install script"
 
->>>>>>> Stashed changes
-  - Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
+:four: Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
     - Learn about npm
       - https://www.npmjs.com/
 	- update node (if you already have node installed)
@@ -180,8 +177,7 @@ under the heading "Install script"
 :seven: Grunt
   - Ensure you have grunt installed
 
-
-:four: Bower http://bower.io/
+:eight: Bower http://bower.io/
   - What is Bower?  A package manager for the web.
 	- Ensure you have bower installed
 		- sudo npm install -g bower
@@ -189,7 +185,7 @@ under the heading "Install script"
 	- update bower packages
 		- bower update
 			
-:five: MongoDB https://www.mongodb.org/
+:nine: MongoDB https://www.mongodb.org/
   - What is MongoDB? MongoDB is an open-source document database that provides high performance, high availability, and automatic scaling.
   - Download and extract mongo
     - cd ~/Downloads/mongodb-osx-x86_64-2.6.6/bin/
@@ -199,7 +195,7 @@ under the heading "Install script"
     - https://university.mongodb.com
   - Download and run Robomongo http://robomongo.org/
 
-:six: Grunt http://gruntjs.com/
+:one: :zero: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
 	- Ensure you have grunt installed
 		- sudo npm install -g grunt-cli
@@ -210,13 +206,10 @@ under the heading "Install script"
     - you should see grunt script running
     - check your web browser
 
-:seven: Admin
-=======
-:seven: Grunt
-  - Ensure you have grunt installed
-=======
+:one: :one: Admin
+
+
  Admin
->>>>>>> origin/fagan_holland_learning
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
