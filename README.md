@@ -67,11 +67,10 @@ INSTALLATION
 :three: clone IVA directory to local folder.
 
 :Four: Install Nodejs
-<<<<<<< Updated upstream
+
 IMPORTANT: 
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-=======
-=======
+
 
 If you're using Mac:
 1. in a terminal window run:     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -89,7 +88,6 @@ To make sure you have Node and NPM installed, run two simple commands to see wha
 4. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 1.4.27
 
 
->>>>>>> Stashed changes
 Install/Setup/Learning Notes
 ---------------------
 
@@ -113,8 +111,11 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - ensure you synchronize your local cloned repository with the master before you make any new edits.
 
 :two: Webstorm IDE https://www.jetbrains.com/webstorm/
-  - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex 
+
+- What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex 
   client-side development and server-side development with Node.js.
+=======
+  - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
   - Install updated IDEA (webstorm) editor (free for students)
   - Learn Webstorm
     - https://www.jetbrains.com/webstorm/documentation/
@@ -126,10 +127,15 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
   - Install nodejs
 
 IMPORTANT (for mac, not sure about pc): 
-<<<<<<< Updated upstream
 When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
 
 =======
+=======
+  - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
+  - Install nodejs
+IMPORTANT (for mac, not sure about pc): 
+When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
+>>>>>>> origin/fagan_holland_learning
     Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
     Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
 =======
@@ -205,6 +211,12 @@ under the heading "Install script"
     - check your web browser
 
 :seven: Admin
+=======
+:seven: Grunt
+  - Ensure you have grunt installed
+=======
+ Admin
+>>>>>>> origin/fagan_holland_learning
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
