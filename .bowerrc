@@ -1,3 +1,6 @@
 {
-    "directory": "client/bower_components"
+  "directory": "app/bower_components",
+  "proxy": "http://PROXYSERVER:PORT",
+  "https-proxy": "https://PROXYSERVER:PORT",
+  "strict-ssl": false
 }

@@ -66,9 +66,12 @@ INSTALLATION GUIDE ON MAC
 
 :three: clone IVA directory to local folder or you can pull from within in webstorm, click install project from git: address is: https://github.com/JoeRaetano/IVA.
 
-:Four: Install Nodejs
+:four: Install Nodejs  Note: to uninstall node that was installed previously with the sudo command https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
+0. Install latest version of XQuartz http://xquartz.macosforge.org/landing/
 
-1. in a terminal window run:     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+.5 install or update Xcode
+
+1. in a terminal window run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 if homebrew is already installed, "brew update" then "brew list" to show what you have installed, "brew info package", "brew uninstall package", "brew install package", 
 "brew outdated", "brew upgrade", you may not want to upgrade a package such as mongodb so, "brew pin mongodb", later you can "brew unpin mongodb"
 finally run "brew doctor" to ensure your brew installs will go smoothly
@@ -100,7 +103,27 @@ To make sure you have Node and NPM installed, run two simple commands to see wha
 
 :six: Install Robomongo to manage your MongoDB http://robomongo.org/
 
-Install/Setup/Learning Notes
+:seven: Install bower 
+
+1. npm install -g bower
+2. bower update
+
+#you may need to place the below code into the .bowerrc file
+{
+  "directory": "app/bower_components",
+  "proxy": "http://PROXYSERVER:PORT",
+  "https-proxy": "https://PROXYSERVER:PORT",
+  "strict-ssl": false
+}
+
+:eight: Install grunt 
+
+1. npm install -g grunt
+2. npm install -g grunt-cli
+
+
+
+Setup/Learning Notes
 ---------------------
 
 :bowtie: UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
