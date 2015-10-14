@@ -108,7 +108,8 @@ To make sure you have Node and NPM installed, run two simple commands to see wha
 1. npm install -g bower
 2. bower update
 
-#you may need to place the below code into the .bowerrc file
+you may need to place the below code into the .bowerrc file
+
 {
   "directory": "app/bower_components",
   "proxy": "http://PROXYSERVER:PORT",
