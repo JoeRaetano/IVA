@@ -57,22 +57,21 @@ EXTRA RESOURCES
   - Learn Jade http://jade-lang.com/tutorial/
   
 
-INSTALLATION
+INSTALLATION GUIDE ON MAC
 -------------
 
 :one: install WebstormIDE. https://www.jetbrains.com/webstorm/
 
 :two: install Github desktop version. https://desktop.github.com/
 
-:three: clone IVA directory to local folder.
+:three: clone IVA directory to local folder or you can pull from within in webstorm, click install project from git: address is: https://github.com/JoeRaetano/IVA.
 
 :Four: Install Nodejs
 
-IMPORTANT: 
-When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-
-If you're using Mac:
 1. in a terminal window run:     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if homebrew is already installed, "brew update" then "brew list" to show what you have installed, "brew info package", "brew uninstall package", "brew install package", 
+"brew outdated", "brew upgrade", you may not want to upgrade a package such as mongodb so, "brew pin mongodb", later you can "brew unpin mongodb"
+finally run "brew doctor" to ensure your brew installs will go smoothly
 
 Installing Node.js and NPM is pretty straightforward using Homebrew. Homebrew handles downloading, unpacking and 
 installing Node and NPM on your system. The whole process (after you have XCode and Homebrew installed) should only 
@@ -82,10 +81,24 @@ take you a few minutes.
 Sit back and wait. Homebrew downloads some files and installs them. And that’s it.
 To make sure you have Node and NPM installed, run two simple commands to see what version of each is installed:
 
-3. To see if Node is installed, type node -v in Terminal. This should print the version number so you’ll see something like this v0.10.31.
+3. To see if Node is installed, type node -v in Terminal. This should print the version number so you’ll see something like this v4.2.1
 
-4. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 1.4.27
+4. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 2.14.7
 
+:five: Install MongoDB 
+
+0. follow these instructions: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/
+
+1. in a terminal window type "brew update", "brew install mongodb"
+
+2. To have launchd start mongodb at login:
+   ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
+3. Then to load mongodb now:
+   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+4. Or, if you don't want/need launchctl, you can just run:
+   mongod --config /usr/local/etc/mongod.conf
+
+:six: Install Robomongo to manage your MongoDB http://robomongo.org/
 
 Install/Setup/Learning Notes
 ---------------------
@@ -110,43 +123,14 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
     - ensure you synchronize your local cloned repository with the master before you make any new edits.
 
 :two: Webstorm IDE https://www.jetbrains.com/webstorm/
-
-- What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex 
-  client-side development and server-side development with Node.js.
-
-
   - What is Webstorm? WebStorm is a lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js.
   - Install updated IDEA (webstorm) editor (free for students)
   - Learn Webstorm
     - https://www.jetbrains.com/webstorm/documentation/
 
 :three: Nodejs https://nodejs.org
-  - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, 
-  scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and 
-  efficient, perfect for data-intensive real-time applications that run across distributed devices.
-  - Install nodejs
-
-IMPORTANT (for mac, not sure about pc): 
-When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-
-
   - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
   - Install nodejs
-IMPORTANT (for mac, not sure about pc): 
-When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-    Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
-    Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
-
-When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas 
-of your file system that will require you to use sudo everytime you want to execute a command with npm. 
-This is very annoying as you use npm to install all of the packages that you want. 
-Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow 
-you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled 
-"Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js 
-Essential Training"
-
-Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command 
-under the heading "Install script"
 
 :four: Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
     - Learn about npm
