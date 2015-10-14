@@ -66,12 +66,16 @@ INSTALLATION GUIDE ON MAC
 
 :three: clone IVA directory to local folder or you can pull from within in webstorm, click install project from git: address is: https://github.com/JoeRaetano/IVA.
 
-:four: Install Nodejs  Note: to uninstall node that was installed previously with the sudo command https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
+:four: Install Nodejs  
+
+Note: to uninstall node that was installed previously with the sudo command 
+https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
+
 0. Install latest version of XQuartz http://xquartz.macosforge.org/landing/
 
-.5 install or update Xcode
+1. install or update Xcode
 
-1. in a terminal window run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+2. in a terminal window run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 if homebrew is already installed, "brew update" then "brew list" to show what you have installed, "brew info package", "brew uninstall package", "brew install package", 
 "brew outdated", "brew upgrade", you may not want to upgrade a package such as mongodb so, "brew pin mongodb", later you can "brew unpin mongodb"
 finally run "brew doctor" to ensure your brew installs will go smoothly
@@ -80,13 +84,13 @@ Installing Node.js and NPM is pretty straightforward using Homebrew. Homebrew ha
 installing Node and NPM on your system. The whole process (after you have XCode and Homebrew installed) should only 
 take you a few minutes.
 
-2. Open the Terminal app and type "brew install node".
+3. Open the Terminal app and type "brew install node".
 Sit back and wait. Homebrew downloads some files and installs them. And that’s it.
 To make sure you have Node and NPM installed, run two simple commands to see what version of each is installed:
 
-3. To see if Node is installed, type node -v in Terminal. This should print the version number so you’ll see something like this v4.2.1
+4. To see if Node is installed, type node -v in Terminal. This should print the version number so you’ll see something like this v4.2.1
 
-4. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 2.14.7
+5. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 2.14.7
 
 :five: Install MongoDB 
 
