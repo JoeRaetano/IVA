@@ -71,6 +71,8 @@ INSTALLATION GUIDE ON MAC
 Note: to uninstall node that was installed previously with the sudo command 
 https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
 
+00. First change teh owner of "/usr/local" with the following command: sudo chown -R $USER /usr/local
+
 0. Install latest version of XQuartz http://xquartz.macosforge.org/landing/
 
 1. install or update Xcode
