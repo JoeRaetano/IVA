@@ -41,6 +41,9 @@ MEAN STACK TRAINING
 :four: NodeJs
   - Node allows us to use javascript outside of the browser
   - http://nodeschool.io/ is the best resource to learn the basics of Nodejs
+
+:five: MEAN.io vs. MEAN.js
+  - Be sure to read this article: http://stackoverflow.com/questions/23199392/difference-between-mean-js-and-mean-io
   
 EXTRA RESOURCES
 ---------------
@@ -66,14 +69,14 @@ INSTALLATION GUIDE ON MAC
 
 :three: clone IVA directory to local folder or you can pull from within in webstorm, click install project from git: address is: https://github.com/JoeRaetano/IVA.
 
-:four: Install Nodejs  
-
-Note: to uninstall node that was installed previously with the sudo command 
-https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
+:four: Install or Uninstall Nodejs
+  - Note: to uninstall node that was installed previously with the sudo command 
+    Use these directions https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
 
 0. Install latest version of XQuartz http://xquartz.macosforge.org/landing/
 
-1. install or update Xcode
+1. install or update Xcode with command line tools
+  - sudo chown -R $USER /usr/local and any other files/folders that homebrew complains about.
 
 2. in a terminal window run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 if homebrew is already installed, "brew update" then "brew list" to show what you have installed, "brew info package", "brew uninstall package", "brew install package", 
@@ -96,7 +99,7 @@ To make sure you have Node and NPM installed, run two simple commands to see wha
 
 0. follow these instructions: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/
 
-1. in a terminal window type "brew update", "brew install mongodb"
+1. in a terminal window type "brew update", "brew install mongodb", or "brew upgrade mongodb"
 
 2. To have launchd start mongodb at login:
    ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
