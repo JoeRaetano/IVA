@@ -1,7 +1,6 @@
 IVA - Front End System :oncoming_automobile:
 ========================================
 
-<<<<<<< HEAD
 OVERVIEW
 --------
 
@@ -58,20 +57,78 @@ EXTRA RESOURCES
   - Learn Jade http://jade-lang.com/tutorial/
   
 
-INSTALLATION
+INSTALLATION GUIDE ON MAC
 -------------
 
 :one: install WebstormIDE. https://www.jetbrains.com/webstorm/
 
 :two: install Github desktop version. https://desktop.github.com/
 
-:three: clone IVA directory to local folder.
+:three: clone IVA directory to local folder or you can pull from within in webstorm, click install project from git: address is: https://github.com/JoeRaetano/IVA.
 
-:Four: Install Nodejs
-    IMPORTANT: 
-    When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo every time you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-=======
-Install/Setup/Learning Notes
+:four: Install Nodejs  
+
+Note: to uninstall node that was installed previously with the sudo command 
+https://gist.github.com/TonyMtz/d75101d9bdf764c890ef
+
+0. Install latest version of XQuartz http://xquartz.macosforge.org/landing/
+
+1. install or update Xcode
+
+2. in a terminal window run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if homebrew is already installed, "brew update" then "brew list" to show what you have installed, "brew info package", "brew uninstall package", "brew install package", 
+"brew outdated", "brew upgrade", you may not want to upgrade a package such as mongodb so, "brew pin mongodb", later you can "brew unpin mongodb"
+finally run "brew doctor" to ensure your brew installs will go smoothly
+
+Installing Node.js and NPM is pretty straightforward using Homebrew. Homebrew handles downloading, unpacking and 
+installing Node and NPM on your system. The whole process (after you have XCode and Homebrew installed) should only 
+take you a few minutes.
+
+3. Open the Terminal app and type "brew install node".
+Sit back and wait. Homebrew downloads some files and installs them. And that’s it.
+To make sure you have Node and NPM installed, run two simple commands to see what version of each is installed:
+
+4. To see if Node is installed, type node -v in Terminal. This should print the version number so you’ll see something like this v4.2.1
+
+5. To see if NPM is installed, type npm -v in Terminal. This should print the version number so you’ll see something like this 2.14.7
+
+:five: Install MongoDB 
+
+0. follow these instructions: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/
+
+1. in a terminal window type "brew update", "brew install mongodb"
+
+2. To have launchd start mongodb at login:
+   ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
+3. Then to load mongodb now:
+   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+4. Or, if you don't want/need launchctl, you can just run:
+   mongod --config /usr/local/etc/mongod.conf
+
+:six: Install Robomongo to manage your MongoDB http://robomongo.org/
+
+:seven: Install bower 
+
+1. npm install -g bower
+2. bower update
+
+you may need to place the below code into the .bowerrc file
+
+{
+  "directory": "app/bower_components",
+  "proxy": "http://PROXYSERVER:PORT",
+  "https-proxy": "https://PROXYSERVER:PORT",
+  "strict-ssl": false
+}
+
+:eight: Install grunt 
+
+1. npm install -g grunt
+2. npm install -g grunt-cli
+
+
+
+Setup/Learning Notes
 ---------------------
 
 :bowtie: UTK students go to: https://oit.utk.edu/Training/online-training/lynda/Pages/default.aspx for free training.
@@ -102,15 +159,8 @@ Search and complete Lynda training for (MongoDB, Expressjs, Angularjs, Nodejs (M
 :three: Nodejs https://nodejs.org
   - What is Nodejs? Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
   - Install nodejs
-IMPORTANT (for mac, not sure about pc): 
-When installing node, do not just go to the website and install. If you do, for some reason the files are stored in areas of your file system that will require you to use sudo everytime you want to execute a command with npm. This is very annoying as you use npm to install all of the packages that you want. 
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> fagan_holland_learning
-    Instead, install *nvm* (node version manager). This will install everything in areas of your file system that will allow you to just run your commands. There is a helpful video on Lynda that will show you how to do this. The video is entitled "Installing Node.js via Node Version Manager on a Mac" and is the last video of the first chapter in the course "Node.js Essential Training"
-    Additionally, you can just install nvm by going to https://github.com/creationix/nvm and executing the first command under the heading "Install script"
-  - Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
+
+:four: Node Package Manager (NPM) allows you to install/update all node packages comes installed with nodejs automatically
     - Learn about npm
       - https://www.npmjs.com/
 	- update node (if you already have node installed)
@@ -133,13 +183,13 @@ When installing node, do not just go to the website and install. If you do, for 
     - sudo npm install -g bower
   - update bower packages
     - bower update
-  - (NOTICE: On Mac) When you execute the install command bower will ask you to install a version of the package angular. There were 4 different versions to choose from. Choose the second version offered, angular#1.4.0.
+  - (NOTICE: On Mac) When you execute the install command bower will ask you to install a version of the package angular. 
+  There were 4 different versions to choose from. Choose the second version offered, angular#1.4.0.
 
-<<<<<<< HEAD
 :seven: Grunt
   - Ensure you have grunt installed
-=======
-:four: Bower http://bower.io/
+
+:eight: Bower http://bower.io/
   - What is Bower?  A package manager for the web.
 	- Ensure you have bower installed
 		- sudo npm install -g bower
@@ -147,7 +197,7 @@ When installing node, do not just go to the website and install. If you do, for 
 	- update bower packages
 		- bower update
 			
-:five: MongoDB https://www.mongodb.org/
+:nine: MongoDB https://www.mongodb.org/
   - What is MongoDB? MongoDB is an open-source document database that provides high performance, high availability, and automatic scaling.
   - Download and extract mongo
     - cd ~/Downloads/mongodb-osx-x86_64-2.6.6/bin/
@@ -157,18 +207,21 @@ When installing node, do not just go to the website and install. If you do, for 
     - https://university.mongodb.com
   - Download and run Robomongo http://robomongo.org/
 
-:six: Grunt http://gruntjs.com/
+:one: :zero: Grunt http://gruntjs.com/
   - What is Grunt? A JavaScript Task Runner.
 	- Ensure you have grunt installed
->>>>>>> master
 		- sudo npm install -g grunt-cli
+  
   - cd into IVA Repo
     - run grunt by running "grunt serve"
     - additionally, make sure MongoDB is running along side Grunt
     - you should see grunt script running
     - check your web browser
 
-:eight: Admin
+:one: :one: Admin
+
+
+ Admin
   - ensure you have a gravatar account (gravatar.com)
 	- modify /server/config/seed.js (bottom) to add a dev/test acct as needed (match email used for gravatar)
 	- Value found in cloning https://github.com/almasaeed2010/AdminLTE and browsing locally / leveraging code
