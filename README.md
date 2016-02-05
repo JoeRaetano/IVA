@@ -109,8 +109,10 @@ To make sure you have Node and NPM installed, run two simple commands to see wha
    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 4. Or, if you don't want/need launchctl, you can just run:
    mongod --config /usr/local/etc/mongod.conf
+   
+5. Once you have Mongo installed, create a data folder next to the IVA folder, run mongod --dbpath ../data
 
-:six: Install Robomongo to manage your MongoDB http://robomongo.org/
+:six: Install Robomongo to manage your MongoDB http://robomongo.org/ connect to the mongo db that you just started to ensure it's running
 
 :seven: Install bower 
 
@@ -130,6 +132,15 @@ you may need to place the below code into the .bowerrc file
 
 1. npm install -g grunt
 2. npm install -g grunt-cli
+
+:nine:
+
+Update all things!
+npm install npm-check-updates -g
+ncu
+ncu -u
+
+run 'npm test'  in the IVA directory to determine issues
 
 
 

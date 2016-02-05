@@ -8,16 +8,16 @@
  * @namespace IVA.VehicleController
  */
 angular.module('IVA_App')
-  .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs) 
+  .controller('VehicleController', function ($scope, $http, Auth, $location, $routeParams, dialogs)
   {
     // Local variable
-    var vehicle_route  = "/api/vehicle/";
-    var pid_route      = "/api/pid/";
-    var function_route = "/api/function/";
-    
+    var vehicleRoute  = '/api/vehicle/';
+    var pidRoute      = '/api/pid/';
+    var functionRoute = '/api/function/';
+
     // Determines if the page should show query results or all of the data
-    var query_mode = false;
-      
+    var queryMode = false;
+
     // general page initialization stuff
     $scope.errors = {};
     $scope.pageTitle = 'Vehicle Management';
@@ -28,7 +28,7 @@ angular.module('IVA_App')
       {title: 'Settings', link: '/settings'},
       {title: 'Vehicles', link: '/settings/vehicles'}
     );
-      
+
     // Required data structures
     $scope.data = [];             // Base structure for all data.
     $scope.data.vehicles = {};    // Hash Table that stores arrays of Vehicle documents by "base"
@@ -38,13 +38,13 @@ angular.module('IVA_App')
     $scope.data.expression = [];  // Stores components of expression that will be used to query the Functions
 
     // The initial get, to get all of the vehicles to display on the vehicles.
-    $http.get(vehicle_route).success(function (vehicleData) 
+    $http.get(vehicleRoute).success(function (vehicleData)
     {
       // The vehcile data is stored at "base" for robustness and ease of expansion.
       // If the developers wanted to create a new higher level collection of information, say car manufacturers,
       // the data structure for the vehicles to be stored in is ready to go. All that is needed is to store each
       // manufacturers collection of cars under the manucafurers id, instead of storing the data under "base".
-      $scope.data.vehicles["base"] = vehicleData;
+      $scope.data.vehicles['base'] = vehicleData;
     });
 
     /**
@@ -83,74 +83,75 @@ angular.module('IVA_App')
 
     /**
      * @name getTags
-     * @desc Gets all of the unique tags that are used to describe functions. 
+     * @desc Gets all of the unique tags that are used to describe functions.
      * @memberOf IVA.VehicleController
      */
     $scope.getTags = function()
     {
       // Get all of the unique tags used to describe functions from the Function collection.
-      $http.get(function_route + "tags").success(function(tagData)
+      $http.get(functionRoute + 'tags').success(function(tagData)
       {
         $scope.data.tags = tagData;
-      })
+      });
     };
-    
+
     /**
      * @name addRecord
      * @desc Creates a new record based on user input
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.addRecord = function (collection, form, id) 
+    $scope.addRecord = function (collection, form, id)
     {
-      var post_route = "";      // The route to POST to.
-      var get_route = "";       // The route to GET from.
-      var collection_data = {}; // The data to POST.
+      var postRoute = '';      // The route to POST to.
+      var getRoute = '';       // The route to GET from.
+      var collectionData = {}; // The data to POST.
 
       // If the record being added is a Vehicle:
-      if( collection == "vehicle" )
+      if( collection === 'vehicle' )
       {
-        post_route = vehicle_route;   // The route to POST to is "/api/vehicle/"
-        get_route  = vehicle_route;   // The route to GET from is "/api/vehicle/"
+        postRoute = vehicleRoute;   // The route to POST to is "/api/vehicle/"
+        getRoute  = vehicleRoute;   // The route to GET from is "/api/vehicle/"
         // The data to POST to "/api/vehicle/"
-        collection_data =
+        collectionData =
         {
           make  : $scope.data.vehicleMake,
           model : $scope.data.vehicleModel,
           year  : $scope.data.vehicleYear
-        }
+        };
 
       }
       // Else if the record being added is a PID:
-      else if( collection == "pid" )
+      else if( collection === 'pid' )
       {
-        post_route = pid_route;                 // The route to POST to is "/api/pid/"
-        get_route  = pid_route + "vehicle/";    // The route to GET from is "/api/pid/vehicle/"
+        postRoute = pidRoute;                 // The route to POST to is "/api/pid/"
+        getRoute  = pidRoute + 'vehicle/';    // The route to GET from is "/api/pid/vehicle/"
         // The data to POST to "/api/pid/"
-        collection_data =
+        collectionData =
         {
           pid     : $scope.data.vehiclePid,
           network : $scope.data.vehicleNet,
           vehicle : id.toString()
-        }
+        };
 
       }
       // Else if the record being added is a function:
-      else if( collection == "function" )
+      else if( collection === 'function' )
       {
-        post_route = function_route;            // The route to POST to is "/api/function/"
-        get_route  = function_route + "pid/";   // The route to GET from is "/api/function/pid/"
+        postRoute = functionRoute;            // The route to POST to is "/api/function/"
+        getRoute  = functionRoute + 'pid/';   // The route to GET from is "/api/function/pid/"
         // The data to POST to "/api/pid/"
-        collection_data =
+        collectionData =
         {
           tags  : $scope.data.funcDesc,
           bytes : $scope.data.funcBytes,
           pid   : id.toString()
-        }
+        };
       }
       // Else return without doing anything.
-      else { return }
-
+      else {
+        return;
+      }
       // If the form is valid
       if (form.$valid)
       {
@@ -158,14 +159,14 @@ angular.module('IVA_App')
         // The new record is created with the information specified by the preset collection data.
           $http.post
           (
-            post_route, // Post to Vehicle Collection
-            collection_data
+            postRoute, // Post to Vehicle Collection
+            collectionData
           )
             .then // Once the post has been made, perform the following commands:
           (
             function () {
               // Fetch the updated Collection data specified by the preset GET route.
-              $scope.getRecordDetails( get_route, id )
+              $scope.getRecordDetails( getRoute, id );
 
             }
           )
@@ -181,18 +182,18 @@ angular.module('IVA_App')
       }
 
       // Reset the form values to blank
-      if( collection == "vehicle" )
+      if( collection === 'vehicle' )
       {
         $scope.data.vehicleMake  = '';
         $scope.data.vehicleModel = '';
         $scope.data.vehicleYear  = '';
       }
-      else if( collection == "pid" )
+      else if( collection === 'pid' )
       {
         $scope.data.vehiclePid   = '';
         $scope.data.vehicleNet   = '';
       }
-      else if( collection == "function" )
+      else if( collection === 'function' )
       {
         $scope.data.funcDesc     = '';
         $scope.data.funcBytes    = '';
@@ -206,31 +207,31 @@ angular.module('IVA_App')
      * @param {id} Document ID of the record to GET the associated documents from
      * @memberOf IVA.VehicleController
      */
-    $scope.getRecordDetails = function ( get_route, id )
+    $scope.getRecordDetails = function ( getRoute, id )
     {
-      
-      if( query_mode )
+
+      if( queryMode )
       { return }
-      
+
       //dialogs.confirm(id)
-      $http.get( get_route + id ).success( function (recordData)
+      $http.get( getRoute + id ).success( function (recordData)
       {
         // If the supplied route is the vehicle route, then the data retrieved is the list of all of the Vehicles Documents.
-        if( get_route == vehicle_route )
+        if( getRoute === vehicleRoute )
         {
           // Store the retrieved Documents in the Vehicles hash table under "base" as this is the base level of data.
-          $scope.data.vehicles["base"] = recordData;
+          $scope.data.vehicles['base'] = recordData;
         }
-        // If the supplied route is the pid route + "vehicles/" then the data retrieved is the list of Vehicle Documents that 
+        // If the supplied route is the pid route + "vehicles/" then the data retrieved is the list of Vehicle Documents that
         // the PID with the supplied ID belongs to.
-        else if( get_route == (pid_route + "vehicle/") )
+        else if( getRoute === (pidRoute + 'vehicle/') )
         {
           // Store the retrieved Documents in the PID hash table under the specified Document ID.
           $scope.data.pids[id] = recordData;
         }
         // If the supplied route is the function route + "pid/" then the data retrieved is the list of PID Documents that
         // the Function with the supplied ID belongs to.
-        else if( get_route == function_route + "pid/" )
+        else if( getRoute === functionRoute + 'pid/' )
         {
           // Store the retrieved Documents in the Function Hash Table under the specified ID.
           $scope.data.functions[id] = recordData;
@@ -238,95 +239,95 @@ angular.module('IVA_App')
       });
     };
 
-    $scope.queryRecords = function (form) 
+    $scope.queryRecords = function (form)
     {
-      var paren_stack = []; // Stack for keeping track of matching parenthesis.
-      var logic_stack = []; // Stack for keeping track of current logical operation. 
-      var logic = [ "AND", "OR", "NOT"];              // Simplifies code by allowing generic comparisons.
-      var not_tag = [ "(", ")", "AND", "OR", "NOT"];  // Simplifies code by allowing generic comparisons.
+      var parenStack = []; // Stack for keeping track of matching parenthesis.
+      var logicStack = []; // Stack for keeping track of current logical operation.
+      var logic = [ 'AND', 'OR', 'NOT'];              // Simplifies code by allowing generic comparisons.
+      var notTag = [ '(', ')', 'AND', 'OR', 'NOT'];  // Simplifies code by allowing generic comparisons.
       var expression = $scope.data.expression;        // Simplifies code by making things more compact.
-      var is_logic_set = false; // There cannot be two different types of logic operators separated by tags, but not be 
-                                // parenthesis. This will be set to true when a logic operator is found, and logic_stack
+      var isLogicSet = false; // There cannot be two different types of logic operators separated by tags, but not be
+                                // parenthesis. This will be set to true when a logic operator is found, and logicStack
                                 // will be used to compare future logic operators to the current scopes logic operation.
-        
-      if (form.$valid) 
+
+      if (form.$valid)
       {
         // If the expression string is empty then you "find" everything.
-        if( expression.length == 0 ) 
-        { return }
-
+        if( expression.length === 0 ) {
+          return
+        }
         // Check to make sure the first element is not an OR or AND.
-        if( expression[0] == "OR" || expression[0] == "AND" )
+        if( expression[0] === 'OR' || expression[0] === 'AND' )
         {
           dialogs.error('Query Not Performed', 'An ' + expression[0] + ' must have a tag on either side.');
           return
         }
         // Check to make sure the last element is not an OR, AND, or NOT.
-        if( logic.indexOf( expression[ expression.length-1 ] ) != -1 )
+        if( logic.indexOf( expression[ expression.length-1 ] ) !== -1 )
         {
           dialogs.error('Query Not Performed', 'An ' + expression[ expression.length-1 ] + ' must have a tag on either side.');
           return
         }
-        
+
         // Test generated expression for errors
         for( var i = 0; i < expression.length; i++ )
         {
           // Check to make sure no two logic operations are side by side.
-          if( (logic.indexOf(expression[i]) != -1) && (logic.indexOf(expression[i+1]) != -1) && (i+1 < expression.length) )
+          if( (logic.indexOf(expression[i]) !== -1) && (logic.indexOf(expression[i+1]) !== -1) && (i+1 < expression.length) )
           {
             dialogs.error('Query Not Performed', 'An ' + expression[i] + ' must have a tag on either side.');
             return
           }
-          
+
           // Check to make sure no two tags are side by side.
-          if( (not_tag.indexOf(expression[i]) == -1) && (not_tag.indexOf(expression[i+1]) == -1) && (i+1 < expression.length) )
+          if( (notTag.indexOf(expression[i]) === -1) && (notTag.indexOf(expression[i+1]) === -1) && (i+1 < expression.length) )
           {
             dialogs.error('Query Not Performed', 'Tags must have a logical operator between them.');
             return
           }
-          
+
           switch( expression[i])
           {
-            case "AND":
-              if( !is_logic_set )
+            case 'AND':
+              if( !isLogicSet )
               {
-                logic_stack.push("AND");
-                is_logic_set = true;
+                logicStack.push('AND');
+                isLogicSet = true;
               }
-              else if( logic_stack[ logic_stack.length-1 ] != "AND" )
+              else if( logicStack[ logicStack.length-1 ] !== 'AND' )
               {
 
                 dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
                 return
               }
               break;
-                  
-            case  "OR":
-              if( !is_logic_set )
+
+            case  'OR':
+              if( !isLogicSet )
               {
-                logic_stack.push("OR");
-                is_logic_set = true;
+                logicStack.push('OR');
+                isLogicSet = true;
               }
-              else if( logic_stack[ logic_stack.length-1 ] != "OR" )
+              else if( logicStack[ logicStack.length-1 ] !== 'OR' )
               {
                 dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
                 return
               }
               break;
-            
-            case "NOT":
-              if( !is_logic_set )
+
+            case 'NOT':
+              if( !isLogicSet )
               {
-                logic_stack.push("NOT");
-                is_logic_set = true;
+                logicStack.push('NOT');
+                isLogicSet = true;
               }
-              else if( logic_stack[ logic_stack.length-1 ] != "NOT" )
+              else if( logicStack[ logicStack.length-1 ] !== 'NOT' )
               {
                 dialogs.error('Query Not Performed', 'Different logic operation cannot exist in the same scope. Use parenthesis to specify order of operations.');
                 return
               }
-                  
-              if( i != 0 && expression[i-1] != "(" )
+
+              if( i !== 0 && expression[i-1] !== '(' )
               {
                 // Check to make sure no two logic operations are side by side.
                 dialogs.error('Query Not Performed', 'An ' + expression[i] + ' can only only have one tag adjacent to its left. Use parenthesis to specify order of operations.');
@@ -334,93 +335,93 @@ angular.module('IVA_App')
               }
               break;
 
-            case   "(":
-              paren_stack.push( "(" );
-              is_logic_set = false;
+            case   '(' :
+              parenStack.push( '(' );
+              isLogicSet = false;
               break;
 
-            case   ")":
-              if( paren_stack.length <= 0 )
+            case   ')' :
+              if( parenStack.length <= 0 )
               {
                 dialogs.error('Query Not Performed', 'There are mismatched parenthesis.');
                 return
               }
-              paren_stack.pop();
-              logic_stack.pop();
-              is_logic_set = false;
+              parenStack.pop();
+              logicStack.pop();
+              isLogicSet = false;
 
-              if( logic_stack.length > 0 )
+              if( logicStack.length > 0 )
               {
-                is_logic_set = true;
+                isLogicSet = true;
               }
               break;
 
             default   :
-              is_logic_set = is_logic_set;
+              isLogicSet = isLogicSet;
           }
         }
-        
-        if( paren_stack.length > 0 )
+
+        if( parenStack.length > 0 )
         {
           dialogs.error('Query Not Performed', 'There are mismatched parenthesis.');
           return
         }
-          
+
         $http.get
         (
-          function_route + 'query/' + $scope.data.expression.join(" ")
+          functionRoute + 'query/' + $scope.data.expression.join(' ')
         ).success
         (
-          function (function_data) {
-            query_mode = true;
+          function (functionData) {
+            queryMode = true;
             $scope.data.vehicles   = {};
             $scope.data.pids       = {};
             $scope.data.functions  = {};
             $scope.data.expression = [];
 
-            handleFunction(function_data, 0);
+            handleFunction(functionData, 0);
           }
         );
       }
     };
-    
-    function handleFunction(function_data, index)
+
+    function handleFunction(functionData, index)
     {
-      if( index < function_data.length )
+      if( index < functionData.length )
       {
-        if( $scope.data.functions[function_data[index].pid] == undefined )
+        if( $scope.data.functions[functionData[index].pid] === undefined )
         {
-          $scope.data.functions[function_data[index].pid] = [ function_data[index] ];
+          $scope.data.functions[functionData[index].pid] = [ functionData[index] ];
         }
         else
         {
-          $scope.data.functions[function_data[index].pid].push(function_data[index]);
+          $scope.data.functions[functionData[index].pid].push(functionData[index]);
         }
 
         $http.get
         (
-            pid_route + function_data[index].pid
+            pidRoute + functionData[index].pid
         ).success
         (
           function ( pid )
           {
 
-            if( $scope.data.pids[pid.vehicle] == undefined )
+            if( $scope.data.pids[pid.vehicle] === undefined )
             {
               $scope.data.pids[pid.vehicle] = [ pid ];
             }
             else
             {
-              var is_duplicate = false;
+              var isDuplicate = false;
               for( var i = 0; i < $scope.data.pids[pid.vehicle].length; i++ )
               {
-                if( $scope.data.pids[pid.vehicle][i]._id == pid._id )
+                if( $scope.data.pids[pid.vehicle][i]._id === pid._id )
                 {
-                  is_duplicate = true;
+                  isDuplicate = true;
                 }
               }
 
-              if( !is_duplicate )
+              if( !isDuplicate )
               {
                 $scope.data.pids[pid.vehicle].push(pid);
               }
@@ -428,35 +429,35 @@ angular.module('IVA_App')
 
             $http.get
             (
-              vehicle_route + pid.vehicle
+              vehicleRoute + pid.vehicle
             ).success
             (
               function( vehicle )
               {
                 //dialogs.confirm($scope.data.vehicles["base"].contains( vehicle ));
-                if( $scope.data.vehicles["base"] == undefined )
+                if( $scope.data.vehicles['base'] === undefined )
                 {
-                  $scope.data.vehicles["base"] = [ vehicle ];
+                  $scope.data.vehicles['base'] = [ vehicle ];
                 }
                 else
                 {
-                  var is_duplicate = false;
-                  for( var i = 0; i < $scope.data.vehicles["base"].length; i++ )
+                  var isDuplicate = false;
+                  for( var i = 0; i < $scope.data.vehicles['base'].length; i++ )
                   {
-                    if( $scope.data.vehicles["base"][i]._id == vehicle._id )
+                    if( $scope.data.vehicles['base'][i]._id === vehicle._id )
                     {
-                      is_duplicate = true;
+                      isDuplicate = true;
                     }
                   }
 
-                  if( !is_duplicate )
+                  if( !isDuplicate )
                   {
-                    $scope.data.vehicles["base"].push(vehicle);
+                    $scope.data.vehicles['base'].push(vehicle);
                   }
                 }
-                
+
                 index++;
-                handleFunction(function_data, index)
+                handleFunction(functionData, index)
               }
             );
           }
@@ -471,17 +472,17 @@ angular.module('IVA_App')
      * @param {Form} form The HTML form object
      * @memberOf IVA.VehicleController
      */
-    $scope.editRecord = function (collection, form, record_id, subrecord_id) 
+    $scope.editRecord = function (collection, form, recordId, subrecordId)
     {
-      var post_route = "";
-      var get_route = "";
-      var collection_data = {};
+      var postRoute = '';
+      var getRoute = '';
+      var collectionData = {};
 
-      if( collection == "vehicle" )
+      if( collection === 'vehicle' )
       {
-        post_route = vehicle_route;
-        get_route  = vehicle_route;
-        collection_data =
+        postRoute = vehicleRoute;
+        getRoute  = vehicleRoute;
+        collectionData =
         {
           make  : $scope.data.vehicleMake,
           model : $scope.data.vehicleModel,
@@ -489,27 +490,27 @@ angular.module('IVA_App')
         }
 
       }
-      else if( collection == "pid" )
+      else if( collection === 'pid' )
       {
-        post_route = pid_route;
-        get_route  = pid_route + "vehicle/";
-        collection_data =
+        postRoute = pidRoute;
+        getRoute  = pidRoute + 'vehicle/';
+        collectionData =
         {
           pid     : $scope.data.vehiclePid,
           network : $scope.data.vehicleNet,
-          vehicle : record_id.toString()
+          vehicle : recordId.toString()
         }
 
       }
-      else if( collection == "function" )
+      else if( collection === 'function' )
       {
-        post_route = function_route;
-        get_route  = function_route + "pid/";
-        collection_data =
+        postRoute = functionRoute;
+        getRoute  = functionRoute + 'pid/';
+        collectionData =
         {
           function : $scope.data.funcDesc,
           bytes    : $scope.data.funcBytes,
-          pid      : record_id.toString()
+          pid      : recordId.toString()
         }
       }
       else { return }
@@ -519,15 +520,15 @@ angular.module('IVA_App')
         // The new record is created with the information specified in the supplied form.
         $http.put
         (
-          post_route + subrecord_id.toString(), // Post to Vehicle Collection
-          collection_data
+          postRoute + subrecordId.toString(), // Post to Vehicle Collection
+          collectionData
         )
           .then // Once the post has been made, perform the following commands:
         (
           function () {
             // Fetch the updated Vehicle Collection data
-            query_mode = false;
-            $scope.getRecordDetails( get_route, record_id )
+            queryMode = false;
+            $scope.getRecordDetails( getRoute,recordId )
           }
         )
           .catch // Catch any thrown errors
@@ -542,18 +543,18 @@ angular.module('IVA_App')
       }
 
       // Reset the form values to blank
-      if( collection == "vehicle" )
+      if( collection === 'vehicle' )
       {
         $scope.data.vehicleMake  = '';
         $scope.data.vehicleModel = '';
         $scope.data.vehicleYear  = '';
       }
-      else if( collection == "pid" )
+      else if( collection === 'pid' )
       {
         $scope.data.vehiclePid   = '';
         $scope.data.vehicleNet   = '';
       }
-      else if( collection == "function" )
+      else if( collection === 'function' )
       {
         $scope.data.funcDesc     = '';
         $scope.data.funcBytes    = '';
@@ -566,39 +567,39 @@ angular.module('IVA_App')
      * @param record The record to delete
      * @memberOf IVA.VehicleController
      */
-    $scope.deleteRecord = function (collection, record) 
+    $scope.deleteRecord = function (collection, record)
     {
-      var delete_route = "";
-      var get_route    = "";
-      var get_id       = "";
+      var deleteRoute = '';
+      var getRoute    = '';
+      var getId       = '';
 
       if (!record || record._id === '') { return; }
 
-      if( collection == "Vehicle" )
+      if( collection === 'Vehicle' )
       {
-        delete_route = vehicle_route;
-        get_route    = vehicle_route;
-        get_id       = "";
+        deleteRoute = vehicleRoute;
+        getRoute    = vehicleRoute;
+        getId       = '';
       }
-      else if( collection == "PID" )
+      else if( collection === 'PID' )
       {
-        delete_route = pid_route;
-        get_route    = pid_route + 'vehicle/'
-        get_id       = record.vehicle;
+        deleteRoute = pidRoute;
+        getRoute    = pidRoute + 'vehicle/';
+        getId       = record.vehicle;
       }
-      else if( collection == "Function" )
+      else if( collection === 'Function' )
       {
-        delete_route = function_route;
-        get_route    = function_route + 'pid/'
-        get_id       = record.pid;
+        deleteRoute = functionRoute;
+        getRoute    = functionRoute + 'pid/';
+        getId       = record.pid;
       }
 
 
-      $http.delete(delete_route + record._id, {}).then(function () {
-        query_mode = false;
+      $http.delete(deleteRoute + record._id, {}).then(function () {
+        queryMode = false;
         $scope.message = 'Successfully deleted Item';
         $scope.inEditMode = false;
-        $scope.getRecordDetails( get_route, get_id )
+        $scope.getRecordDetails( getRoute, getId );
         //$location.path('/settings/vehicles/');
       }).catch(function () {
         $scope.errors.other = 'unable to save changes to item';
@@ -613,26 +614,26 @@ angular.module('IVA_App')
      * @param item The item to be deleted
      * @memberOf IVA.VehicleController
      */
-    $scope.requestDelete = function (collection, item) 
+    $scope.requestDelete = function (collection, item)
     {
-      var item_data = "";
-      if( collection == "Vehicle" )
+      var itemData = '';
+      if( collection === 'Vehicle' )
       {
-        item_data = item.make + " " + item.model + " " + item.year;
+        itemData = item.make + ' ' + item.model + ' ' + item.year;
       }
-      else if( collection == "PID" )
+      else if( collection === 'PID' )
       {
-        item_data = item.pid + " On Network " + item.network;
+        itemData = item.pid + ' On Network ' + item.network;
       }
-      else if( collection == "Function" )
+      else if( collection === 'Function' )
       {
-        item_data = item.function + " With Byte Sequence " + item.bytes
+        itemData = item.function + ' With Byte Sequence ' + item.bytes
       }
       else{ return }
 
       var dlg = dialogs.confirm(
         'Delete ' + collection,
-        'Are you certain you want to delete this ' + collection + ' (' + item_data + ')?');
+        'Are you certain you want to delete this ' + collection + ' (' + itemData + ')?');
       dlg.result.then(function (btn) {
         $scope.confirmed = 'You thought this quite awesome!';
         $scope.deleteRecord(collection, item);
@@ -647,7 +648,7 @@ angular.module('IVA_App')
 
   function confirmSubmit()
   {
-    alert("File is being uploaded. \nIf the file is not the correct format nothing will be added to the database and you " +
-      "will be redirected to the vehicles page.\nThe template for uploading data is on the homepage")
+    alert('File is being uploaded. \nIf the file is not the correct format nothing will be added to the database and you ' +
+      'will be redirected to the vehicles page.\nThe template for uploading data is on the homepage')
   }
 
